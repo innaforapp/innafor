@@ -18,11 +18,11 @@ let appF7 = new Framework7({
 
       },
       {
-          name: 'mainPageMembers',
+          name: 'tabsMembers',
           // Page main route
-          path: '/mainPageMembers/',
+          path: '/tabsMembers/',
           // Will load page from tabs/index.html file
-          url: './pages/Members/mainPageMembers.html',
+          url: './pages/Members/tabsMembers.html',
           // Pass "tabs" property to route, must be array with tab routes:
           tabs: [
             // First (default) tab has the same url as the page itself
@@ -57,6 +57,42 @@ let appF7 = new Framework7({
               url: 'pages/more.html'
             },
           ],
+        },
+        {
+          name: 'tabsAdmin',
+          // Page main route
+          path: '/tabsAdmin/',
+          // Will load page from tabs/index.html file
+          url: './pages/Admin/tabsAdmin.html',
+          // Pass "tabs" property to route, must be array with tab routes:
+          tabs: [
+            // First (default) tab has the same url as the page itself
+            {
+              // Tab path
+              path: '/',
+              // Tab id
+              id: 'mainPageAdmin',
+              // Fill this tab content from content string
+              url: 'pages/Admin/mainPageAdmin.html'
+            },
+            // Second tab
+            {
+              path: '/questions/',
+              id: 'questions',
+              content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+            // Third tab
+            {
+              path: '/more/',
+              id: 'more',
+              url: 'pages/more.html'
+            },
+          ],
         }
       ] 
   });
@@ -76,7 +112,7 @@ let appCordova = {
   onDeviceReady: function() {
     //  this.receivedEvent('deviceready');
        navigator.splashscreen.hide();
-      mainView.router.navigate({ name: 'login' });
+      mainView.router.navigate({ name: 'tabsAdmin' });
   },
 
   // Update DOM on a Received Event
@@ -97,6 +133,7 @@ function getId(id) {
 //=====================================
 
 //server URL
+//let url = "https://innaforapp.no/test3"
 let url = "http://localhost:3000"
 function sendData(data, endpoint) {
 return fetch(endpoint, {

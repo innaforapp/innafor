@@ -19,6 +19,16 @@ router.use(bodyParser.json());
 
 
 
+function mainPageSelector(role){
+
+  if(role === "admin"){
+    return "mainView.router.navigate({ name: 'tabsAdmin' })"
+  }
+  else if(role === "bruker"){
+    return "mainView.router.navigate({ name: 'tabsMembers' })"
+  }
+
+}
 
 
 //TODO definere eventene ut ifra roller;
@@ -41,6 +51,7 @@ try {
 
   let validateUser = (epost) ? true:false;
   let validateHash = await bcrypt.compare(data.password, hash);
+  let mainView = mainPageSelector(userData[0].rolle);
 
 
   if (validateUser && validateHash){
@@ -54,7 +65,7 @@ try {
     });
     res.status(200).json({
     token: tok,
-    event: "mainView.router.navigate({ name: 'mainPageMembers' })"
+    event: mainView
   }).end();
 
   }else{
