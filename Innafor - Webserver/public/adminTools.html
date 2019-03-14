@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Admin Tools</title>
+</head>
+<style>
+    body {font-family: Arial;}
+    
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+    
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+    
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
+    
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+</style>
+<body>
+        <h1>Admin Tools</h1>
+        <div class="tab">
+                <button class="tablinks" onclick="openOption(event, 'Registrer')">Registrer enhet</button>
+                <button class="tablinks" onclick="openOption(event, 'Spørsmålsbank')">Spørsmålsbank</button>
+                <button class="tablinks" onclick="openOption(event, 'Instillinger')">Instillinger</button>
+              </div>
+    
+                <div id="Registrer" class="tabcontent">
+                    <h3>Registrer ny enhet</h3>
+                    <form id="enhetReg" onsubmit="sendForm(event, this.id, `/app/brukere/registrer`)">
+                        Type enhet:<br>
+                        <select name="type" required>
+                            <option value="" disabled selected>--</option>
+                            <option value="FK">Fotball Klubb</option>
+                            <option value="SK">Skole</option>
+                        </select> <br><br>
+                        Enhetens navn:<br>
+                        <input type="text" name="navn" required><br><br>
+                        Enhetens e-post:<br>
+                        <input type="email" name="epost" required><br><br>
+                        <input type="submit" value="Registrer enhet" >
+                    </form>
+                    <p class="responsText"></p>
+                </div>
+                  
+                <div id="Spørsmålsbank" class="tabcontent">
+                    <h3>Spørsmålsbank</h3>
+                </div>
+                  
+                <div id="Instillinger" class="tabcontent">
+                    <h3>Instillinger</h3>
+                </div>
+
+
+
+    <script src="js/main.js"></script>
+    <script>
+            function openOption(evt, option) {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(option).style.display = "block";
+              evt.currentTarget.className += " active";
+            }
+    </script>
+</body>
+</html>
