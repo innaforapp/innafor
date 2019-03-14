@@ -21,9 +21,9 @@ router.use(bodyParser.json());
 
 
 
-
+//TODO definere eventene ut ifra roller;
 router.post("/login/", async function (req, res) {
-  //Det som blir sendt inn
+
 let data = req.body;
 
 let findUser = prpSql.findUser;
@@ -44,18 +44,17 @@ try {
 
 
   if (validateUser && validateHash){
-    console.log(userData);
     let payload = {
       userID: userData[0].brukerid,
       role: userData[0].rolle,
       gruppe: userData[0].gruppe
     };
-    console.log(payload);
     let tok = jwt.sign(payload, secret, {
       expiresIn: "12h"
     });
     res.status(200).json({
-    token: tok
+    token: tok,
+    event: "mainView.router.navigate({ name: 'mainPageMembers' })"
   }).end();
 
   }else{
@@ -102,8 +101,8 @@ router.post("/registrer/", async function (req, res) {
           port: 465,
           secure: true, // true for 465, false for other ports
           auth: {
-            user: process.env.NOREPLY_MAIL, // generated ethereal user
-            pass: process.env.NOREPLY_PASSORD // generated ethereal password
+            user: "process.env.NOREPLY_MAIL", // generated ethereal user
+            pass: "process.env.NOREPLY_PASSORD" // generated ethereal password
           }
         });
 
