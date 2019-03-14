@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Innafor</title>
+</head>
+<style>
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+
+    text-decoration: none;
+    color: initial;
+}
+</style>
+<body>
+
+    <form id="login">
+            <input type="email" name="epost" placeholder="Your username">
+            <input type="password" name="password" placeholder="Your password">
+            <a onclick="sendForm('login', `/app/brukere/login`, 'loginFeedback')" class="button">Login</a>
+            <p id="loginFeedback"></p>
+      </form>
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>
