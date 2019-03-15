@@ -107,7 +107,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsAdmin'
+            name: 'login'
         });
     },
 
@@ -126,8 +126,6 @@ function getId(id) {
 }
 
 
-//=====================================
-
 //server URL
 //let url = "https://innaforapp.no/test3"
 let url = "http://localhost:3000"
@@ -143,7 +141,7 @@ function sendData(data, endpoint) {
         return data;
     });
 }
-
+//=====================================
 
 //Send in ID til form, endpoint, og ID på tekstfelt som skal skrive ut feedback
 async function sendForm(formId, endpoint, feedbackMsg) {
@@ -157,7 +155,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-
+    console.log(data);
     let res = await sendData(data, url + endpoint);
 
     if (res.status === 200) {

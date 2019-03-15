@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
 const secret = process.env.SECRET;
+const authorize = require("./auth.js");
 
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
@@ -85,25 +86,55 @@ try {
 });
 
 
+function roleAssigner(role){
+
+  if(role == "admin"){
+    return "org";
+  }
+  else if(role == "org"){
+    return "leader";
+  }
+  else if(role == "leader"){
+    return "member";
+  }
+
+};
+
+function groupAssigner(data, token){
+
+  if(token.role == "admin"){
+    return `{${data.type}-${data.name}}`;
+  }
+  else if(role == "org"){
+    
+  }
+  else if(role == "leader"){
+    
+  }
+
+};
+
 
 
 //TODO. Hente bruker rolle fra token og lag en bruker under dette.  
-router.post("/registrer/", async function (req, res) {
+router.post("/registrer/",authorize, async function (req, res) {
 
-    let randomstring = "123"
+    let randomstring = "123";
     //let randomstring = Math.random().toString(36).slice(-8);
 
     let hash = bcrypt.hashSync(randomstring, 10);
-    console.log(req.body, hash);
+
+
+    let role = roleAssigner(req.token.role);
+    let group = groupAssigner(req.body, req.token);
 
     let regUserQuery = prpSql.regUser;
-    regUserQuery.values = [req.body.navn, req.body.epost, `{${req.body.navn}}`, hash];
+    regUserQuery.values = [`${req.body.type}-${req.body.name}`, req.body.email, group, role, hash];
 
 
     try {
         let regUser = await db.any(regUserQuery);
-        console.log(regUser);
-        console.log(randomstring);
+
         /*
         //==Sender epost til bruker===
                 // create reusable transporter object using the default SMTP transport
