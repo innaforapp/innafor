@@ -7,7 +7,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
 const secret = process.env.SECRET;
-const authorize = require("./auth.js");
+
+const authorize = require("./auth.js").authorize;
+const existingUsers = require("./auth.js").existingUsers;
+
 
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
@@ -59,7 +62,8 @@ try {
     let payload = {
       userID: userData[0].brukerid,
       role: userData[0].rolle,
-      gruppe: userData[0].gruppe
+      gruppe: userData[0].gruppe,
+      org: userData[0].org
     };
     let tok = jwt.sign(payload, secret, {
       expiresIn: "12h"
@@ -100,10 +104,10 @@ function roleAssigner(role){
 
 };
 
-function groupAssigner(data, token){
+function groupAssigner(data, role){
 
-  if(token.role == "admin"){
-    return `{${data.type}-${data.name}}`;
+  if(role == "admin"){
+    return `{${data.type}-${data.org}}`;
   }
   else if(role == "org"){
     
@@ -114,25 +118,38 @@ function groupAssigner(data, token){
 
 };
 
+function nameAssigner(data, role){
+
+  if(role == "admin"){
+    return `${data.type}-${data.org}`;
+    
+  }
+}
 
 
-//TODO. Hente bruker rolle fra token og lag en bruker under dette.  
-router.post("/registrer/",authorize, async function (req, res) {
+
+
+
+
+//TODO. Agile development ut ifra å lage ny bruker som org
+router.post("/registrer/",authorize, existingUsers, async function (req, res) {
 
     let randomstring = "123";
     //let randomstring = Math.random().toString(36).slice(-8);
 
     let hash = bcrypt.hashSync(randomstring, 10);
 
-
     let role = roleAssigner(req.token.role);
-    let group = groupAssigner(req.body, req.token);
+    let group = groupAssigner(req.body, req.token.role);
+    let name = nameAssigner(req.body, req.token.role);
+
 
     let regUserQuery = prpSql.regUser;
-    regUserQuery.values = [`${req.body.type}-${req.body.name}`, req.body.email, group, role, hash];
+    regUserQuery.values = [name, `${req.body.type}-${req.body.org}`, req.body.email, group, role, hash];
 
 
     try {
+  
         let regUser = await db.any(regUserQuery);
 
         /*

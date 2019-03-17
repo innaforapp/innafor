@@ -2,7 +2,7 @@ let appF7 = new Framework7({
     // App root element
     root: '#app',
     // App Name
-    name: 'My App',
+    name: 'Innafor',
     // App id
     id: 'com.myapp.test',
     // Enable swipe panel
@@ -173,6 +173,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         res = await res.json();
         let msg = getId(feedbackMsg);
         msg.innerHTML = res.feedback
+        appF7.dialog.alert(res.feedback);
     };
 
 };
