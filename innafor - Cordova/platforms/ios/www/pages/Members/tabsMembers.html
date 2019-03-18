@@ -1,0 +1,25 @@
+<div class="page">
+    <div class="toolbar tabbar toolbar-bottom">
+        <div class="toolbar-inner">
+            <!-- additional "data-route-tab-id" must match to tab's ID in the specified routes -->
+            <a href="./" class="tab-link" data-route-tab-id="tab-1">
+                <i class="material-icons">home</i>
+                <span class="tabbar-label">Hjem</span>
+            </a>
+            <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2">
+            <i class="material-icons">thumbs_up_down</i>
+                <span class="tabbar-label">Si ifra</span>
+            </a>
+            <a href="more/" class="tab-link" data-route-tab-id="more">
+            <i class="material-icons">menu</i>
+                <span class="tabbar-label">Mer</span>
+            </a>
+        </div>
+    </div>
+    <!-- Additional "tabs-routable" is required on tabs -->
+    <div class="tabs tabs-routable">
+        <div class="tab page-content" id="tab-1"></div>
+        <div class="tab page-content" id="tab-2"></div>
+        <div class="tab page-content" id="more"></div>
+    </div>
+</div>
