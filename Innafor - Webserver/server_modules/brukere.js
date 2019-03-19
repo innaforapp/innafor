@@ -8,8 +8,12 @@ const jwt = require("jsonwebtoken");
 
 const secret = process.env.SECRET;
 
-const authorize = require("./auth.js").authorize;
-const existingUsers = require("./auth.js").existingUsers;
+const authorize = require("./auth.js");
+
+const existingUsers = require("./utilities.js").existingUsers;
+const nameAssigner = require("./utilities.js").nameAssigner;
+const emailToLowerCase = require("./utilities.js").emailToLowerCase;
+const nameToLowerCase = require("./utilities.js").nameToLowerCase;
 
 
 const db = require('./dbconnect').db;
@@ -31,29 +35,31 @@ function mainPageSelector(role){
   else if(role === "bruker"){
     return "mainView.router.navigate({ name: 'tabsMembers' })"
   }
+  else if(role === "org"){
+    return "mainView.router.navigate({ name: 'tabsOrg' })"
+  }
 
 }
 
-
-//TODO definere eventene ut ifra roller;
-router.post("/login/", async function (req, res) {
+//TODO: sette epost til lower case
+router.post("/login/", emailToLowerCase, async function (req, res) {
 
     let data = req.body;
 
     let findUser = prpSql.findUser;
-    findUser.values = [data.epost];
+    findUser.values = [data.email];
 
 try {
   let userData = await db.any(findUser);
-  let epost = "";
+  let email = "";
   let hash = "";
 
   if(userData.length !== 0){
-    epost = userData[0].epost;
+    email = userData[0].epost;
     hash = userData[0].hash;
   }
 
-  let validateUser = (epost) ? true:false;
+  let validateUser = (email) ? true:false;
   let validateHash = await bcrypt.compare(data.password, hash);
   let mainView = mainPageSelector(userData[0].rolle);
 
@@ -62,8 +68,7 @@ try {
     let payload = {
       userID: userData[0].brukerid,
       role: userData[0].rolle,
-      gruppe: userData[0].gruppe,
-      org: userData[0].org
+      group: userData[0].gruppe,
     };
     let tok = jwt.sign(payload, secret, {
       expiresIn: "12h"
@@ -107,7 +112,7 @@ function roleAssigner(role){
 function groupAssigner(data, role){
 
   if(role == "admin"){
-    return `{${data.type}-${data.org}}`;
+    return `{${data.type}-${data.name}}`;
   }
   else if(role == "org"){
     
@@ -118,21 +123,12 @@ function groupAssigner(data, role){
 
 };
 
-function nameAssigner(data, role){
-
-  if(role == "admin"){
-    return `${data.type}-${data.org}`;
-    
-  }
-}
 
 
 
 
-
-
-//TODO. Agile development ut ifra å lage ny bruker som org
-router.post("/registrer/",authorize, existingUsers, async function (req, res) {
+//TODO. Agile development ut ifra å lage ny bruker som org. Sette epost til lowercase
+router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existingUsers, async function (req, res) {
 
     let randomstring = "123";
     //let randomstring = Math.random().toString(36).slice(-8);
@@ -145,7 +141,7 @@ router.post("/registrer/",authorize, existingUsers, async function (req, res) {
 
 
     let regUserQuery = prpSql.regUser;
-    regUserQuery.values = [name, `${req.body.type}-${req.body.org}`, req.body.email, group, role, hash];
+    regUserQuery.values = [name, req.body.email, group, role, hash];
 
 
     try {

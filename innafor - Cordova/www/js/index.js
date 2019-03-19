@@ -87,6 +87,42 @@ let appF7 = new Framework7({
               url: 'pages/more.html'
             },
           ],
+        },
+        {
+          name: 'tabsOrg',
+          // Page main route
+          path: '/tabsOrg/',
+          // Will load page from tabs/index.html file
+          url: './pages/Organisation/tabsOrg.html',
+          // Pass "tabs" property to route, must be array with tab routes:
+          tabs: [
+            // First (default) tab has the same url as the page itself
+            {
+              // Tab path
+              path: '/',
+              // Tab id
+              id: 'mainPageOrg',
+              // Fill this tab content from content string
+              url: 'pages/Organisation/mainPageOrg.html'
+            },
+            // Second tab
+            {
+              path: '/questions/',
+              id: 'questions',
+              content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+            // Third tab
+            {
+              path: '/more/',
+              id: 'more',
+              url: 'pages/more.html'
+            },
+          ],
         }
       ]
 });
@@ -107,7 +143,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsOrg'
         });
     },
 
@@ -172,7 +208,9 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     } else {
         res = await res.json();
         let msg = getId(feedbackMsg);
+        if(feedbackMsg){
         msg.innerHTML = res.feedback
+        }
         appF7.dialog.alert(res.feedback);
     };
 

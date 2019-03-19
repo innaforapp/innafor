@@ -10,11 +10,10 @@ const secret = process.env.SECRET;
 function authenticateUser (req,res,next) {
    
     let token = req.headers['x-access-auth'] || req.body.token; 
-    
+  
     try {
         let decodedToken = jwt.verify(token, secret); // Is the token valid?
         req.token = decodedToken; // we make the token available for later functions via the request object.
-        console.log(req.token);
         next(); // The token was valid so we continue 
         
     } catch (err) {
@@ -23,7 +22,7 @@ function authenticateUser (req,res,next) {
 }
 
 
-
+/*
 async function existingUsers(req,res,next){
 
     let data = req.body;
@@ -63,9 +62,9 @@ async function existingUsers(req,res,next){
   
   
   }
-
+*/
 
 
 // EXPORTS ----------------------------
-module.exports.authorize = authenticateUser;
-module.exports.existingUsers = existingUsers;
+module.exports = authenticateUser;
+
