@@ -109,12 +109,13 @@ function roleAssigner(role){
 
 };
 
-function groupAssigner(data, role){
+function groupAssigner(data, token){
 
-  if(role == "admin"){
+  if(token.role == "admin"){
     return `{${data.type}-${data.name}}`;
   }
-  else if(role == "org"){
+  else if(token.role == "org"){
+    return `{${token.group}-${data.gender}-${data.yearmodel}}`;
     
   }
   else if(role == "leader"){
@@ -122,8 +123,6 @@ function groupAssigner(data, role){
   }
 
 };
-
-
 
 
 
@@ -136,7 +135,7 @@ router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existing
     let hash = bcrypt.hashSync(randomstring, 10);
 
     let role = roleAssigner(req.token.role);
-    let group = groupAssigner(req.body, req.token.role);
+    let group = groupAssigner(req.body, req.token);
     let name = nameAssigner(req.body, req.token.role);
 
 
@@ -145,7 +144,6 @@ router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existing
 
 
     try {
-  
         let regUser = await db.any(regUserQuery);
 
         /*

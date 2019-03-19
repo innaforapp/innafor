@@ -7,7 +7,8 @@ function emailToLowerCase(req,res,next){
     let lowerCaseEmail = req.body.email.toLowerCase();
     req.body.email = lowerCaseEmail;
     next();
-}
+};
+
 
 function nameToLowerCase(req,res,next){
 
@@ -15,25 +16,28 @@ function nameToLowerCase(req,res,next){
     req.body.name = `${req.body.firstname} ${req.body.lastname}`; 
     }
 
-  let lowerCaseName = req.body.name.toLowerCase();
-  req.body.name = lowerCaseName;
-  console.log(req.body.name);
-  //next();
+    let lowerCaseName = req.body.name.toLowerCase();
+    req.body.name = lowerCaseName;
+    next();
 }
 
+//console log lowercase name
 function nameAssigner(data, role){
     if(role == "admin"){
       return `${data.type}-${data.name}`;
-      
+    }
+    else if(role == "org"){
+      return data.name;
     }
   }
 
 
-
 async function existingUsers(req,res,next){
     let data = req.body;
-
-    let name = nameAssigner(data, req.token.role);
+    let name = ""
+    if(req.token.role == "admin"){
+     name = nameAssigner(data, req.token.role);
+    }
     let existingUser = prpSql.existingUser;
     existingUser.values = [data.email, name];
     
@@ -43,6 +47,10 @@ async function existingUsers(req,res,next){
       if(req.token.role == "admin"){
           existingOrg(userData, req.body, res, next);
       }
+
+      if(req.token.role == "org"){
+        existingEmail(userData, req.body, res, next);
+    }
   
     
     } catch (err) {
@@ -53,13 +61,11 @@ async function existingUsers(req,res,next){
     }
   
   
-  
   };
 
 
   function existingOrg(userData, data, res, next){
     let name = `${data.type}-${data.name}`;
-    console.log(data);
     if(userData[0] == null){
        return next();
      }
@@ -80,6 +86,18 @@ async function existingUsers(req,res,next){
       }
 
 };
+
+
+  function existingEmail(userData, data, res, next){
+    if(userData[0] == null || userData[0].epost != data.email){
+      return next();
+    }
+      else if(userData[0].epost == data.email){
+      return res.status(400).json({
+            feedback:"Epost er allerede registrert i systemet"
+        }).end();
+      }
+  };
 
 
 
