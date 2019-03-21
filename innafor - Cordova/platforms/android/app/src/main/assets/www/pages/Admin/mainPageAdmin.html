@@ -1,0 +1,47 @@
+<div class="page">
+        <div class="page-content">
+            <form class="list" id="registrer">
+                    <h1>Registrer Organisasjon</h1>
+                <ul>
+                <li>
+                    <div class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Organisasjons navn</div>
+                        <div class="item-input-wrap">
+                        <input type="text" name="name" placeholder="Org navn">
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Epost</div>
+                        <div class="item-input-wrap">
+                        <input type="email" name="email" placeholder="Epost">
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select name="type">
+                            <option value="FK" selected>Fotballklubb</option>
+                            <option value="SK">Skole</option>
+                        </select>
+                        <div class="item-content">
+                            <div class="item-inner">
+                            <div class="item-title">Organisasjons type</div>
+                            </div>
+                        </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="list">
+                        <div class="block-footer">
+                        <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="button col">Registrer</a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+</div>

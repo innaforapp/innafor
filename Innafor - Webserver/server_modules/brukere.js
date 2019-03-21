@@ -25,18 +25,19 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
-
-
 function mainPageSelector(role){
 
   if(role === "admin"){
     return "mainView.router.navigate({ name: 'tabsAdmin' })"
   }
-  else if(role === "bruker"){
+  else if(role === "member"){
     return "mainView.router.navigate({ name: 'tabsMembers' })"
   }
   else if(role === "org"){
     return "mainView.router.navigate({ name: 'tabsOrg' })"
+  }
+  else if(role === "leader"){
+    return "mainView.router.navigate({ name: 'tabsLeader' })"
   }
 
 }
@@ -118,15 +119,15 @@ function groupAssigner(data, token){
     return `{${token.group}-${data.gender}-${data.yearmodel}}`;
     
   }
-  else if(role == "leader"){
-    
+  else if(token.role == "leader"){
+    return token.group;
   }
 
 };
 
 
 
-//TODO. Agile development ut ifra å lage ny bruker som org. Sette epost til lowercase
+//TODO En trener og medlem kan ha flere grupper
 router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existingUsers, async function (req, res) {
 
     let randomstring = "123";
