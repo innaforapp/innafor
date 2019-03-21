@@ -45,12 +45,6 @@ let appF7 = new Framework7({
             },
             // Third tab
                 {
-                    path: '/functionsMembers/',
-                    id: 'functionsMembers',
-                    url: 'pages/Members/functionsMembers.html'
-            },
-            // Fourth tab
-                {
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more.html'
@@ -142,6 +136,16 @@ let appF7 = new Framework7({
             name: 'about',
             path: '/about/',
             url: 'pages/about.html'
+        },
+        {
+            name: 'privacy',
+            path: '/privacy/',
+            url: 'pages/privacy.html'
+        },
+        {
+            name: 'report',
+            path: '/report/',
+            url: 'pages/report.html'
         }
       ]
 });
@@ -162,7 +166,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsMembers'
         });
     },
 

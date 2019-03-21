@@ -1,42 +1,9 @@
 <div class="page no-navbar no-toolbar no-swipeback">
     <div class="page-content login-screen-content">
         <div class="container colorBg full-page">
-            <img src="../../img/logo_hvit.png">
+            <img class='cover-image' src="../../img/logo_hvit.png">
             
-            <!--
-            <form id="login">
-                <div class="list">
-                    <ul>
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Username</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" name="epost" placeholder="Your username">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Password</div>
-                                <div class="item-input-wrap">
-                                    <input type="password" name="password" placeholder="Your password">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="list">
-                    <ul>
-                        <li><a onclick="sendForm('login', `/app/brukere/login`, 'loginFeedback')" class="item-link list-button">Login</a></li>
-                    </ul>
-                    <div class="block-footer">
-                        <p id="loginFeedback"></p>
-                    </div>
-                </div>
-            </form>
-            -->
-
-
+            
             <form id="login">
                 <div class="list inset">
                     <ul>
@@ -56,23 +23,14 @@
                                 </div>
                             </div>
                         </li>
+                        <li>
+                            <a onclick="sendForm('login', `/app/brukere/login`, 'loginFeedback')" class="item-link list-button">Login</a>
+                        </li>
                     </ul>
-                    
-                </div>
-                
-                <!-- Forsøk på knapp
-                <button class="col list button button-large button-fill" onclick="sendForm('login', `/app/brukere/login`, 'loginFeedback')">Logg inn</button>
-                -->
-                
-                <div class="list ">
-                    <ul>
-                        <li><a onclick="sendForm('login', `/app/brukere/login`, 'loginFeedback')" class="item-link list-button">Login</a></li>
-                    </ul>
-                    <div class="block-footer">
-                        <p id="loginFeedback"></p>
-                    </div>
                 </div>
             </form>
+            
+            
         </div>
     </div>
 </div>
