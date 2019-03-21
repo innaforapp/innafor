@@ -42,7 +42,7 @@ function mainPageSelector(role){
 
 }
 
-//TODO: sette epost til lower case
+//TODO: cahtche hvis den ikke finner brukeren
 router.post("/login/", emailToLowerCase, async function (req, res) {
 
     let data = req.body;
@@ -78,7 +78,6 @@ try {
     token: tok,
     event: mainView
   }).end();
-
   }else{
     res.status(400).json({
       feedback: "Feil brukernavn eller passord"

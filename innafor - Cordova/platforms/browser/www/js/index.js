@@ -34,14 +34,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/tab-2/',
-                    id: 'tab-2',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    path: '/si-ifra/',
+                    id: 'si-ifra',
+                    url: 'pages/Members/si-ifra.html'
             },
             // Third tab
                 {
@@ -237,3 +232,18 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     };
 
 };
+
+var $$ = Dom7;
+
+//Tabs
+$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e, tab) {
+  let test = getId("containter");
+ console.log(e.tab);
+})  
+
+/*
+//Når en side åpnes så kjører denne. I dette tilgelle about siden
+$$(document).on('page:init', '.page[data-name="about"]', function (e) {
+ 
+})
+*/
