@@ -163,7 +163,7 @@ function getId(id) {
 
 
 //server URL
-//let url = "https://innaforapp.no/test3"
+//let url = "https://innafor-test04.herokuapp.com/"
 let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {

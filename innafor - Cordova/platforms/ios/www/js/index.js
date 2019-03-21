@@ -2,7 +2,7 @@ let appF7 = new Framework7({
     // App root element
     root: '#app',
     // App Name
-    name: 'My App',
+    name: 'Innafor',
     // App id
     id: 'com.myapp.test',
     // Enable swipe panel
@@ -51,6 +51,78 @@ let appF7 = new Framework7({
                     url: 'pages/more.html'
             },
           ],
+        },
+        {
+          name: 'tabsAdmin',
+          // Page main route
+          path: '/tabsAdmin/',
+          // Will load page from tabs/index.html file
+          url: './pages/Admin/tabsAdmin.html',
+          // Pass "tabs" property to route, must be array with tab routes:
+          tabs: [
+            // First (default) tab has the same url as the page itself
+            {
+              // Tab path
+              path: '/',
+              // Tab id
+              id: 'mainPageAdmin',
+              // Fill this tab content from content string
+              url: 'pages/Admin/mainPageAdmin.html'
+            },
+            // Second tab
+            {
+              path: '/questions/',
+              id: 'questions',
+              content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+            // Third tab
+            {
+              path: '/more/',
+              id: 'more',
+              url: 'pages/more.html'
+            },
+          ],
+        },
+        {
+          name: 'tabsOrg',
+          // Page main route
+          path: '/tabsOrg/',
+          // Will load page from tabs/index.html file
+          url: './pages/Organisation/tabsOrg.html',
+          // Pass "tabs" property to route, must be array with tab routes:
+          tabs: [
+            // First (default) tab has the same url as the page itself
+            {
+              // Tab path
+              path: '/',
+              // Tab id
+              id: 'mainPageOrg',
+              // Fill this tab content from content string
+              url: 'pages/Organisation/mainPageOrg.html'
+            },
+            // Second tab
+            {
+              path: '/questions/',
+              id: 'questions',
+              content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+            // Third tab
+            {
+              path: '/more/',
+              id: 'more',
+              url: 'pages/more.html'
+            },
+          ],
         }
       ]
 });
@@ -71,7 +143,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'tabsOrg'
         });
     },
 
@@ -90,9 +162,8 @@ function getId(id) {
 }
 
 
-//=====================================
-
 //server URL
+//let url = "https://innafor-test04.herokuapp.com/"
 let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
@@ -106,7 +177,7 @@ function sendData(data, endpoint) {
         return data;
     });
 }
-
+//=====================================
 
 //Send in ID til form, endpoint, og ID på tekstfelt som skal skrive ut feedback
 async function sendForm(formId, endpoint, feedbackMsg) {
@@ -120,7 +191,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-
+    console.log(data);
     let res = await sendData(data, url + endpoint);
 
     if (res.status === 200) {
@@ -137,7 +208,10 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     } else {
         res = await res.json();
         let msg = getId(feedbackMsg);
+        if(feedbackMsg){
         msg.innerHTML = res.feedback
+        }
+        appF7.dialog.alert(res.feedback);
     };
 
 };
