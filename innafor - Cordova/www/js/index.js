@@ -35,14 +35,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/tab-2/',
-                    id: 'tab-2',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    path: '/si-ifra/',
+                    id: 'si-ifra',
+                    url: 'pages/Members/si-ifra.html'
             },
             // Third tab
                 {
@@ -179,7 +174,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsMembers'
         });
     },
 
@@ -250,3 +245,18 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     };
 
 };
+
+var $$ = Dom7;
+
+
+$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e) {
+  let test = getId("containter");
+ console.log(test);
+})  
+
+/*
+//Når en side åpnes så kjører denne. I dette tilgelle about siden
+$$(document).on('page:init', '.page[data-name="about"]', function (e) {
+ 
+})
+*/
