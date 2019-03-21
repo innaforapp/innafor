@@ -1,0 +1,39 @@
+.colorBg {
+    background-color: #47bcc2;
+}
+
+.lightBg {
+    background-color: #e6feff;
+}
+
+.darkBg {
+    background-color: #222222;
+}
+
+.imageBg {
+    background-size: cover;
+    background-color: #222222;
+    background-image: url('../../img/soccerfield_bokeh.jpg');
+}
+
+img {
+    display: block;
+    margin: auto;
+    height: 60vw;
+    max-height: 250px;
+    padding-top: 20vh;
+
+}
+
+.container {
+    width: 100vw;
+}
+
+.full-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.inset {
+    background-color: white;
+}

@@ -20,6 +20,6 @@ app.use(function(req, res, next) {
 
 app.use('/app/brukere/', users);
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function (){
     console.log('server running', app.get('port'));
 });

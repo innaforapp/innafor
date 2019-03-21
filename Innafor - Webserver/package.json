@@ -1,24 +1,23 @@
 {
-  "name": "innafor",
+  "name": "innaforserver",
   "version": "1.0.0",
-  "description": "beta versjon av appen innafor",
+  "description": "Innafor prosjektet",
   "main": "server.js",
-  "dependencies": {
-    "bcrypt": "^3.0.4",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.4",
-    "framework7": "^4.0.6",
-    "jsonwebtoken": "^8.5.0",
-    "nodemailer": "^5.1.1",
-    "pg-promise": "^8.6.3",
-    "router": "^1.3.3"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "innafor"
+  ],
+  "author": "innafor",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^5.1.1",
+    "pg-promise": "^8.6.4"
+  }
 }

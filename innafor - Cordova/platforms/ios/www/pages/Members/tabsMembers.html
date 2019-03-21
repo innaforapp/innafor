@@ -1,4 +1,48 @@
 <div class="page">
+    <!-- FAB 
+    <div id='myFab' class="fab fab-center-bottom">
+        <a href="#"
+           style='display:none'>
+            <i class="icon f7-icons">add</i>
+        </a>
+        <div class="fab-buttons fab-buttons-top">
+            <a href="#" class="fab-label-button">
+                <span>1</span>
+                <span class="fab-label">Action 1</span>
+            </a>
+            <a href="#" class="fab-label-button">
+                <span>2</span>
+                <span class="fab-label">Action 2</span>
+            </a>
+        </div>
+    </div> -->
+
+    <!-- FAB -->
+    <div id='myFab' class="fab fab-center-bottom">
+        <a href="#" style='display:none'>
+            <i class="icon f7-icons">add</i>
+        </a>
+        <div class="fab-buttons fab-buttons-top">
+            <a href="#" class="fab-label-button">
+                <span>1</span>
+                <span class="fab-label">Action 1</span>
+            </a>
+            <a href="#" class="fab-label-button">
+                <span>2</span>
+                <span class="fab-label">Action 2</span>
+            </a>
+            <a href="#" class="fab-label-button">
+                <span>3</span>
+                <span class="fab-label">Action 3</span>
+            </a>
+            <a href="#" class="fab-label-button">
+                <span>4</span>
+                <span class="fab-label">Action 4</span>
+            </a>
+        </div>
+    </div>
+
+
     <div class="toolbar tabbar toolbar-bottom">
         <div class="toolbar-inner">
             <!-- additional "data-route-tab-id" must match to tab's ID in the specified routes -->
@@ -6,12 +50,16 @@
                 <i class="material-icons">home</i>
                 <span class="tabbar-label">Hjem</span>
             </a>
-            <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2">
-            <i class="material-icons">thumbs_up_down</i>
+            <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2" onclick="document.getElementById('myFab').classList.toggle('fab-opened')">
+                <i class="material-icons">grade</i>
                 <span class="tabbar-label">Si ifra</span>
             </a>
+            <a href="functionsMembers/" class="tab-link" data-route-tab-id="functionsMembers">
+                <i class="material-icons">grade</i>
+                <span class="tabbar-label">Få hjelp</span>
+            </a>
             <a href="more/" class="tab-link" data-route-tab-id="more">
-            <i class="material-icons">menu</i>
+                <i class="material-icons">menu</i>
                 <span class="tabbar-label">Mer</span>
             </a>
         </div>
@@ -20,6 +68,23 @@
     <div class="tabs tabs-routable">
         <div class="tab page-content" id="tab-1"></div>
         <div class="tab page-content" id="tab-2"></div>
+        <div class="tab page-content" id="functionsMembers"></div>
         <div class="tab page-content" id="more"></div>
+        <div class="tab page-content" id="about"></div>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+<script>
+    let myFab = document.getElementById('myFab');
+    let btnHome = document.getElementById('btnHome');
+    btnHome.onclick = toggleFab;
+
+    function toggleFab() {
+        myFab.classList.toggle('fab-opened');
+    }
+
+</script>
+>>>>>>> 5a291df1c0129889bb8c8d0ff9e1b97fa2bf19a1
