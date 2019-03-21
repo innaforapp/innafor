@@ -235,10 +235,10 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
 var $$ = Dom7;
 
-//Tabs
-$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e, tab) {
+
+$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e) {
   let test = getId("containter");
- console.log(e.tab);
+ console.log(test);
 })  
 
 /*
