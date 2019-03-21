@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
+
 .colorBg {
     background-color: #47bcc2;
 }
@@ -8,6 +10,7 @@
 
 .darkBg {
     background-color: #222222;
+    color: #e6feff;
 }
 
 .imageBg {
@@ -16,17 +19,34 @@
     background-image: url('../../img/soccerfield_bokeh.jpg');
 }
 
-img {
+.imageBg2 {
+    background-size: cover;
+    background-position: center;
+    background-color: #222222;
+    background-image: url('../../img/soccer_friendship.jpg');
+}
+
+.cover-image {
     display: block;
     margin: auto;
     height: 60vw;
     max-height: 250px;
     padding-top: 20vh;
-
+    padding-bottom: 20vh;
 }
 
 .container {
     width: 100vw;
+    overflow: auto;
+}
+
+.toolbar-safety-area {
+    padding-top: 50px;
+}
+
+.text-container {
+    box-sizing: border-box;
+    padding: 30px;
 }
 
 .full-page {
@@ -35,5 +55,5 @@ img {
 }
 
 .inset {
-    background-color: white;
+    /*background-color: white;*/
 }

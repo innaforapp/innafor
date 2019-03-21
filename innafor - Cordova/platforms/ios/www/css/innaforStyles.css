@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
+
 .colorBg {
     background-color: #47bcc2;
 }
@@ -8,6 +10,7 @@
 
 .darkBg {
     background-color: #222222;
+    color: #e6feff;
 }
 
 .imageBg {
