@@ -12,26 +12,25 @@ function emailToLowerCase(req,res,next){
 
 function nameToLowerCase(req,res,next){
 
-    if(req.token.role == "org"){
+    if(req.token.role == "org" || req.token.role == "leader"){
     req.body.name = `${req.body.firstname} ${req.body.lastname}`; 
     }
-
     let lowerCaseName = req.body.name.toLowerCase();
     req.body.name = lowerCaseName;
     next();
 }
 
-//console log lowercase name
+
 function nameAssigner(data, role){
     if(role == "admin"){
       return `${data.type}-${data.name}`;
     }
-    else if(role == "org"){
+    else if(role == "org" || role == "leader"){
       return data.name;
     }
   }
 
-
+//TODO: Hvis eposten til rollen "bruker" og "leder" finnes, la de være med i flere lag
 async function existingUsers(req,res,next){
     let data = req.body;
     let name = ""
@@ -41,16 +40,16 @@ async function existingUsers(req,res,next){
     let existingUser = prpSql.existingUser;
     existingUser.values = [data.email, name];
     
+
     try {
       let userData = await db.any(existingUser);
 
       if(req.token.role == "admin"){
           existingOrg(userData, req.body, res, next);
       }
-
-      if(req.token.role == "org"){
+      else if(req.token.role == "org" || req.token.role == "leader"){
         existingEmail(userData, req.body, res, next);
-    }
+      }
   
     
     } catch (err) {
@@ -59,7 +58,6 @@ async function existingUsers(req,res,next){
           mld: err
       }).end(); //something went wrong!
     }
-  
   
   };
 

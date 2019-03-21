@@ -59,22 +59,14 @@ let appF7 = new Framework7({
         },
         {
             name: 'tabsAdmin',
-            // Page main route
             path: '/tabsAdmin/',
-            // Will load page from tabs/index.html file
             url: './pages/Admin/tabsAdmin.html',
-            // Pass "tabs" property to route, must be array with tab routes:
             tabs: [
-            // First (default) tab has the same url as the page itself
                 {
-                    // Tab path
                     path: '/',
-                    // Tab id
                     id: 'mainPageAdmin',
-                    // Fill this tab content from content string
                     url: 'pages/Admin/mainPageAdmin.html'
             },
-            // Second tab
                 {
                     path: '/questions/',
                     id: 'questions',
@@ -85,7 +77,6 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
                 {
                     path: '/more/',
                     id: 'more',
@@ -95,22 +86,14 @@ let appF7 = new Framework7({
         },
         {
             name: 'tabsOrg',
-            // Page main route
             path: '/tabsOrg/',
-            // Will load page from tabs/index.html file
             url: './pages/Organisation/tabsOrg.html',
-            // Pass "tabs" property to route, must be array with tab routes:
             tabs: [
-            // First (default) tab has the same url as the page itself
                 {
-                    // Tab path
                     path: '/',
-                    // Tab id
                     id: 'mainPageOrg',
-                    // Fill this tab content from content string
                     url: 'pages/Organisation/mainPageOrg.html'
             },
-            // Second tab
                 {
                     path: '/questions/',
                     id: 'questions',
@@ -121,11 +104,37 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
                 {
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more.html'
+            },
+          ],
+        },
+        {
+          name: 'tabsLeader',
+          path: '/tabsLeader/',
+          url: './pages/Leader/tabsLeader.html',
+          tabs: [
+            {
+              path: '/',
+              id: 'mainPageLeader',
+              url: 'pages/Leader/mainPageLeader.html'
+            },
+            {
+              path: '/questions/',
+              id: 'questions',
+              content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+            {
+              path: '/more/',
+              id: 'more',
+              url: 'pages/more.html'
             },
           ],
         },
@@ -153,7 +162,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'login'
         });
     },
 
@@ -171,9 +180,8 @@ function getId(id) {
     return document.getElementById(id);
 }
 
-
 //server URL
-//let url = "https://innaforapp.no/test3"
+//let url = "https://innaforapp.no/webserver"
 let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
