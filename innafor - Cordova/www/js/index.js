@@ -155,7 +155,13 @@ let appF7 = new Framework7({
             name: 'si-ifra-frontpage',
             path: '/si-ifra-frontpage/',
             url: 'pages/Members/si-ifra-frontpage.html'
+        },
+        {
+            name: 'si-ifra-surway',
+            path: '/si-ifra-surway/',
+            url: 'pages/Members/si-ifra-surway.html'
         }
+      
         
       ]
 });
