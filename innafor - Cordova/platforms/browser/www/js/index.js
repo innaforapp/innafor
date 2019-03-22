@@ -181,12 +181,10 @@ function getId(id) {
 }
 
 //server URL
-<<<<<<< HEAD
-//let url = "https://innafor-test04.herokuapp.com/"
-=======
+
 //let url = "https://innaforapp.no/webserver"
->>>>>>> 5a291df1c0129889bb8c8d0ff9e1b97fa2bf19a1
-let url = "http://localhost:3000"
+let url = "https://innafor-test04.herokuapp.com/"
+//let url = "http://localhost:5000"
 
 function sendData(data, endpoint) {
     return fetch(endpoint, {

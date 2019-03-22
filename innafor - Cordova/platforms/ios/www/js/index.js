@@ -59,22 +59,14 @@ let appF7 = new Framework7({
         },
         {
             name: 'tabsAdmin',
-            // Page main route
             path: '/tabsAdmin/',
-            // Will load page from tabs/index.html file
             url: './pages/Admin/tabsAdmin.html',
-            // Pass "tabs" property to route, must be array with tab routes:
             tabs: [
-            // First (default) tab has the same url as the page itself
                 {
-                    // Tab path
                     path: '/',
-                    // Tab id
                     id: 'mainPageAdmin',
-                    // Fill this tab content from content string
                     url: 'pages/Admin/mainPageAdmin.html'
             },
-            // Second tab
                 {
                     path: '/questions/',
                     id: 'questions',
@@ -85,7 +77,6 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
                 {
                     path: '/more/',
                     id: 'more',
@@ -95,22 +86,14 @@ let appF7 = new Framework7({
         },
         {
             name: 'tabsOrg',
-            // Page main route
             path: '/tabsOrg/',
-            // Will load page from tabs/index.html file
             url: './pages/Organisation/tabsOrg.html',
-            // Pass "tabs" property to route, must be array with tab routes:
             tabs: [
-            // First (default) tab has the same url as the page itself
                 {
-                    // Tab path
                     path: '/',
-                    // Tab id
                     id: 'mainPageOrg',
-                    // Fill this tab content from content string
                     url: 'pages/Organisation/mainPageOrg.html'
             },
-            // Second tab
                 {
                     path: '/questions/',
                     id: 'questions',
@@ -121,7 +104,6 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
                 {
                     path: '/more/',
                     id: 'more',
@@ -130,24 +112,15 @@ let appF7 = new Framework7({
           ],
         },
         {
-<<<<<<< HEAD
-          name: 'tabsAdmin',
-          // Page main route
-          path: '/tabsAdmin/',
-          // Will load page from tabs/index.html file
-          url: './pages/Admin/tabsAdmin.html',
-          // Pass "tabs" property to route, must be array with tab routes:
+          name: 'tabsLeader',
+          path: '/tabsLeader/',
+          url: './pages/Leader/tabsLeader.html',
           tabs: [
-            // First (default) tab has the same url as the page itself
             {
-              // Tab path
               path: '/',
-              // Tab id
-              id: 'mainPageAdmin',
-              // Fill this tab content from content string
-              url: 'pages/Admin/mainPageAdmin.html'
+              id: 'mainPageLeader',
+              url: 'pages/Leader/mainPageLeader.html'
             },
-            // Second tab
             {
               path: '/questions/',
               id: 'questions',
@@ -158,7 +131,6 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
             {
               path: '/more/',
               id: 'more',
@@ -167,45 +139,9 @@ let appF7 = new Framework7({
           ],
         },
         {
-          name: 'tabsOrg',
-          // Page main route
-          path: '/tabsOrg/',
-          // Will load page from tabs/index.html file
-          url: './pages/Organisation/tabsOrg.html',
-          // Pass "tabs" property to route, must be array with tab routes:
-          tabs: [
-            // First (default) tab has the same url as the page itself
-            {
-              // Tab path
-              path: '/',
-              // Tab id
-              id: 'mainPageOrg',
-              // Fill this tab content from content string
-              url: 'pages/Organisation/mainPageOrg.html'
-            },
-            // Second tab
-            {
-              path: '/questions/',
-              id: 'questions',
-              content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
-            },
-            // Third tab
-            {
-              path: '/more/',
-              id: 'more',
-              url: 'pages/more.html'
-            },
-          ],
-=======
             name: 'about',
             path: '/about/',
             url: 'pages/about.html'
->>>>>>> 5a291df1c0129889bb8c8d0ff9e1b97fa2bf19a1
         }
       ]
 });
@@ -226,7 +162,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsOrg'
+            name: 'login'
         });
     },
 
@@ -244,14 +180,11 @@ function getId(id) {
     return document.getElementById(id);
 }
 
-
 //server URL
-<<<<<<< HEAD
+
+//let url = "https://innaforapp.no/webserver"
 //let url = "https://innafor-test04.herokuapp.com/"
-=======
-//let url = "https://innaforapp.no/test3"
->>>>>>> 5a291df1c0129889bb8c8d0ff9e1b97fa2bf19a1
-let url = "http://localhost:3000"
+let url = "http://localhost:5000"
 
 function sendData(data, endpoint) {
     return fetch(endpoint, {
@@ -295,13 +228,8 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     } else {
         res = await res.json();
         let msg = getId(feedbackMsg);
-<<<<<<< HEAD
-        if(feedbackMsg){
-        msg.innerHTML = res.feedback
-=======
         if (feedbackMsg) {
             msg.innerHTML = res.feedback
->>>>>>> 5a291df1c0129889bb8c8d0ff9e1b97fa2bf19a1
         }
         appF7.dialog.alert(res.feedback);
     };
