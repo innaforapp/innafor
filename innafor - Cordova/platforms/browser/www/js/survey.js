@@ -1,5 +1,5 @@
 
-var scale;
+/*var scale;
 
 let survayQA = {
     "besvarelse": [

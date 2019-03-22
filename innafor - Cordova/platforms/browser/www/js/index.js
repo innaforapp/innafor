@@ -43,7 +43,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -70,7 +70,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -97,7 +97,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -124,25 +124,46 @@ let appF7 = new Framework7({
             {
               path: '/more/',
               id: 'more',
-              url: 'pages/more.html'
+              url: 'pages/more/more.html'
             },
           ],
         },
         {
             name: 'about',
             path: '/about/',
-            url: 'pages/about.html'
+            url: 'pages/more/about.html'
         },
         {
             name: 'privacy',
             path: '/privacy/',
-            url: 'pages/privacy.html'
+            url: 'pages/more/privacy.html'
         },
         {
             name: 'report',
             path: '/report/',
-            url: 'pages/report.html'
+            url: 'pages/more/report.html'
+        },
+        {
+            name: 'mypage',
+            path: '/mypage/',
+            url: 'pages/more/mypage.html'
+        },
+         {
+            name: 'suport',
+            path: '/suport/',
+            url: 'pages/more/suport.html'
+        },
+        {
+            name: 'si-ifra-frontpage',
+            path: '/si-ifra-frontpage/',
+            url: 'pages/Members/si-ifra-frontpage.html'
+        },
+        {
+            name: 'si-ifra-survay',
+            path: '/si-ifra-survay//',
+            url: 'pages/Members/si-ifra-survay.html'
         }
+
       ]
 });
 
@@ -181,8 +202,10 @@ function getId(id) {
 }
 
 //server URL
+
 //let url = "https://innaforapp.no/webserver"
-let url = "http://localhost:3000"
+let url = "https://innafor-test04.herokuapp.com/"
+//let url = "http://localhost:5000"
 
 function sendData(data, endpoint) {
     return fetch(endpoint, {
