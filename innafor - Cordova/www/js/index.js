@@ -159,11 +159,10 @@ let appF7 = new Framework7({
             url: 'pages/Members/si-ifra-frontpage.html'
         },
         {
-            name: 'si-ifra-survay',
-            path: '/si-ifra-survay//',
-            url: 'pages/Members/si-ifra-survay.html'
+            name: 'si-ifra-surway',
+            path: '/si-ifra-surway/',
+            url: 'pages/Members/si-ifra-surway.html'
         }
-
       ]
 });
 
@@ -259,15 +258,13 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
 var $$ = Dom7;
 
-
-$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e) {
-  let test = getId("containter");
+// si i fra survay
+$$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
+  let test = getId("si-ifra-cont");
  console.log(test);
-})  
+}) ;
 
-/*
 //Når en side åpnes så kjører denne. I dette tilgelle about siden
-$$(document).on('page:init', '.page[data-name="about"]', function (e) {
- 
-})
-*/
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    init();
+});

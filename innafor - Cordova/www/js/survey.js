@@ -1,6 +1,13 @@
 
-/*var scale;
+function init(){
+    createSurvay(survayQA.besvarelse);
+    select();
+    document.getElementById("sendBtn").onclick = function(){
+        console.log("Hei dette er meg");
+    }
+}
 
+var scale;
 let survayQA = {
     "besvarelse": [
     {
@@ -12,11 +19,7 @@ let survayQA = {
         question: "Jeg opplever at på laget mitt er det viktig å spille bedre enn de andre.",
         answer: "",
         tag: "Motivasjonsklima"
-    }
-    ]
-};
-
-createSurvay(survayQA.besvarelse);
+    }]};
 
 function createSurvay(array) {
 let survayCont = document.getElementById("survayDiv");
@@ -45,24 +48,23 @@ for (let i = 0; i < array.length; i++) {
             scaleText = "looks_5";                  
         }
 
-        let answers = `<button class="material-icons buttonRow${i}" onclick="select(${scale},${i})" alt="Knapp for å svare ${scaleText} på spørsmål ${array[i].question}">${scaleText}</button>`
+        let knapp = `<button class="material-icons buttonRow${i}" onclick="select(${scale},${i})" alt="Knapp for å svare ${scaleText} på spørsmål ${array[i].question}">${scaleText}</button>`
         question += answers;
     }
     questionSet.className = "questionsSet";
     questionSet.id = `questionsSet${i}`;
     questionSet.innerHTML = question;
     survayCont.appendChild(questionSet);
-}
-}
+}}
 
 function select(scale, rowIndex) {
-survayQA.besvarelse[rowIndex].answer = scale;
-let buttonRow = document.getElementsByClassName(`buttonRow${rowIndex}`)
-for (i = 0; i < buttonRow.length; i++) {
-    buttonRow[i].className = buttonRow[i].className.replace(" selected", "");
-}
-buttonRow[scale - 1].className += " selected";
-console.log(survayQA.besvarelse);
+    survayQA.besvarelse[rowIndex].answer = scale;
+    let buttonRow = document.getElementsByClassName(`buttonRow${rowIndex}`)
+    for (i = 0; i < buttonRow.length; i++) {
+        buttonRow[i].className = buttonRow[i].className.replace(" selected", "");
+    }
+    buttonRow[scale - 1].className += " selected";
+    console.log("svar: " + survayQA.besvarelse);
 }
 
 /*document.getElementById("btn").onclick = function(){
