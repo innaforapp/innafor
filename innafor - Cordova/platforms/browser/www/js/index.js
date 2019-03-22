@@ -34,9 +34,15 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
+<<<<<<< HEAD
                     path: '/si-ifra-fontpage/',
                     id: 'si-ifra-frontpage',
                     url: 'pages/Members/si-ifra-frontpage.html'
+=======
+                    path: '#',
+                    id: 'tab-2',
+                    url: '#'
+>>>>>>> 4bf2d5949f166bb8b20661208ca8bbdfafaf1613
             },
             
             // Third tab
