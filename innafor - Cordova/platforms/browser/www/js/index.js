@@ -34,10 +34,11 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/si-ifra/',
-                    id: 'si-ifra',
-                    url: 'pages/Members/si-ifra.html'
+                    path: '/si-ifra-fontpage/',
+                    id: 'si-ifra-frontpage',
+                    url: 'pages/Members/si-ifra-frontpage.html'
             },
+            
             // Third tab
                 {
                     path: '/more/',
@@ -235,10 +236,10 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
 var $$ = Dom7;
 
-//Tabs
-$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e, tab) {
+
+$$(document).on('tab:init', '.tab[id="si-ifra"]', function (e) {
   let test = getId("containter");
- console.log(e.tab);
+ console.log(test);
 })  
 
 /*
