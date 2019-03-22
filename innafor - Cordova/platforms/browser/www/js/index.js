@@ -34,9 +34,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/si-ifra/',
-                    id: 'si-ifra',
-                    url: 'pages/Members/si-ifra.html'
+                    path: '#',
+                    id: 'tab-2',
+                    url: '#'
             },
             // Third tab
                 {
