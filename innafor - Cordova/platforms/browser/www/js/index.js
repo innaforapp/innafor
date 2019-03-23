@@ -34,15 +34,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-<<<<<<< HEAD
-                    path: '/si-ifra-fontpage/',
-                    id: 'si-ifra-frontpage',
-                    url: 'pages/Members/si-ifra-frontpage.html'
-=======
                     path: '#',
                     id: 'tab-2',
                     url: '#'
->>>>>>> 4bf2d5949f166bb8b20661208ca8bbdfafaf1613
             },
             
             // Third tab
@@ -188,7 +182,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'login'
         });
     },
 
@@ -208,9 +202,8 @@ function getId(id) {
 
 //server URL
 
-//let url = "https://innaforapp.no/webserver"
-let url = "https://innafor-test04.herokuapp.com/"
-//let url = "http://localhost:5000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
     return fetch(endpoint, {
@@ -253,10 +246,6 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
     } else {
         res = await res.json();
-        let msg = getId(feedbackMsg);
-        if (feedbackMsg) {
-            msg.innerHTML = res.feedback
-        }
         appF7.dialog.alert(res.feedback);
     };
 

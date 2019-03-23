@@ -15,7 +15,6 @@ let appF7 = new Framework7({
             name: `login`,
             path: '/login-screen/',
             url: 'pages/login.html'
-
       },
         {
             name: 'tabsMembers',
@@ -35,8 +34,32 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/tab-2/',
+                    path: '#',
                     id: 'tab-2',
+                    url: '#'
+            },
+            
+            // Third tab
+                {
+                    path: '/more/',
+                    id: 'more',
+                    url: 'pages/more/more.html'
+            },
+          ],
+        },
+        {
+            name: 'tabsAdmin',
+            path: '/tabsAdmin/',
+            url: './pages/Admin/tabsAdmin.html',
+            tabs: [
+                {
+                    path: '/',
+                    id: 'mainPageAdmin',
+                    url: 'pages/Admin/mainPageAdmin.html'
+            },
+                {
+                    path: '/questions/',
+                    id: 'questions',
                     content: `
                 <div class="block">
                   <h3>Tab 2</h3>
@@ -44,32 +67,50 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
         {
-          name: 'tabsAdmin',
-          // Page main route
-          path: '/tabsAdmin/',
-          // Will load page from tabs/index.html file
-          url: './pages/Admin/tabsAdmin.html',
-          // Pass "tabs" property to route, must be array with tab routes:
-          tabs: [
-            // First (default) tab has the same url as the page itself
-            {
-              // Tab path
-              path: '/',
-              // Tab id
-              id: 'mainPageAdmin',
-              // Fill this tab content from content string
-              url: 'pages/Admin/mainPageAdmin.html'
+            name: 'tabsOrg',
+            path: '/tabsOrg/',
+            url: './pages/Organisation/tabsOrg.html',
+            tabs: [
+                {
+                    path: '/',
+                    id: 'mainPageOrg',
+                    url: 'pages/Organisation/mainPageOrg.html'
             },
-            // Second tab
+                {
+                    path: '/questions/',
+                    id: 'questions',
+                    content: `
+                <div class="block">
+                  <h3>Tab 2</h3>
+                  <p>...</p>
+                </div>
+              `
+            },
+                {
+                    path: '/more/',
+                    id: 'more',
+                    url: 'pages/more/more.html'
+            },
+          ],
+        },
+        {
+          name: 'tabsLeader',
+          path: '/tabsLeader/',
+          url: './pages/Leader/tabsLeader.html',
+          tabs: [
+            {
+              path: '/',
+              id: 'mainPageLeader',
+              url: 'pages/Leader/mainPageLeader.html'
+            },
             {
               path: '/questions/',
               id: 'questions',
@@ -80,49 +121,47 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-            // Third tab
             {
               path: '/more/',
               id: 'more',
-              url: 'pages/more.html'
+              url: 'pages/more/more.html'
             },
           ],
         },
         {
-          name: 'tabsOrg',
-          // Page main route
-          path: '/tabsOrg/',
-          // Will load page from tabs/index.html file
-          url: './pages/Organisation/tabsOrg.html',
-          // Pass "tabs" property to route, must be array with tab routes:
-          tabs: [
-            // First (default) tab has the same url as the page itself
-            {
-              // Tab path
-              path: '/',
-              // Tab id
-              id: 'mainPageOrg',
-              // Fill this tab content from content string
-              url: 'pages/Organisation/mainPageOrg.html'
-            },
-            // Second tab
-            {
-              path: '/questions/',
-              id: 'questions',
-              content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
-            },
-            // Third tab
-            {
-              path: '/more/',
-              id: 'more',
-              url: 'pages/more.html'
-            },
-          ],
+            name: 'about',
+            path: '/about/',
+            url: 'pages/more/about.html'
+        },
+        {
+            name: 'privacy',
+            path: '/privacy/',
+            url: 'pages/more/privacy.html'
+        },
+        {
+            name: 'report',
+            path: '/report/',
+            url: 'pages/more/report.html'
+        },
+        {
+            name: 'mypage',
+            path: '/mypage/',
+            url: 'pages/more/mypage.html'
+        },
+         {
+            name: 'suport',
+            path: '/suport/',
+            url: 'pages/more/suport.html'
+        },
+        {
+            name: 'si-ifra-frontpage',
+            path: '/si-ifra-frontpage/',
+            url: 'pages/Members/si-ifra-frontpage.html'
+        },
+        {
+            name: 'si-ifra-surway',
+            path: '/si-ifra-surway/',
+            url: 'pages/Members/si-ifra-surway.html'
         }
       ]
 });
@@ -161,9 +200,9 @@ function getId(id) {
     return document.getElementById(id);
 }
 
-
 //server URL
-let url = "https://innaforapp.no/webserver"
+
+let url = "https://innaforapp.no"
 //let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
@@ -207,11 +246,20 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
     } else {
         res = await res.json();
-        let msg = getId(feedbackMsg);
-        if(feedbackMsg){
-        msg.innerHTML = res.feedback
-        }
         appF7.dialog.alert(res.feedback);
     };
 
 };
+
+var $$ = Dom7;
+
+// si i fra survay
+$$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
+  let test = getId("si-ifra-cont");
+ console.log(test);
+}) ;
+
+//Når en side åpnes så kjører denne. I dette tilgelle about siden
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    init();
+});

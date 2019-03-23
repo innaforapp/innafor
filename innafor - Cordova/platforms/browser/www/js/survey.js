@@ -48,7 +48,7 @@ for (let i = 0; i < array.length; i++) {
             scaleText = "looks_5";                  
         }
 
-        let answers = `<button class="material-icons buttonRow${i}" onclick="select(${scale},${i})" alt="Knapp for å svare ${scaleText} på spørsmål ${array[i].question}">${scaleText}</button>`
+        let knapp = `<button class="material-icons buttonRow${i}" onclick="select(${scale},${i})" alt="Knapp for å svare ${scaleText} på spørsmål ${array[i].question}">${scaleText}</button>`
         question += answers;
     }
     questionSet.className = "questionsSet";

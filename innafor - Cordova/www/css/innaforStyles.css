@@ -12,7 +12,7 @@
     background-size: cover;
     background-position: center;
     background-color: #e6feff;
-    background-image: url('../../img/soccer_beach.jpg');
+    background-image: url('../img/soccer_beach_s.jpg');
     background-blend-mode: multiply;    
 }
 
@@ -26,14 +26,14 @@
 .imageBg {
     background-size: cover;
     background-color: #222222;
-    background-image: url('../../img/soccerfield_bokeh.jpg');
+    background-image: url('../img/soccerfield_bokeh_s.jpg');
 }
 
 .imageBg2 {
     background-size: cover;
     background-position: center;
     background-color: #222222;
-    background-image: url('../../img/soccer_friendship.jpg');
+    background-image: url('../img/soccer_friendship_s.jpg');
 }
 
 .logo-large {

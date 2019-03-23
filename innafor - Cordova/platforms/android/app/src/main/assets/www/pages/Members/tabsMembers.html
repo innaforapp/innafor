@@ -1,43 +1,19 @@
 <div class="page">
-    <!-- FAB 
-    <div id='myFab' class="fab fab-center-bottom">
-        <a href="#"
-           style='display:none'>
-            <i class="icon f7-icons">add</i>
-        </a>
-        <div class="fab-buttons fab-buttons-top">
-            <a href="#" class="fab-label-button">
-                <span>1</span>
-                <span class="fab-label">Action 1</span>
-            </a>
-            <a href="#" class="fab-label-button">
-                <span>2</span>
-                <span class="fab-label">Action 2</span>
-            </a>
-        </div>
-    </div> -->
-
     <!-- FAB -->
-    <div id='myFab' class="fab fab-center-bottom">
-        <a href="#" style='display:none'>
-            <i class="icon f7-icons">add</i>
-        </a>
+    <div id='myFab' class="fab fab-left-bottom">
+        <a href="#" style='display:none'></a>
         <div class="fab-buttons fab-buttons-top">
             <a href="#" class="fab-label-button">
-                <span>1</span>
-                <span class="fab-label">Action 1</span>
+                <i class="material-icons">chat</i>
+                <span class="fab-label">Anonym chat</span>
             </a>
             <a href="#" class="fab-label-button">
-                <span>2</span>
-                <span class="fab-label">Action 2</span>
+                <i class="material-icons">flag</i>
+                <span class="fab-label">Bli kontaktet</span>
             </a>
-            <a href="#" class="fab-label-button">
-                <span>3</span>
-                <span class="fab-label">Action 3</span>
-            </a>
-            <a href="#" class="fab-label-button">
-                <span>4</span>
-                <span class="fab-label">Action 4</span>
+            <a href="/si-ifra-frontpage/" class="fab-label-button">
+                <i class="material-icons">grade</i>
+                <span class="fab-label">Si ifra</span>
             </a>
         </div>
     </div>
@@ -50,13 +26,9 @@
                 <i class="material-icons">home</i>
                 <span class="tabbar-label">Hjem</span>
             </a>
-            <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2" onclick="document.getElementById('myFab').classList.toggle('fab-opened')">
+            <a href="#" class="tab-link" data-route-tab-id="tab-2" onclick="document.getElementById('myFab').classList.toggle('fab-opened')">
                 <i class="material-icons">grade</i>
                 <span class="tabbar-label">Si ifra</span>
-            </a>
-            <a href="functionsMembers/" class="tab-link" data-route-tab-id="functionsMembers">
-                <i class="material-icons">grade</i>
-                <span class="tabbar-label">Få hjelp</span>
             </a>
             <a href="more/" class="tab-link" data-route-tab-id="more">
                 <i class="material-icons">menu</i>
@@ -68,9 +40,7 @@
     <div class="tabs tabs-routable">
         <div class="tab page-content" id="tab-1"></div>
         <div class="tab page-content" id="tab-2"></div>
-        <div class="tab page-content" id="functionsMembers"></div>
         <div class="tab page-content" id="more"></div>
-        <div class="tab page-content" id="about"></div>
     </div>
 </div>
 
@@ -80,6 +50,7 @@
     btnHome.onclick = toggleFab;
 
     function toggleFab() {
+        console.log('halla');
         myFab.classList.toggle('fab-opened');
     }
 
