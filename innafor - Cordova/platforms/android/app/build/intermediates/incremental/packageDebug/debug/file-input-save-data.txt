@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Mar 23 19:16:36 CET 2019
+#Sat Mar 23 20:47:04 CET 2019
 739.baseType=DIRECTORY
 38.path=www/framework7/modules/component/snabbdom/snabbdom.bundle.d.ts
 429.baseType=DIRECTORY
