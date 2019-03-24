@@ -178,6 +178,12 @@ router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existing
                 // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
         //=======================
         */
+
+       res.status(200).json({
+        event: `toatsUserRegister.open();`
+      }).end();
+
+
     } catch (err) {
         console.log(err);
         res.status(500).json({
