@@ -73,11 +73,15 @@ body {
 h1 {
     font-family: 'PT Serif', serif;
     font-size:24px;
-    font-weight:normal;
+    font-weight:bold;
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+
+textarea {
+    min-height: 100px;
 }
 
 .event {

@@ -36,24 +36,29 @@ let appF7 = new Framework7({
                 {
                     path: '/tab-2/',
                     id: 'tab-2',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    url: 'pages/Members/siIfraMembers.html'
             },
+            
             // Third tab
-                {
-                    path: '/functionsMembers/',
-                    id: 'functionsMembers',
-                    url: 'pages/Members/functionsMembers.html'
-            },
-            // Fourth tab
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
+            },
+                {
+                    path: '/getInTouch/',
+                    id: 'getInTouch',
+                    url: 'pages/Members/getInTouch.html'
+            },
+                {
+                    path: '/siIfraFrontpage/',
+                    id: 'siIfraFrontpage',
+                    url: 'pages/Members/siIfraFrontpage.html'
+            },
+                {
+                    path: '/chat/',
+                    id: 'chat',
+                    url: 'pages/Members/chat.html'
             },
           ],
         },
@@ -68,19 +73,14 @@ let appF7 = new Framework7({
                     url: 'pages/Admin/mainPageAdmin.html'
             },
                 {
-                    path: '/questions/',
-                    id: 'questions',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    path: '/questionBank/',
+                    id: 'questionBank',
+                    url: 'pages/Admin/questions.html'
             },
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -107,7 +107,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -134,14 +134,39 @@ let appF7 = new Framework7({
             {
               path: '/more/',
               id: 'more',
-              url: 'pages/more.html'
+              url: 'pages/more/more.html'
             },
           ],
         },
         {
             name: 'about',
             path: '/about/',
-            url: 'pages/about.html'
+            url: 'pages/more/about.html'
+        },
+        {
+            name: 'privacy',
+            path: '/privacy/',
+            url: 'pages/more/privacy.html'
+        },
+        {
+            name: 'report',
+            path: '/report/',
+            url: 'pages/more/report.html'
+        },
+        {
+            name: 'mypage',
+            path: '/mypage/',
+            url: 'pages/more/mypage.html'
+        },
+         {
+            name: 'support',
+            path: '/support/',
+            url: 'pages/more/support.html'
+        },
+        {
+            name: 'si-ifra-survay',
+            path: '/si-ifra-survay/',
+            url: 'pages/Members/si-ifra-survay.html'
         }
       ]
 });
@@ -166,11 +191,11 @@ let appCordova = {
         });
     },
 
-    // Update DOM on a Received Event
+ /*   // Update DOM on a Received Event
     receivedEvent: function (id) {
 
 
-    }
+    }*/
 };
 
 appCordova.initialize();
@@ -182,11 +207,11 @@ function getId(id) {
 
 //server URL
 
-//let url = "https://innaforapp.no/webserver"
-//let url = "https://innafor-test04.herokuapp.com/"
-let url = "http://localhost:5000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
+    console.log(data, endpoint);
     return fetch(endpoint, {
         method: "POST",
         headers: {
@@ -211,7 +236,6 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-    console.log(data);
     let res = await sendData(data, url + endpoint);
 
     if (res.status === 200) {
@@ -224,14 +248,53 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         if (res.event) {
             let event = eval(res.event);
         };
-
+        form.reset();
+        
     } else {
         res = await res.json();
-        let msg = getId(feedbackMsg);
-        if (feedbackMsg) {
-            msg.innerHTML = res.feedback
-        }
         appF7.dialog.alert(res.feedback);
     };
 
 };
+
+var $$ = Dom7;
+
+// si i fra survay
+$$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
+  let test = getId("si-ifra-cont");
+ console.log(test);
+});
+
+//Når en side åpnes så kjører denne. I dette tilgelle about siden
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    init();
+});
+
+//ADMIN tabs event
+$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
+    listOutQuestions()
+  });
+
+//MEMBER tab event Si ifra
+$$(document).on('page:init', function (e) {
+    onTabOpen();
+  });
+
+
+
+
+//Overlay som sier ifra at bruker er registrert 
+var toatsUserRegister = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+  });
+
+//Overlay som sier ifra at spørsmål er lagt til
+var toastQuestionAdded = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Spørsmål er lagt til',
+    position: 'center',
+    closeTimeout: 2000,
+  });
