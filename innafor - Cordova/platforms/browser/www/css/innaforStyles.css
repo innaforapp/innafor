@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
 
+* {
+    font-family:'Open Sans', sans-serif;
+}
+
 .colorBg {
     background-color: #47bcc2;
 }
@@ -62,6 +66,14 @@
     padding-top: 10vh;
     padding-bottom: 10vh;
 }
+.logo-xsmall {
+    display: block;
+    margin: auto;
+    height: 15vw;
+    max-height: 100px;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
 
 .container {
     width: 100vw;
@@ -80,4 +92,52 @@
 .full-page {
     width: 100vw;
     height: 100vh;
+}
+
+/* ----------------
+------- FAB -------
+---------------- */
+.fab-icon {
+    font-size: 30px;
+}
+
+.fab-label {
+    font-size: 15px;
+}
+
+.fab {
+    width: 100vw;
+    position: fixed;
+    margin: auto;
+    margin-bottom: 50px;   
+}
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    opacity: 0.5;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+/* ----------------
+----- IFRAME ------
+---------------- */
+
+.iframe-container {
+    position: relative;
+    padding-top: 150%;
+}
+
+.iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    border: 0;
 }

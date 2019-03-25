@@ -1,36 +1,39 @@
-<div class="page">
+<div class="page" data-name="tabsMembers">
     <!-- FAB -->
-    <div id='myFab' class="fab fab-left-bottom">
-        <a href="#" style='display:none'></a>
-        <div class="fab-buttons fab-buttons-top">
-            <a href="#" class="fab-label-button">
-                <i class="material-icons">chat</i>
-                <span class="fab-label">Anonym chat</span>
-            </a>
-            <a href="#" class="fab-label-button">
-                <i class="material-icons">flag</i>
-                <span class="fab-label">Bli kontaktet</span>
-            </a>
-            <a href="/si-ifra-frontpage/" class="fab-label-button">
-                <i class="material-icons">grade</i>
-                <span class="fab-label">Si ifra</span>
-            </a>
+    <div class="fab-wrapper">
+        <div id='myFab' class="fab fab-right-bottom">
+            <a href="#" style='display:none'></a>
+            <div class="fab-buttons fab-buttons-top">
+                <a href="chat/" class="fab-label-button">
+                    <i class="material-icons fab-icon">chat</i>
+                    <span class="fab-label">Anonym chat</span>
+                </a>
+                <a href="getInTouch/" class="fab-label-button">
+                    <i class="material-icons fab-icon">flag</i>
+                    <span class="fab-label">Bli kontaktet</span>
+                </a>
+                <a href="siIfraFrontpage/" class="fab-label-button">
+                    <i class="material-icons fab-icon">grade</i>
+                    <span class="fab-label">Si ifra</span>
+                </a>
+            </div>
         </div>
     </div>
 
+    <div class='overlay'></div>
 
     <div class="toolbar tabbar toolbar-bottom">
         <div class="toolbar-inner">
             <!-- additional "data-route-tab-id" must match to tab's ID in the specified routes -->
-            <a href="./" class="tab-link" data-route-tab-id="tab-1">
+            <a href="./" class="tab-link" data-route-tab-id="tab-1" id='tab-1-btn'>
                 <i class="material-icons">home</i>
                 <span class="tabbar-label">Hjem</span>
             </a>
-            <a href="#" class="tab-link" data-route-tab-id="tab-2" onclick="document.getElementById('myFab').classList.toggle('fab-opened')">
+            <a href="tab-2/" class="tab-link" data-route-tab-id="tab-2" id='tab-2-btn'>
                 <i class="material-icons">grade</i>
                 <span class="tabbar-label">Si ifra</span>
             </a>
-            <a href="more/" class="tab-link" data-route-tab-id="more">
+            <a href="more/" class="tab-link" data-route-tab-id="more" id='more-btn'>
                 <i class="material-icons">menu</i>
                 <span class="tabbar-label">Mer</span>
             </a>
@@ -41,17 +44,8 @@
         <div class="tab page-content" id="tab-1"></div>
         <div class="tab page-content" id="tab-2"></div>
         <div class="tab page-content" id="more"></div>
+        <div class="tab page-content" id="siIfraFrontpage"></div>
+        <div class="tab page-content" id="getInTouch"></div>
+        <div class="tab page-content" id="chat"></div>
     </div>
 </div>
-
-<script>
-    let myFab = document.getElementById('myFab');
-    let btnHome = document.getElementById('btnHome');
-    btnHome.onclick = toggleFab;
-
-    function toggleFab() {
-        console.log('halla');
-        myFab.classList.toggle('fab-opened');
-    }
-
-</script>
