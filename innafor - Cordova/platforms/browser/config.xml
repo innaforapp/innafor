@@ -17,5 +17,6 @@
     <allow-intent href="geo:*" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="SplashScreen" value="/res/screen/browser/splashscreen.png" />
 </widget>
