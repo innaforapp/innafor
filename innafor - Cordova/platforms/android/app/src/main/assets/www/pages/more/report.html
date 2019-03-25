@@ -1,0 +1,55 @@
+<div class='page'>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="icon icon-back"></i>
+                    <span class="ios-only">Back</span>
+                </a>
+            </div>
+            <div class="title">Rapportér et problem</div>
+        </div>
+    </div>
+
+    <div class="container darkBg full-page toolbar-safety-area">
+
+        <form id='report' class="list inset">
+            <ul>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Name</div>
+                            <div class="item-input-wrap">
+                                <input type="text" name="name" placeholder="Your name">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">E-mail</div>
+                            <div class="item-input-wrap">
+                                <input type="email" name="email" placeholder="E-mail">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                    <div class="item-input-wrap ">
+                        <div class="item-title item-label">Melding</div>
+                        <textarea class="resizable" placeholder="Skriv din melding her"></textarea>
+                    </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+        <div class="block">
+            <p class="row">
+                <button class="col button button-large button-raised button-fill" onclick="sendForm('report', `/app/support/report`, 'reportFeedback')">Send</button>
+            </p>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,16 @@
     background-color: #e6feff;
 }
 
+.lightImageBg {
+    background-size: cover;
+    background-position: center;
+    background-color: #e6feff;
+    background-image: url('../img/soccer_beach_s.jpg');
+    background-blend-mode: multiply;    
+}
+
+
+
 .darkBg {
     background-color: #222222;
     color: #e6feff;
@@ -16,27 +26,58 @@
 .imageBg {
     background-size: cover;
     background-color: #222222;
-    background-image: url('../../img/soccerfield_bokeh.jpg');
+    background-image: url('../img/soccerfield_bokeh_s.jpg');
 }
 
-img {
+.imageBg2 {
+    background-size: cover;
+    background-position: center;
+    background-color: #222222;
+    background-image: url('../img/soccer_friendship_s.jpg');
+}
+
+.logo-large {
     display: block;
     margin: auto;
     height: 60vw;
     max-height: 250px;
     padding-top: 20vh;
+    padding-bottom: 20vh;
+}
 
+.logo-medium {
+    display: block;
+    margin: auto;
+    height: 45vw;
+    max-height: 187.5px;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+.logo-small {
+    display: block;
+    margin: auto;
+    height: 30vw;
+    max-height: 125px;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
 }
 
 .container {
     width: 100vw;
+    overflow: auto;
+}
+
+.toolbar-safety-area {
+    padding-top: 50px;
+}
+
+.text-container {
+    box-sizing: border-box;
+    padding: 30px;
 }
 
 .full-page {
     width: 100vw;
     height: 100vh;
-}
-
-.inset {
-    background-color: white;
 }

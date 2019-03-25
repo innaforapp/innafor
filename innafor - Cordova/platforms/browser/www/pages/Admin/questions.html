@@ -1,0 +1,80 @@
+<div class="page">
+    <div class="page-content">
+        <div class='text-container'>
+            <h1>Spørsmåls bank</h1>
+        </div>
+        <form class="list" id="addQuestion">
+            <ul>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Spørsmål</div>
+                            <div class="item-input-wrap">
+                                <textarea name="question" class="resizable"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select name="theme">
+                            <option value="motivasjon" selected>Motivasjon</option>
+                            <option value="trivsel">Trivsel</option>
+                            <option value="tilhørighet">Tilhørighet</option>
+                        </select>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">Tema</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </form>
+
+        <div class="list">
+            <div class="block-footer">
+                <a onclick="sendForm('addQuestion', `/app/survey/addQuestion`)" class="button col">Legg til</a>
+            </div>
+        </div>
+
+            <div class="list">
+                <ul>
+                    <li class="accordion-item"><a href="#" class="item-content item-link">
+                        <div class="item-inner">
+                            <div class="item-title">Motivasjon</div>
+                        </div></a>
+                        <div class="accordion-item-content">
+                            <div class="block">
+                                <div id="motivation">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item"><a href="#" class="item-content item-link">
+                            <div class="item-inner">
+                                <div class="item-title">Trvisel</div>
+                            </div></a>
+                            <div class="accordion-item-content">
+                                <div class="block">
+                                    <p>Item 1 content. Lorem ipsum dolor sit amet...</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion-item"><a href="#" class="item-content item-link">
+                                <div class="item-inner">
+                                    <div class="item-title">Tilhørighet</div>
+                                </div></a>
+                                <div class="accordion-item-content">
+                                    <div class="block">
+                                        <p>Item 1 content. Lorem ipsum dolor sit amet...</p>
+                                    </div>
+                                </div>
+                            </li>
+                </ul>
+            </div>
+
+
+
+        
+    </div>
+</div>

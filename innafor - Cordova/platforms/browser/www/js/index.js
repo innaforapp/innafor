@@ -34,15 +34,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-<<<<<<< HEAD
-                    path: '/si-ifra-fontpage/',
-                    id: 'si-ifra-frontpage',
-                    url: 'pages/Members/si-ifra-frontpage.html'
-=======
                     path: '#',
                     id: 'tab-2',
                     url: '#'
->>>>>>> 4bf2d5949f166bb8b20661208ca8bbdfafaf1613
             },
             
             // Third tab
@@ -64,14 +58,9 @@ let appF7 = new Framework7({
                     url: 'pages/Admin/mainPageAdmin.html'
             },
                 {
-                    path: '/questions/',
-                    id: 'questions',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    path: '/questionBank/',
+                    id: 'questionBank',
+                    url: 'pages/Admin/questions.html'
             },
                 {
                     path: '/more/',
@@ -188,15 +177,15 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'login'
         });
     },
 
-    // Update DOM on a Received Event
+ /*   // Update DOM on a Received Event
     receivedEvent: function (id) {
 
 
-    }
+    }*/
 };
 
 appCordova.initialize();
@@ -208,11 +197,11 @@ function getId(id) {
 
 //server URL
 
-//let url = "https://innaforapp.no/webserver"
-let url = "https://innafor-test04.herokuapp.com/"
-//let url = "http://localhost:5000"
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
+    console.log(data, endpoint);
     return fetch(endpoint, {
         method: "POST",
         headers: {
@@ -237,7 +226,6 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-    console.log(data);
     let res = await sendData(data, url + endpoint);
 
     if (res.status === 200) {
@@ -250,13 +238,10 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         if (res.event) {
             let event = eval(res.event);
         };
-
+        form.reset();
+        
     } else {
         res = await res.json();
-        let msg = getId(feedbackMsg);
-        if (feedbackMsg) {
-            msg.innerHTML = res.feedback
-        }
         appF7.dialog.alert(res.feedback);
     };
 
@@ -268,9 +253,33 @@ var $$ = Dom7;
 $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
   let test = getId("si-ifra-cont");
  console.log(test);
-}) ;
+});
 
 //Når en side åpnes så kjører denne. I dette tilgelle about siden
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
+
+//ADMIN tabs event
+$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
+    listOutQuestions()
+  });
+
+
+
+
+//Overlay som sier ifra at bruker er registrert 
+var toatsUserRegister = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+  });
+
+//Overlay som sier ifra at spørsmål er lagt til
+var toastQuestionAdded = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Spørsmål er lagt til',
+    position: 'center',
+    closeTimeout: 2000,
+  });

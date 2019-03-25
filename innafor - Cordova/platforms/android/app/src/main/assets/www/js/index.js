@@ -34,26 +34,16 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '/tab-2/',
+                    path: '#',
                     id: 'tab-2',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    url: '#'
             },
+            
             // Third tab
-                {
-                    path: '/functionsMembers/',
-                    id: 'functionsMembers',
-                    url: 'pages/Members/functionsMembers.html'
-            },
-            // Fourth tab
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -80,7 +70,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -107,7 +97,7 @@ let appF7 = new Framework7({
                 {
                     path: '/more/',
                     id: 'more',
-                    url: 'pages/more.html'
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -134,14 +124,44 @@ let appF7 = new Framework7({
             {
               path: '/more/',
               id: 'more',
-              url: 'pages/more.html'
+              url: 'pages/more/more.html'
             },
           ],
         },
         {
             name: 'about',
             path: '/about/',
-            url: 'pages/about.html'
+            url: 'pages/more/about.html'
+        },
+        {
+            name: 'privacy',
+            path: '/privacy/',
+            url: 'pages/more/privacy.html'
+        },
+        {
+            name: 'report',
+            path: '/report/',
+            url: 'pages/more/report.html'
+        },
+        {
+            name: 'mypage',
+            path: '/mypage/',
+            url: 'pages/more/mypage.html'
+        },
+         {
+            name: 'suport',
+            path: '/suport/',
+            url: 'pages/more/suport.html'
+        },
+        {
+            name: 'si-ifra-frontpage',
+            path: '/si-ifra-frontpage/',
+            url: 'pages/Members/si-ifra-frontpage.html'
+        },
+        {
+            name: 'si-ifra-surway',
+            path: '/si-ifra-surway/',
+            url: 'pages/Members/si-ifra-surway.html'
         }
       ]
 });
@@ -182,9 +202,8 @@ function getId(id) {
 
 //server URL
 
-//let url = "https://innaforapp.no/webserver"
-//let url = "https://innafor-test04.herokuapp.com/"
-let url = "http://localhost:5000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
     return fetch(endpoint, {
@@ -227,11 +246,20 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
     } else {
         res = await res.json();
-        let msg = getId(feedbackMsg);
-        if (feedbackMsg) {
-            msg.innerHTML = res.feedback
-        }
         appF7.dialog.alert(res.feedback);
     };
 
 };
+
+var $$ = Dom7;
+
+// si i fra survay
+$$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
+  let test = getId("si-ifra-cont");
+ console.log(test);
+}) ;
+
+//Når en side åpnes så kjører denne. I dette tilgelle about siden
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    init();
+});

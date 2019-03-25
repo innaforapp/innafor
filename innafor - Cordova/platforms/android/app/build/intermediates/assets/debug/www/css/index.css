@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -36,12 +37,12 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-family:'Open Sans', sans-serif;
     font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
+    /* text-transform:uppercase; */
     width:100%;
 }
 
@@ -70,12 +71,17 @@ body {
 }
 
 h1 {
+    font-family: 'PT Serif', serif;
     font-size:24px;
-    font-weight:normal;
+    font-weight:bold;
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+
+textarea {
+    min-height: 100px;
 }
 
 .event {
