@@ -9,6 +9,11 @@ let appF7 = new Framework7({
     panel: {
         swipe: 'left',
     },
+
+    swipeout: {
+        noFollow: true,
+        removeElements: true
+      },
     // Add default routes
     routes: [
         {
@@ -212,6 +217,16 @@ function sendData(data, endpoint) {
         return data;
     });
 }
+
+function getData(endpoint) {
+    return fetch((url+endpoint), {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
+        }     
+    });
+}
 //=====================================
 
 //Send in ID til form, endpoint, og ID på tekstfelt som skal skrive ut feedback
@@ -238,8 +253,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         if (res.event) {
             let event = eval(res.event);
         };
-        form.reset();
-        
+
     } else {
         res = await res.json();
         appF7.dialog.alert(res.feedback);
@@ -264,6 +278,13 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
   });
+
+
+
+  $$(document).on('swipeout:deleted', function (e) {
+    console.log(e.target.Id);
+  });
+
 
 
 

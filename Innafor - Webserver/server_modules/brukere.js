@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const secret = process.env.SECRET;
 
-const authorize = require("./auth.js");
+const authorize = require("./auth.js").authenticateUser;
 
 const existingUsers = require("./utilities.js").existingUsers;
 const nameAssigner = require("./utilities.js").nameAssigner;

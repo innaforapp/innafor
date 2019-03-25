@@ -22,49 +22,29 @@ function authenticateUser (req,res,next) {
 }
 
 
-/*
-async function existingUsers(req,res,next){
+// AUTHENTICATE USER ------------------
+function authenticateAdmin (req,res,next) {
+   
+  let token = req.headers['x-access-auth'] || req.body.token; 
 
-    let data = req.body;
-    let org = `${data.type}-${data.org}`;
-    let existingUser = prpSql.existingUser;
-    existingUser.values = [data.email, org];
-    
-    try {
-      let userData = await db.any(existingUser);
-    if(userData[0] == null){
-        next();
-     }
-      else if(userData[0].org == org && userData[0].epost == data.email){
-        res.status(400).json({
-            feedback:(`Org.navn (med type ${data.type}) og epost finnes allerede i systemt`)
-        }).end();
+  try {
+      let decodedToken = jwt.verify(token, secret); // Is the token valid?
+      req.token = decodedToken; // we make the token available for later functions via the request object.
+
+      if(req.token.role == "admin"){
+        next(); // The token was valid so we continue 
       }
-      else if(userData[0].epost == data.email){
-        res.status(400).json({
-            feedback:"Epost er allerede registrert i systemet"
-        }).end();
+      else{
+        res.status(401).end(); // The token could not be validated so we tell the user to log in again.
       }
-      else if(userData[0].org == org){
-        res.status(400).json({
-            feedback:`Org.navn (med type ${data.type}) finnes allerede i systemet`
-        }).end();
-      }
-  
-    
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-          mld: err
-      }).end(); //something went wrong!
+      
+  } catch (err) {
+      res.status(401).end(); // The token could not be validated so we tell the user to log in again.
   }
-  
-  
-  
-  }
-*/
+}
 
 
 // EXPORTS ----------------------------
-module.exports = authenticateUser;
+module.exports.authenticateUser = authenticateUser;
+module.exports.authenticateAdmin = authenticateAdmin;
 

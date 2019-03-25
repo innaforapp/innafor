@@ -14,6 +14,11 @@ prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE 
 
 prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere" WHERE epost=$1 OR navn=$2`);
 
+
+//survey--------------
+prpSql.addQuestion = new PrpSt('addQuestion',`INSERT INTO "public"."questionpool" ("id", "question", "category", "active") VALUES (DEFAULT, $1, $2, DEFAULT)`);
+prpSql.getQuestions = new PrpSt('getQuestions', `SELECT * FROM "public"."questionpool" WHERE "active" = 'true' `)
+
 //export module
 module.exports.db = db; //db connection
 module.exports.prpSql = prpSql; //prepared sql statements
