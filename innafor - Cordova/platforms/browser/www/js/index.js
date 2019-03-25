@@ -159,9 +159,9 @@ let appF7 = new Framework7({
             url: 'pages/more/mypage.html'
         },
          {
-            name: 'suport',
-            path: '/suport/',
-            url: 'pages/more/suport.html'
+            name: 'support',
+            path: '/support/',
+            url: 'pages/more/support.html'
         },
         {
             name: 'si-ifra-survay',

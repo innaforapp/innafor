@@ -5,7 +5,7 @@
     --f7-theme-color-tint: #ff8989;
     --f7-safe-area-left: 0px;
     --f7-safe-area-right: 0px;
-    --f7-safe-area-top: 10px;
+    --f7-safe-area-top: 25px;
     --f7-safe-area-bottom: 0px;
     --f7-safe-area-outer-left: 0px;
     --f7-safe-area-outer-right: 0px;
@@ -18,7 +18,7 @@
     --f7-fab-label-bg-color: #fff;
     --f7-fab-label-text-color: #222;
     --f7-fab-label-border-radius: 2px;
-    --f7-fab-label-padding: 8px 24px;
+    --f7-fab-label-padding: 4px 8px;
     --f7-fab-button-size: 70px;
     
 }
