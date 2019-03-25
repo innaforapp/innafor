@@ -39,9 +39,9 @@ let appF7 = new Framework7({
             },
             // Second tab
                 {
-                    path: '#',
+                    path: '/tab-2/',
                     id: 'tab-2',
-                    url: '#'
+                    url: 'pages/Members/siIfraMembers.html'
             },
             
             // Third tab
@@ -49,6 +49,21 @@ let appF7 = new Framework7({
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more/more.html'
+            },
+                {
+                    path: '/getInTouch/',
+                    id: 'getInTouch',
+                    url: 'pages/Members/getInTouch.html'
+            },
+                {
+                    path: '/siIfraFrontpage/',
+                    id: 'siIfraFrontpage',
+                    url: 'pages/Members/siIfraFrontpage.html'
+            },
+                {
+                    path: '/chat/',
+                    id: 'chat',
+                    url: 'pages/Members/chat.html'
             },
           ],
         },
@@ -149,19 +164,14 @@ let appF7 = new Framework7({
             url: 'pages/more/mypage.html'
         },
          {
-            name: 'suport',
-            path: '/suport/',
-            url: 'pages/more/suport.html'
+            name: 'support',
+            path: '/support/',
+            url: 'pages/more/support.html'
         },
         {
-            name: 'si-ifra-frontpage',
-            path: '/si-ifra-frontpage/',
-            url: 'pages/Members/si-ifra-frontpage.html'
-        },
-        {
-            name: 'si-ifra-surway',
-            path: '/si-ifra-surway/',
-            url: 'pages/Members/si-ifra-surway.html'
+            name: 'si-ifra-survay',
+            path: '/si-ifra-survay/',
+            url: 'pages/Members/si-ifra-survay.html'
         }
       ]
 });
@@ -182,7 +192,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsMembers'
         });
     },
 
@@ -202,8 +212,8 @@ function getId(id) {
 
 //server URL
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
     console.log(data, endpoint);
@@ -277,6 +287,11 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
 //ADMIN tabs event
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
+  });
+
+//MEMBER tab event Si ifra
+$$(document).on('page:init', function (e) {
+    onTabOpen();
   });
 
 

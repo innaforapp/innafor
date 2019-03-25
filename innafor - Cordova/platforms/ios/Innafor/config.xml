@@ -72,4 +72,5 @@
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
 </widget>
