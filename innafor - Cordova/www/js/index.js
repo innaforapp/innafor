@@ -192,7 +192,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'tabsAdmin'
         });
     },
 
@@ -210,10 +210,13 @@ function getId(id) {
     return document.getElementById(id);
 }
 
-//server URL
+function getCurrentIndex(target) {
+    let getNr = target.match(/\d+/g).map(Number);
+    return parseInt(getNr);
+}
 
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
     console.log(data, endpoint);
@@ -284,22 +287,25 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
 
-//ADMIN tabs event
-$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
-    listOutQuestions()
-  });
 
 //MEMBER tab event Si ifra
 $$(document).on('page:init', function (e) {
     onTabOpen();
   });
 
-
-
-  $$(document).on('swipeout:deleted', function (e) {
-    console.log(e.target.Id);
+//ADMIN tabs event
+$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
+    listOutQuestions()
   });
 
+  $$(document).on('swipeout:deleted', function (e) {
+    let targetId = e.target.Id
+    let id = getCurrentIndex(targetId);
+
+    if(targetId.includes("delQuestionId")){
+        deleteQuestion(id);
+    }
+  });
 
 
 

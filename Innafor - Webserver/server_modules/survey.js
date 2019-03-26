@@ -24,7 +24,10 @@ router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
        let add = await db.any(addQuestionQuery);
 
        res.status(200).json({
-        event: `toastQuestionAdded.open();`
+        event: `
+        toastQuestionAdded.open();
+        listOutQuestions();
+        `
       }).end();
 
 
@@ -59,6 +62,32 @@ router.get("/getQuestions",authorize, async function(req,res){
              mld: err
          }).end(); //something went wrong!
      }
+
+
+});
+
+
+router.post("/deleteQuestion",authorizeAdmin, async function(req,res){
+    let data = req.body;
+
+    let deleteQuestion = prpSql.deleteQuestion;
+    deleteQuestion.values=[data.id]
+
+try {   
+    await db.any(deleteQuestion);
+
+    
+    res.status(200).json({
+      }).end();
+
+
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
 
 
 });
