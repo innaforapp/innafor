@@ -23,12 +23,16 @@
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Innafor</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        En applikasjon utviklet av studenter ved Universitetet i Agder for fotballklubben Jerv og Blå Kors Kristiansand.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="post@innaforapp.no" href="http://innaforapp.no">
+        Innafor
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -70,6 +74,7 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="StatusBarStyle" value="darktranslucent" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
