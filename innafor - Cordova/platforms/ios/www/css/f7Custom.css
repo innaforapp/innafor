@@ -26,12 +26,14 @@
 /* NAVBAR - fix for at statusbar ikke skal overlappe verktøylinje i toppen */
 
 .ios {
-    --f7-navbar-height: calc(env(safe-area-inset-top) + 44px); /* 70 */
+    --f7-navbar-height: calc(env(safe-area-inset-top) + 44px);
+    /* 70 */
     --f7-navbar-tablet-height: 44px;
 }
 
 .md {
-    --f7-navbar-height: calc(env(safe-area-inset-top) + 56px); /* 75 */
+    --f7-navbar-height: calc(env(safe-area-inset-top) + 56px);
+    /* 75 */
     --f7-navbar-tablet-height: 64px;
 }
 
@@ -46,6 +48,19 @@
 
 /* TABBAR - fix for å gi plass til iPhone X sin hjem-swipe */
 
+.ios {
+    --f7-toolbar-height: calc(env(safe-area-inset-top) + 44px); /* 44 */
+}
+
+.md {
+    --f7-toolbar-height: 48px; /* 48 */
+}
+
+.aurora {
+  --f7-toolbar-height: 38px; /* 38 */
+
+/* 
 .tabbar {
     height: calc(env(safe-area-inset-top) + 70px);
 }
+    */
