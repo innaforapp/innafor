@@ -4,8 +4,8 @@
   "name": "Innafor",
   "short_name": "Innafor",
   "version": "io.cordova.hellocordova",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "description": "En applikasjon utviklet av studenter ved Universitetet i Agder for fotballklubben Jerv og Blå Kors Kristiansand.",
+  "author": "Innafor",
   "icons": [],
   "start_url": "index.html",
   "theme_color": "#2196f3"

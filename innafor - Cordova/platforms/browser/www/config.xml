@@ -2,10 +2,10 @@
 <widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Innafor</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        En applikasjon utviklet av studenter ved Universitetet i Agder for fotballklubben Jerv og Blå Kors Kristiansand.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="post@innaforapp.no" href="http://innaforapp.no">
+        Innafor
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -18,5 +18,6 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarStyle" value="darktranslucent" />
     <preference name="SplashScreen" value="/res/screen/browser/splashscreen.png" />
 </widget>

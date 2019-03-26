@@ -15,6 +15,7 @@
 		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
 		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
+		2E7E357C6EBD49A0B8153D2A /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6751A6AAF0874174A07FB887 /* CDVStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Innafor/config.xml; sourceTree = "<group>"; };
+		6751A6AAF0874174A07FB887 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		A8E8029E94F24D3E82B78CEC /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +177,8 @@
 				63204408C8094BD19D29AB3A /* CDVViewController+SplashScreen.m */,
 				9683443C52744A51B6CC73CD /* CDVSplashScreen.h */,
 				8F9115EE0A914D1CB4FA6C85 /* CDVViewController+SplashScreen.h */,
+				6751A6AAF0874174A07FB887 /* CDVStatusBar.m */,
+				A8E8029E94F24D3E82B78CEC /* CDVStatusBar.h */,
 			);
 			name = Plugins;
 			path = Innafor/Plugins;
@@ -298,6 +303,7 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				18D56167318C4EBBB6C41E82 /* CDVSplashScreen.m in Sources */,
 				231106F5E00C40AEAF51EDE0 /* CDVViewController+SplashScreen.m in Sources */,
+				2E7E357C6EBD49A0B8153D2A /* CDVStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

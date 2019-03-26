@@ -20,5 +20,32 @@
     --f7-fab-label-border-radius: 2px;
     --f7-fab-label-padding: 4px 8px;
     --f7-fab-button-size: 70px;
-    
+
+}
+
+/* NAVBAR - fix for at statusbar ikke skal overlappe verktøylinje i toppen */
+
+.ios {
+    --f7-navbar-height: calc(env(safe-area-inset-top) + 44px); /* 70 */
+    --f7-navbar-tablet-height: 44px;
+}
+
+.md {
+    --f7-navbar-height: calc(env(safe-area-inset-top) + 56px); /* 75 */
+    --f7-navbar-tablet-height: 64px;
+}
+
+.navbar-inner {
+    padding-top: env(safe-area-inset-top);
+}
+
+.aurora {
+    --f7-navbar-height: 60px;
+    --f7-navbar-tablet-height: 38px;
+}
+
+/* TABBAR - fix for å gi plass til iPhone X sin hjem-swipe */
+
+.tabbar {
+    height: calc(env(safe-area-inset-top) + 70px);
 }
