@@ -13,7 +13,7 @@ let appF7 = new Framework7({
     swipeout: {
         noFollow: true,
         removeElements: true
-      },
+    },
     // Add default routes
     routes: [
         {
@@ -43,7 +43,7 @@ let appF7 = new Framework7({
                     id: 'tab-2',
                     url: 'pages/Members/siIfraMembers.html'
             },
-            
+
             // Third tab
                 {
                     path: '/more/',
@@ -117,29 +117,29 @@ let appF7 = new Framework7({
           ],
         },
         {
-          name: 'tabsLeader',
-          path: '/tabsLeader/',
-          url: './pages/Leader/tabsLeader.html',
-          tabs: [
-            {
-              path: '/',
-              id: 'mainPageLeader',
-              url: 'pages/Leader/mainPageLeader.html'
+            name: 'tabsLeader',
+            path: '/tabsLeader/',
+            url: './pages/Leader/tabsLeader.html',
+            tabs: [
+                {
+                    path: '/',
+                    id: 'mainPageLeader',
+                    url: 'pages/Leader/mainPageLeader.html'
             },
-            {
-              path: '/questions/',
-              id: 'questions',
-              content: `
+                {
+                    path: '/questions/',
+                    id: 'questions',
+                    content: `
                 <div class="block">
                   <h3>Tab 2</h3>
                   <p>...</p>
                 </div>
               `
             },
-            {
-              path: '/more/',
-              id: 'more',
-              url: 'pages/more/more.html'
+                {
+                    path: '/more/',
+                    id: 'more',
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -163,7 +163,7 @@ let appF7 = new Framework7({
             path: '/mypage/',
             url: 'pages/more/mypage.html'
         },
-         {
+        {
             name: 'support',
             path: '/support/',
             url: 'pages/more/support.html'
@@ -192,15 +192,15 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'tabsAdmin'
         });
     },
 
- /*   // Update DOM on a Received Event
-    receivedEvent: function (id) {
+    /*   // Update DOM on a Received Event
+       receivedEvent: function (id) {
 
 
-    }*/
+       }*/
 };
 
 appCordova.initialize();
@@ -210,10 +210,13 @@ function getId(id) {
     return document.getElementById(id);
 }
 
-//server URL
+function getCurrentIndex(target) {
+    let getNr = target.match(/\d+/g).map(Number);
+    return parseInt(getNr);
+}
 
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
     console.log(data, endpoint);
@@ -229,12 +232,12 @@ function sendData(data, endpoint) {
 }
 
 function getData(endpoint) {
-    return fetch((url+endpoint), {
+    return fetch((url + endpoint), {
         method: "GET",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
             "x-access-auth": localStorage.getItem("token")
-        }     
+        }
     });
 }
 //=====================================
@@ -275,8 +278,8 @@ var $$ = Dom7;
 
 // si i fra survay
 $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
-  let test = getId("si-ifra-cont");
- console.log(test);
+    let test = getId("si-ifra-cont");
+    console.log(test);
 });
 
 //Når en side åpnes så kjører denne. I dette tilgelle about siden
@@ -284,27 +287,30 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
 
-//ADMIN tabs event
-$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
-    listOutQuestions()
-  });
 
 //MEMBER page event Si ifra
 $$(document).on('page:init', function (e) {
     onTabOpen();
-  });
+});
 
 //MEMBER page event åpne iFrame
 $$(document).on('page:init', '.page[data-name="chat"]', function (e) {
     iframe();
-  });
+});
 
 
+$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
+    listOutQuestions()
+});
 
-  $$(document).on('swipeout:deleted', function (e) {
-    console.log(e.target.Id);
-  });
+$$(document).on('swipeout:deleted', function (e) {
+    let targetId = e.target.Id
+    let id = getCurrentIndex(targetId);
 
+    if (targetId.includes("delQuestionId")) {
+        deleteQuestion(id);
+    }
+});
 
 
 
@@ -315,7 +321,7 @@ var toatsUserRegister = appF7.toast.create({
     text: 'Bruker registrert, passord er sendt på epost',
     position: 'center',
     closeTimeout: 2000,
-  });
+});
 
 //Overlay som sier ifra at spørsmål er lagt til
 var toastQuestionAdded = appF7.toast.create({
@@ -323,4 +329,4 @@ var toastQuestionAdded = appF7.toast.create({
     text: 'Spørsmål er lagt til',
     position: 'center',
     closeTimeout: 2000,
-  });
+});

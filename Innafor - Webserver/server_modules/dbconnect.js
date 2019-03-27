@@ -18,6 +18,7 @@ prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere
 //survey--------------
 prpSql.addQuestion = new PrpSt('addQuestion',`INSERT INTO "public"."questionpool" ("id", "question", "category", "active") VALUES (DEFAULT, $1, $2, DEFAULT)`);
 prpSql.getQuestions = new PrpSt('getQuestions', `SELECT * FROM "public"."questionpool" WHERE "active" = 'true' `)
+prpSql.deleteQuestion = new PrpSt('deleteQuestion', `UPDATE "public"."questionpool" SET "question" = '-', "category" = '-', "active" = 'false' WHERE "id" = $1`)
 
 //export module
 module.exports.db = db; //db connection
