@@ -63,8 +63,8 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
 </widget>
