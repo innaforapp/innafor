@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
 
 * {
-    font-family:'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
+
+/* ----------------
+--- Backgrounds ---
+---------------- */
 
 .colorBg {
     background-color: #47bcc2;
@@ -17,10 +21,8 @@
     background-position: center;
     background-color: #e6feff;
     background-image: url('../img/soccer_beach_s.jpg');
-    background-blend-mode: multiply;    
+    background-blend-mode: multiply;
 }
-
-
 
 .darkBg {
     background-color: #222222;
@@ -39,6 +41,10 @@
     background-color: #222222;
     background-image: url('../img/soccer_friendship_s.jpg');
 }
+
+/* ----------------
+------ LOGOs ------
+---------------- */
 
 .logo-large {
     display: block;
@@ -66,6 +72,7 @@
     padding-top: 10vh;
     padding-bottom: 10vh;
 }
+
 .logo-xsmall {
     display: block;
     margin: auto;
@@ -75,13 +82,17 @@
     padding-bottom: 10vh;
 }
 
+/* ----------------
+---- CONTAINER ----
+---------------- */
+
 .container {
     width: 100vw;
     overflow: auto;
 }
 
 .toolbar-safety-area {
-    padding-top: 50px;
+    padding-top: calc(env(safe-area-inset-top) + 50px);
 }
 
 .text-container {
@@ -109,7 +120,7 @@
     width: 100vw;
     position: fixed;
     margin: auto;
-    margin-bottom: 50px;   
+    margin-bottom: calc(env(safe-area-inset-bottom) + 60px);
 }
 
 .overlay {
@@ -143,9 +154,18 @@
 }
 
 /* ----------------
------ TABBAR ------
+----- NAVBAR ------
 ---------------- */
 
-.toolbar {
-    height: 55px;
+.navbar-spacer {
+    display: block;
+    height: 40px;
+    background-color: aqua
+}
+
+/* ----------------
+----- NAVBAR ------
+---------------- */
+.safe-area-div-top {
+    padding-top: env(safe-area-inset-bottom);
 }

@@ -289,9 +289,14 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
   });
 
-//MEMBER tab event Si ifra
+//MEMBER page event Si ifra
 $$(document).on('page:init', function (e) {
     onTabOpen();
+  });
+
+//MEMBER page event åpne iFrame
+$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
+    iframe();
   });
 
 

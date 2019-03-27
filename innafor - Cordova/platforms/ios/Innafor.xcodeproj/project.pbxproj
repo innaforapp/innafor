@@ -16,6 +16,7 @@
 		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
 		2E7E357C6EBD49A0B8153D2A /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6751A6AAF0874174A07FB887 /* CDVStatusBar.m */; };
+		28D385BE1D2A45B1B19C6FC4 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDAAFB62505445C86B2BA66 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Innafor/config.xml; sourceTree = "<group>"; };
 		6751A6AAF0874174A07FB887 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		A8E8029E94F24D3E82B78CEC /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		ACDAAFB62505445C86B2BA66 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		50FA9F0BE9E34F97BEAAD07F /* CDVInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 				8F9115EE0A914D1CB4FA6C85 /* CDVViewController+SplashScreen.h */,
 				6751A6AAF0874174A07FB887 /* CDVStatusBar.m */,
 				A8E8029E94F24D3E82B78CEC /* CDVStatusBar.h */,
+				ACDAAFB62505445C86B2BA66 /* CDVInAppBrowser.m */,
+				50FA9F0BE9E34F97BEAAD07F /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = Innafor/Plugins;
@@ -304,6 +309,7 @@
 				18D56167318C4EBBB6C41E82 /* CDVSplashScreen.m in Sources */,
 				231106F5E00C40AEAF51EDE0 /* CDVViewController+SplashScreen.m in Sources */,
 				2E7E357C6EBD49A0B8153D2A /* CDVStatusBar.m in Sources */,
+				28D385BE1D2A45B1B19C6FC4 /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
