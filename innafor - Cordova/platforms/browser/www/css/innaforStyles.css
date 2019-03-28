@@ -4,6 +4,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+/* ----------------
+--- Backgrounds ---
+---------------- */
+
 .colorBg {
     background-color: #47bcc2;
 }
@@ -20,8 +24,6 @@
     background-blend-mode: multiply;
 }
 
-
-
 .darkBg {
     background-color: #222222;
     color: #e6feff;
@@ -31,6 +33,7 @@
     background-size: cover;
     background-color: #222222;
     background-image: url('../img/soccerfield_bokeh_s.jpg');
+    color: #ffffff;
 }
 
 .imageBg2 {
@@ -38,7 +41,24 @@
     background-position: center;
     background-color: #222222;
     background-image: url('../img/soccer_friendship_s.jpg');
+    color: #222222;
+
 }
+
+.placeholder-kristian {
+    background-size: cover;
+    background-position: center;
+    background-color: #222222;
+    background-image: url('../img/placeholder.jpg');
+    color: #ffffff;
+    width: 100vw;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+/* ----------------
+------ LOGOs ------
+---------------- */
 
 .logo-large {
     display: block;
@@ -76,13 +96,17 @@
     padding-bottom: 10vh;
 }
 
+/* ----------------
+---- CONTAINER ----
+---------------- */
+
 .container {
     width: 100vw;
     overflow: auto;
 }
 
 .toolbar-safety-area {
-    padding-top: 50px;
+    padding-top: calc(env(safe-area-inset-top) + 50px);
 }
 
 .text-container {
@@ -92,7 +116,13 @@
 
 .full-page {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.inner-shaddow {
+    -webkit-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
+    box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
 }
 
 /* ----------------
@@ -110,7 +140,7 @@
     width: 100vw;
     position: fixed;
     margin: auto;
-    margin-bottom: 50px;
+    margin-bottom: calc(env(safe-area-inset-bottom) + 60px);
 }
 
 .overlay {
@@ -144,26 +174,23 @@
 }
 
 /* ----------------
------ TABBAR ------
----------------- 
-
-.toolbar {
-    height: 55px;
-}
-*/
-/* ----------------
 ----- NAVBAR ------
 ---------------- */
 
 .navbar-spacer {
     display: block;
     height: 40px;
-    background-color: aqua
+}
+
+.safe-area-div-top {
+    padding-top: env(safe-area-inset-bottom);
 }
 
 /* ----------------
------ NAVBAR ------
+----- TABBAR ------
 ---------------- */
-.safe-area-div-top {
-    padding-top: env(safe-area-inset-bottom);
+
+.tabbar-spacer {
+    display: block;
+    height: 100px;
 }

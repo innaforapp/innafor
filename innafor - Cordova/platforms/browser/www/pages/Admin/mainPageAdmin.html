@@ -1,50 +1,10 @@
 <div class="page">
-    <div class="page-content">
-        <div class='text-container colorBg full-page'>
-            <h1>Registrer organisasjons</h1>
-
-            <form class="list" id="registrer">
-                <ul>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Organisasjons navn</div>
-                                <div class="item-input-wrap">
-                                    <input type="text" name="name" placeholder="Org navn">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title item-label">Epost</div>
-                                <div class="item-input-wrap">
-                                    <input type="email" name="email" placeholder="Epost">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="item-link smart-select smart-select-init" data-open-in="sheet">
-                            <select name="type">
-                                <option value="FK" selected>Fotballklubb</option>
-                                <option value="SK">Skole</option>
-                            </select>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Organisasjons type</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="list">
-                    <div class="block-footer ">
-                        <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
-                    </div>
-                </div>
-            </form>
+    <div class='page-content'>
+        <div class="container imageBg full-page">
+            <div class='safe-area-div-top'></div>
+            <img class='logo-large' src="./img/logo_hvit.png">
+            <h1 id='welcomeText'>Velkommen!</h1>
+            <div class='tabbar-spacer'></div>
         </div>
     </div>
 </div>
