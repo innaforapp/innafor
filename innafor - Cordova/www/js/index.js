@@ -125,7 +125,7 @@ let appF7 = new Framework7({
                     path: '/',
                     id: 'mainPageLeader',
                     url: 'pages/Leader/mainPageLeader.html'
-            },
+                 },
                 {
                     path: '/questions/',
                     id: 'questions',
@@ -136,10 +136,15 @@ let appF7 = new Framework7({
                 </div>
               `
             },
-                {
-                    path: '/more/',
-                    id: 'more',
-                    url: 'pages/more/more.html'
+            {
+                path: '/feed',
+                id: 'leaderFeed',
+                url: 'pages/Leader/feed.html'
+             },
+            {
+                path: '/more/',
+                id: 'more',
+                url: 'pages/more/more.html'
             },
           ],
         },
@@ -192,7 +197,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsAdmin'
+            name: 'login'
         });
     },
 
@@ -215,8 +220,8 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+//let url = "https://innaforapp.no" //web server
+let url = "http://localhost:3000" //lokal server
 
 function sendData(data, endpoint) {
     console.log(data, endpoint);
@@ -276,17 +281,21 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
 var $$ = Dom7;
 
-// si i fra survay
+// si i fra survay - frontpage
 $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
     let test = getId("si-ifra-cont");
     console.log(test);
 });
 
-//Når en side åpnes så kjører denne. I dette tilgelle about siden
+//MEMBER page event Si ifra
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
 
+//feed-leader
+$$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
+    feedPage();
+});
 
 //MEMBER page event Si ifra
 $$(document).on('page:init', function (e) {
@@ -297,7 +306,6 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="chat"]', function (e) {
     iframe();
 });
-
 
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
@@ -311,9 +319,6 @@ $$(document).on('swipeout:deleted', function (e) {
         deleteQuestion(id);
     }
 });
-
-
-
 
 //Overlay som sier ifra at bruker er registrert 
 var toatsUserRegister = appF7.toast.create({

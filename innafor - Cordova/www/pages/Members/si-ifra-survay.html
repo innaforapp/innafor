@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="page" data-name="si-ifra-survay">
     <!-- NAVBAR -->
     <div class="navbar">
@@ -14,11 +15,9 @@
 
 <!-- PAGE CONTENT -->
 <div class="page-content" id="si-ifra-cont">
-    <p>Spørsmål 1/8</p>
-    <h1>Hvordan har du det</h1>
+    <input id="inp"> <button onclick="sendBtn()">Send til server</button>
     <div id="survayDiv"></div>
     <button id="sendBtn" class="col button button-raised button-fill button-round"alt="Knapp for å sende inn din besvarelse på skjemaet.">Send</button>
-    <h3 id="survayOutput"></h3>
         
 </div>
 <style>
@@ -36,4 +35,5 @@
         padding: 15px;
         text-align: center;
     }  
+ 
 </style>
