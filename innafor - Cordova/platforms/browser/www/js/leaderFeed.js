@@ -31,6 +31,7 @@ function createCards(){
         let header = document.createElement("div");
         let cardCont = document.createElement("div");
         let footer = document.createElement("div");
+        let div2;
 
         card.classList.add("car");
         getId("showPostCont").appendChild(card);
@@ -45,7 +46,7 @@ function createCards(){
         card.appendChild(footer);
 
         header.innerHTML = `<p>${posts[i].header}</p>`
-        cardCont.innerHTML = `<p>${posts[i].post}</p> <img  src=${posts[i].img} height="42" >`
+        cardCont.innerHTML = `<p>${posts[i].post}</p> <img  src=${posts[i].img} height="200" >`
         footer.innerHTML = `<p>${posts[i].footer}</p>`
         card.id = `post${i}`;
         console.log("lager cards"); 

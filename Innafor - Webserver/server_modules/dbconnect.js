@@ -19,7 +19,7 @@ prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere
 prpSql.addCategory = new PrpSt('addCategory',`INSERT INTO "public"."questioncategory" ("id", "category", "active") VALUES (DEFAULT, $1, DEFAULT)`);
 prpSql.getCategory = new PrpSt('getCategory', `SELECT * FROM "public"."questioncategory" WHERE "active" = 'true' `)
 
-prpSql.addQuestion = new PrpSt('addQuestion',`INSERT INTO "public"."questionpool" ("id", "question", "category", "agegroup", "type", "active") VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)`);
+prpSql.addQuestion = new PrpSt('addQuestion',`INSERT INTO "public"."questionpool" ("id", "question", "category", "agegroup", "type", "weight", "active") VALUES (DEFAULT, $1, $2, $3, $4, $5, DEFAULT)`);
 prpSql.getQuestions = new PrpSt('getQuestions', `SELECT * FROM "public"."questionpool" WHERE "active" = 'true' `)
 prpSql.deleteQuestion = new PrpSt('deleteQuestion', `UPDATE "public"."questionpool" SET "question" = '-', "category" = '-', "active" = 'false' WHERE "id" = $1`)
 prpSql.deleteCategory = new PrpSt('deleteCategory', `UPDATE "public"."questioncategory" SET "category" = '-', "active" = 'false' WHERE "id" = $1`)

@@ -182,6 +182,11 @@ let appF7 = new Framework7({
             name: 'si-ifra-survay',
             path: '/si-ifra-survay/',
             url: 'pages/Members/si-ifra-survay.html'
+        },
+        {
+            name: 'create-survay',
+            path: '/create-survay/',
+            url: 'pages/Leader/create-survay.html'
         }
       ]
 });

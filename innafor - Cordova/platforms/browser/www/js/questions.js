@@ -71,7 +71,7 @@ async function listOutQuestions(){
           <li class="swipeout" id="delQuestionId${questions[k].id}">
           <div class="item-content swipeout-content">
           <div class="item-inner">
-            <div class="item-title">${questions[k].question}</div>
+            <div class="item-title">${questions[k].question} (${questions[k].weight})</div>
           </div>
         </div>
         <div class="swipeout-actions-right">
@@ -132,6 +132,27 @@ for (l = 0; l < getCategory.category.length; l++){
 categoryList.innerHTML=catLi;
 
 
+
+}
+
+async function addQuestion(formId, endpoint){
+
+  let form = getId(formId);
+  let questionScale = getId("question-scale");
+  let data = {};
+
+  for (i = 0; i < form.length; i++) {
+    data[form.elements[i].name] = form.elements[i].value;
+};
+
+data["questionScale"]= questionScale.getElementsByTagName("DIV")[2].innerText;
+
+console.log(data);
+  
+let res = await sendData(data, url + endpoint);
+res = await res.json();
+
+eval(res.event);
 
 }
 

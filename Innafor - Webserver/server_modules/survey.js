@@ -15,13 +15,14 @@ router.use(bodyParser.urlencoded({
 }));
 
 
+
 router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
 
     let addQuestionQuery = prpSql.addQuestion;
-    addQuestionQuery.values = [req.body.question, req.body.theme, req.body.ageGroup, req.body.type];
+    addQuestionQuery.values = [req.body.question, req.body.theme, req.body.ageGroup, req.body.type, req.body.questionScale];
     try {
        let add = await db.any(addQuestionQuery);
-
+        console.log(addQuestionQuery.values)
        res.status(200).json({
         event: `
         toastQuestionAdded.open();
@@ -137,6 +138,8 @@ try {
      }).end(); //something went wrong!
  }
 });
+
+
 
 //sender survay-data fra bruker til db
 

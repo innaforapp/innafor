@@ -55,6 +55,22 @@
                     </div>
                 </li>
                 <li>
+                        <div class="block-title">Spørsmålsvekt</div>
+                        <div class="block block-strong">
+                          <div class="range-slider range-slider-init"
+                            id="question-scale"
+                            data-min="50"
+                            data-max="200"
+                            data-label="true"
+                            data-step="5"
+                            data-value="100"
+                            data-scale="true"
+                            data-scale-steps="5"
+                            data-scale-sub-steps="4"
+                          ></div>
+
+                </li>
+                <li>
                         <a class="item-link smart-select smart-select-init" data-open-in="sheet">
                                 <select name="theme" id="categorySelect">
                                 <option value=""></option>
@@ -96,7 +112,7 @@
         </form>
         <div class="list">
             <div class="block-footer">
-                <a onclick="sendForm('addQuestion', `/app/survey/addQuestion`)" class="button col">Legg til</a>
+                <a onclick="addQuestion('addQuestion', `/app/survey/addQuestion`)" class="button col">Legg til</a>
             </div>
         </div>
 
