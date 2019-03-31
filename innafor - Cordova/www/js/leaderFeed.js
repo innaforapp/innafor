@@ -31,6 +31,7 @@ function createCards(){
         let header = document.createElement("div");
         let cardCont = document.createElement("div");
         let footer = document.createElement("div");
+        let div2;
 
         card.classList.add("car");
         getId("showPostCont").appendChild(card);
