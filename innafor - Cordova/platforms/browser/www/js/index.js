@@ -78,6 +78,11 @@ let appF7 = new Framework7({
                     url: 'pages/Admin/mainPageAdmin.html'
             },
                 {
+                    path: '/registerOrg/',
+                    id: 'registerOrg',
+                    url: 'pages/Admin/registerOrg.html'
+            },
+                {
                     path: '/questionBank/',
                     id: 'questionBank',
                     url: 'pages/Admin/questions.html'
@@ -100,14 +105,14 @@ let appF7 = new Framework7({
                     url: 'pages/Organisation/mainPageOrg.html'
             },
                 {
-                    path: '/questions/',
-                    id: 'questions',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
+                    path: '/registerLeader/',
+                    id: 'registerLeader',
+                    url: 'pages/Organisation/registerLeader.html'
+            },
+                {
+                    path: '/resultsOrg/',
+                    id: 'resultsOrg',
+                    url: 'pages/Organisation/resultsOrg.html'
             },
                 {
                     path: '/more/',
@@ -135,17 +140,27 @@ let appF7 = new Framework7({
                   <p>...</p>
                 </div>
               `
-            },
-            {
-                path: '/feed',
-                id: 'leaderFeed',
-                url: 'pages/Leader/feed.html'
-             },
-            {
-                path: '/more/',
-                id: 'more',
-                url: 'pages/more/more.html'
-            },
+                },
+                {
+                    path: '/feed',
+                    id: 'leaderFeed',
+                    url: 'pages/Leader/feed.html'
+                },
+                {
+                    path: 'registerMember/',
+                    id: 'registerMember',
+                    url: 'pages/Leader/registerMember.html'
+                },
+                {
+                    path: '/resultsLeader/',
+                    id: 'resultsLeader',
+                    url: 'pages/Leader/resultsLeader.html'
+                },
+                {
+                    path: '/more/',
+                    id: 'more',
+                    url: 'pages/more/more.html'
+                },
           ],
         },
         {
@@ -224,11 +239,13 @@ function getCurrentIndex(target) {
 let url = "http://localhost:3000" //lokal server
 
 function sendData(data, endpoint) {
+        
     console.log(data, endpoint);
     return fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
+            "token" : window.localStorage.getItem('token')
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -245,6 +262,23 @@ function getData(endpoint) {
         }
     });
 }
+
+function updateUser(data, datatype, endpoint) {
+        
+    let dataToSend = {'type': datatype, 'data': data}
+    
+    return fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "token" : window.localStorage.getItem('token')
+        },
+        body: JSON.stringify(data)
+    }).then(data => {
+        return data;
+    });
+}
+
 //=====================================
 
 //Send in ID til form, endpoint, og ID på tekstfelt som skal skrive ut feedback
@@ -266,6 +300,8 @@ async function sendForm(formId, endpoint, feedbackMsg) {
 
         if (res.token) {
             localStorage.setItem("token", res.token);
+            localStorage.setItem("firstname", res.firstname);
+            localStorage.setItem("email", res.email);
         };
 
         if (res.event) {
@@ -297,8 +333,8 @@ $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
     feedPage();
 });
 
-//MEMBER page event Si ifra
-$$(document).on('page:init', function (e) {
+//Kjøres hver gang man skifter side/tab
+$$(document).on('page:afterin', function (e) {
     onTabOpen();
 });
 
