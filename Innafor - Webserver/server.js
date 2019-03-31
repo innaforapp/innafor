@@ -26,3 +26,5 @@ app.use('/app/survey/', survey);
 app.listen(app.get('port'), function (){
     console.log('server running', app.get('port'));
 });
+
+module.exports  = app;
