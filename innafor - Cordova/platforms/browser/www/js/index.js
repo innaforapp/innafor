@@ -299,11 +299,15 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
   });
 
   $$(document).on('swipeout:deleted', function (e) {
-    let targetId = e.target.Id
+    let targetId = e.target.id
     let id = getCurrentIndex(targetId);
 
     if(targetId.includes("delQuestionId")){
         deleteQuestion(id);
+    }
+    else if("delCategoryId"){
+        let categoryName = e.target.getElementsByTagName("DIV")[2].innerText;
+        deleteCategory(id, categoryName);
     }
   });
 

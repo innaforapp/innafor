@@ -18,8 +18,7 @@ router.use(bodyParser.urlencoded({
 router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
 
     let addQuestionQuery = prpSql.addQuestion;
-    addQuestionQuery.values = [req.body.question, req.body.theme];
-    
+    addQuestionQuery.values = [req.body.question, req.body.theme, req.body.ageGroup, req.body.type];
     try {
        let add = await db.any(addQuestionQuery);
 
@@ -37,6 +36,55 @@ router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
             mld: err
         }).end(); //something went wrong!
     }
+
+
+});
+
+
+router.post("/addCatagory",authorizeAdmin, async function (req, res) {
+
+    let addCatagoryQuery = prpSql.addCategory;
+    addCatagoryQuery.values = [req.body.category];
+    try {
+        let add = await db.any(addCatagoryQuery);
+
+        res.status(200).json({
+            event: `
+            toastCategoryAdded.open();
+            listOutQuestions();
+            `
+          }).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
+
+});
+
+
+router.get("/getCategory",authorize, async function(req,res){
+
+    let getCategory = prpSql.getCategory;
+
+try {   
+    let result = await db.any(getCategory);
+
+    res.status(200).json({
+        category: result
+      }).end();
+
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
 
 
 });
@@ -81,6 +129,37 @@ try {
       }).end();
 
 
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+
+
+router.post("/deleteCategory",authorizeAdmin, async function(req,res){
+    let data = req.body;
+
+    let deleteCategory = prpSql.deleteCategory;
+    deleteCategory.values=[data.id];
+
+    let deleteQuestions = prpSql.deleteQuestions;
+    deleteQuestions.values=[data.category];
+
+try {   
+    await db.any(deleteCategory);
+    await db.any(deleteQuestions);
+
+    res.status(200).json({
+        event: `
+        listOutQuestions();
+        `
+      }).end();
 
  } catch (err) {
      console.log(err);
