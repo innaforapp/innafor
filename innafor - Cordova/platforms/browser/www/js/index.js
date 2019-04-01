@@ -230,13 +230,14 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
-//let url = "https://innaforapp.no" //web server
-let url = "http://localhost:3000" //lokal server
+
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
-        
+
     console.log(data, endpoint);
-    return fetch(endpoint, {
+    return fetch(url+endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -258,14 +259,19 @@ function getData(endpoint) {
     });
 }
 
-function updateUser(data, datatype, endpoint) {
-        
-    let dataToSend = {'type': datatype, 'data': data}
-    
-    return fetch(endpoint, {
+function updateUser(value, column, endpoint) {
+
+    let data = {
+        'column': column,
+        'value': value
+    }
+    console.log(data, endpoint);
+
+    return fetch(url + endpoint, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json; charset=utf-8"
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -287,7 +293,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-    let res = await sendData(data, url + endpoint);
+    let res = await sendData(data, endpoint);
 
     if (res.status === 200) {
         res = await res.json();
@@ -356,7 +362,6 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
                         'Endre e-post',
                         function () {
                             updateUser(email, 'epost', `/app/brukere/update`);
-                            
                             appF7.dialog.alert(
                                 'Ok, e-post endret til ' + email,
                                 'Endre e-post');
@@ -409,7 +414,7 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
 
 //Overlay som sier ifra at bruker er registrert 
 var toatsUserRegister = appF7.toast.create({
-    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' :'<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
     position: 'center',
     closeTimeout: 2000,

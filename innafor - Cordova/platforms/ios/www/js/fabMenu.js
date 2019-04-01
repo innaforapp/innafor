@@ -34,4 +34,3 @@ function closeFab() {
     myFab.classList.remove('fab-opened');
 }
 
-// onclick="document.getElementById('myFab').classList.toggle('fab-opened')"

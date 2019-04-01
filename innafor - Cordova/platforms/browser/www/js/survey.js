@@ -147,3 +147,16 @@ function init(){
          console.log("ånei");
      }); 
  }
+
+
+
+ function createSurvay(){
+console.log("createSurvay")
+
+
+ }
+
+
+
+
+ 
