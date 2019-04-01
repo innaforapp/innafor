@@ -231,13 +231,8 @@ function getCurrentIndex(target) {
 }
 
 
-<<<<<<< HEAD
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
-=======
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
->>>>>>> e8c9719437ed73756f28f8312604a4d58bffa3f1
 
 function sendData(data, endpoint) {
 
