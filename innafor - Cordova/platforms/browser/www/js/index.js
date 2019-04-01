@@ -230,8 +230,13 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
+<<<<<<< HEAD
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
+=======
 //let url = "https://innaforapp.no" //web server
 let url = "http://localhost:3000" //lokal server
+>>>>>>> 015f437ac47b5104770c47123f732254a33103de
 
 function sendData(data, endpoint) {
         
