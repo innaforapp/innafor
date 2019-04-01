@@ -130,7 +130,7 @@ let appF7 = new Framework7({
                     path: '/',
                     id: 'mainPageLeader',
                     url: 'pages/Leader/mainPageLeader.html'
-            },
+                 },
                 {
                     path: 'registerMember/',
                     id: 'registerMember',
@@ -141,10 +141,15 @@ let appF7 = new Framework7({
                     id: 'resultsLeader',
                     url: 'pages/Leader/resultsLeader.html'
             },
-                {
-                    path: '/more/',
-                    id: 'more',
-                    url: 'pages/more/more.html'
+            {
+                path: '/feed',
+                id: 'leaderFeed',
+                url: 'pages/Leader/feed.html'
+             },
+            {
+                path: '/more/',
+                id: 'more',
+                url: 'pages/more/more.html'
             },
           ],
         },
@@ -177,6 +182,11 @@ let appF7 = new Framework7({
             name: 'si-ifra-survay',
             path: '/si-ifra-survay/',
             url: 'pages/Members/si-ifra-survay.html'
+        },
+        {
+            name: 'create-survay',
+            path: '/create-survay/',
+            url: 'pages/Leader/create-survay.html'
         }
       ]
 });
@@ -220,6 +230,7 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
+
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
 
@@ -230,6 +241,7 @@ function sendData(data, endpoint) {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -300,22 +312,26 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         res = await res.json();
         appF7.dialog.alert(res.feedback);
     };
-
 };
 
 var $$ = Dom7;
 
-// si i fra survay
+// si i fra survay - frontpage
 $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
     let test = getId("si-ifra-cont");
     console.log(test);
 });
 
+//MEMBER page event Si ifra
 //Når en side åpnes så kjører denne. I dette tilfelle about siden
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
 
+//feed-leader
+$$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
+    feedPage();
+});
 
 //Kjøres hver gang man skifter side/tab
 $$(document).on('page:afterin', function (e) {
@@ -359,14 +375,19 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
 });
 
-$$(document).on('swipeout:deleted', function (e) {
-    let targetId = e.target.Id
+  $$(document).on('swipeout:deleted', function (e) {
+    let targetId = e.target.id
     let id = getCurrentIndex(targetId);
 
     if (targetId.includes("delQuestionId")) {
         deleteQuestion(id);
     }
-});
+    else if("delCategoryId"){
+        let categoryName = e.target.getElementsByTagName("DIV")[2].innerText;
+        deleteCategory(id, categoryName);
+    }
+  });
+
 
 
 //Kjøres når siden bli kontaktet åpnes
@@ -391,11 +412,9 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
         });
 });
 
-
-
 //Overlay som sier ifra at bruker er registrert 
 var toatsUserRegister = appF7.toast.create({
-    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' :'<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
     position: 'center',
     closeTimeout: 2000,
