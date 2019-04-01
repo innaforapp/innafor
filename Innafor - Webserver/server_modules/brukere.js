@@ -190,18 +190,21 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 
 });
 
+
 router.post("/update/", authorize, async function (req, res) {
 
-    let type = req.body.type;
-    let newData = req.body.data;
+    let column = req.body.column;
+    let newValue = req.body.value;
     
     let email = req.token.email;
-
-    let findUserQuery = prpSql.findUser;
-    findUserQuery.values[email];
+    console.log(email);
     
+    getUser(email);
+    
+    /*
     let updateUserQuery = prpSql.updateUser;
-
+    //updateUserQuery.values[email, column, value]; //legges et annet sted
+    
     try {
         let user = await db.any(findUserQuery);
         
@@ -226,12 +229,31 @@ router.post("/update/", authorize, async function (req, res) {
             mld: err
         }).end(); //something went wrong!
     }
+*/
 
 
 });
 
+async function getUser (email) {
+    let getUserQuery = prpSql.findUser;
+    getUserQuery.values[email];
+    
+    try {
+        let user = await db.any(getUserQuery);
+        
+        console.log(user);
+
+        res.status(200).json({
+        }).end();
 
 
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+}
 
 
 
