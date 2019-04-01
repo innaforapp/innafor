@@ -207,8 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login',
-            name: 'tabsMembers'
+            name: 'login'
         });
     },
 
@@ -266,8 +265,7 @@ function updateUser(data, datatype, endpoint) {
     return fetch(endpoint, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "token" : window.localStorage.getItem('token')
+            "Content-Type": "application/json; charset=utf-8"
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -386,28 +384,6 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
   });
 
 
-
-//Kjøres når siden bli kontaktet åpnes
-$$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
-    //Legger til onclick på "bli kontaktet"-knapp
-    $$('.open-confirm').on(
-        'click',
-        function () {
-            appF7.dialog.confirm(
-                'Jeg vil at trener skal kontakte meg for en prat.',
-                'Vennligst bekreft',
-                function () {
-                    appF7.dialog.alert(
-                        'Treneren din har fått beskjed.',
-                        'Melding sendt');
-                },
-                function () {
-                    appF7.dialog.alert(
-                        'Det går fint. Det er lov å ombestemme seg.',
-                        'Handling avbrutt');
-                });
-        });
-});
 
 //Kjøres når siden bli kontaktet åpnes
 $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
