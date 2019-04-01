@@ -6,6 +6,9 @@
                 <i class="material-icons">home</i>
                 <span class="tabbar-label">Hjem</span>
             </a>
+            
+            <a href="feed/" class="tab-link" data-route-tab-id="leaderFeed">Feed</a>
+
             <a href="registerMember/" class="tab-link" data-route-tab-id="registerMember">
                 <i class="material-icons">person_add</i>
                 <span class="tabbar-label">Ny bruker</span>
@@ -22,7 +25,9 @@
     </div>
     <!-- Additional "tabs-routable" is required on tabs -->
     <div class="tabs tabs-routable">
-        <div class="tab page-content" id="mainPageLeader"></div>
+        <div class="tab page-content" id="mainPageLeader" data-name="home"></div>
+        <div class="tab page-content" id="questions"></div>
+        <div class="tab page-content" id="leaderFeed"></div>
         <div class="tab page-content" id="registerMember"></div>
         <div class="tab page-content" id="resultsLeader"></div>
         <div class="tab page-content" id="more"></div>

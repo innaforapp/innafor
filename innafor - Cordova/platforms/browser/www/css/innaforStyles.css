@@ -119,6 +119,11 @@
     min-height: 100vh;
 }
 
+.max-width {
+    max-width: 700px;
+    margin: auto;
+}
+
 .inner-shaddow {
     -webkit-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
     -moz-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
