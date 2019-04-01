@@ -202,7 +202,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'login',
             name: 'tabsMembers'
         });
     },
@@ -235,8 +235,8 @@ function sendData(data, endpoint) {
     return fetch(endpoint, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "token" : window.localStorage.getItem('token')
+            "Content-Type": "application/json; charset=utf-8"
+           // "token" : window.localStorage.getItem('token')
         },
         body: JSON.stringify(data)
     }).then(data => {

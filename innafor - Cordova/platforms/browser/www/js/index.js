@@ -132,35 +132,25 @@ let appF7 = new Framework7({
                     url: 'pages/Leader/mainPageLeader.html'
                  },
                 {
-                    path: '/questions/',
-                    id: 'questions',
-                    content: `
-                <div class="block">
-                  <h3>Tab 2</h3>
-                  <p>...</p>
-                </div>
-              `
-                },
-                {
-                    path: '/feed',
-                    id: 'leaderFeed',
-                    url: 'pages/Leader/feed.html'
-                },
-                {
                     path: 'registerMember/',
                     id: 'registerMember',
                     url: 'pages/Leader/registerMember.html'
-                },
+            },
                 {
                     path: '/resultsLeader/',
                     id: 'resultsLeader',
                     url: 'pages/Leader/resultsLeader.html'
-                },
-                {
-                    path: '/more/',
-                    id: 'more',
-                    url: 'pages/more/more.html'
-                },
+            },
+            {
+                path: '/feed',
+                id: 'leaderFeed',
+                url: 'pages/Leader/feed.html'
+             },
+            {
+                path: '/more/',
+                id: 'more',
+                url: 'pages/more/more.html'
+            },
           ],
         },
         {
@@ -212,7 +202,8 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'login',
+            name: 'tabsMembers'
         });
     },
 
@@ -244,8 +235,8 @@ function sendData(data, endpoint) {
     return fetch(endpoint, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "token" : window.localStorage.getItem('token')
+            "Content-Type": "application/json; charset=utf-8"
+           // "token" : window.localStorage.getItem('token')
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -312,7 +303,6 @@ async function sendForm(formId, endpoint, feedbackMsg) {
         res = await res.json();
         appF7.dialog.alert(res.feedback);
     };
-
 };
 
 var $$ = Dom7;
@@ -324,6 +314,7 @@ $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
 });
 
 //MEMBER page event Si ifra
+//Når en side åpnes så kjører denne. I dette tilfelle about siden
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
@@ -336,12 +327,41 @@ $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
 //Kjøres hver gang man skifter side/tab
 $$(document).on('page:afterin', function (e) {
     onTabOpen();
+    welcome();
 });
 
 //MEMBER page event åpne iFrame
 $$(document).on('page:init', '.page[data-name="chat"]', function (e) {
     iframe();
 });
+
+//Kjøres når min side åpnes
+$$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
+    //Legg til current epost på liste
+    showCurrentEmail();
+
+    //Endre e-post
+    $$('.open-prompt').on(
+        'click',
+        function () {
+            appF7.dialog.prompt(
+                'Skriv inn ny e-postadresse',
+                'Endre e-post',
+                function (email) {
+                    appF7.dialog.confirm(
+                        'Ønsker du å endre e-postadresse til ' + email + '?',
+                        'Endre e-post',
+                        function () {
+                            updateUser(email, 'epost', `/app/brukere/update`);
+                            
+                            appF7.dialog.alert(
+                                'Ok, e-post endret til ' + email,
+                                'Endre e-post');
+                        });
+                });
+        });
+});
+
 
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
@@ -354,6 +374,28 @@ $$(document).on('swipeout:deleted', function (e) {
     if (targetId.includes("delQuestionId")) {
         deleteQuestion(id);
     }
+});
+
+//Kjøres når siden bli kontaktet åpnes
+$$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
+    //Legger til onclick på "bli kontaktet"-knapp
+    $$('.open-confirm').on(
+        'click',
+        function () {
+            appF7.dialog.confirm(
+                'Jeg vil at trener skal kontakte meg for en prat.',
+                'Vennligst bekreft',
+                function () {
+                    appF7.dialog.alert(
+                        'Treneren din har fått beskjed.',
+                        'Melding sendt');
+                },
+                function () {
+                    appF7.dialog.alert(
+                        'Det går fint. Det er lov å ombestemme seg.',
+                        'Handling avbrutt');
+                });
+        });
 });
 
 //Overlay som sier ifra at bruker er registrert 

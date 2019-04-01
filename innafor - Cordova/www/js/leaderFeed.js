@@ -3,6 +3,8 @@ function feedPage(){
     createCards();
 }
 
+var ajaxurl = "<?php echo $site_url; ?>";
+
 var posts = [
     {
         header: "Ola Nordmann",
@@ -23,6 +25,28 @@ var posts = [
         footer: "27.03.2017"
     }    
 ];
+let form = getId("postForm");
+
+jQuery(function () {
+    console.log("hei");//pasrt 5
+    
+    jQuery('#postForm').on('submit', function(){
+        /*var formData = jQuery(this).serialize();
+        console.log("formDatat" + formData);*/
+        jQuery.post(ajaxurl + "/api/get_nonce/?controller=posts&method=create_post", function(response){
+            console.log(response);
+            var nonce = response.nonce;
+            var frmdata = "nonce=" + nonce + "&" + jQuery("#postForm").serialize() + "&status=publish";
+
+            jQuery.post(ajaxurl + "/api/posts/create_post/", frmdata, function (response) {
+                alert("Post has been created");
+                /*setTimeout(function () {
+                    location.reload();
+                }, 1200);*/
+            });
+        });
+    });
+})
 
 function createCards(){
     console.log(posts);
