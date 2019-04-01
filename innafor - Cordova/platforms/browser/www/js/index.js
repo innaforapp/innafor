@@ -182,6 +182,11 @@ let appF7 = new Framework7({
             name: 'si-ifra-survay',
             path: '/si-ifra-survay/',
             url: 'pages/Members/si-ifra-survay.html'
+        },
+        {
+            name: 'create-survay',
+            path: '/create-survay/',
+            url: 'pages/Leader/create-survay.html'
         }
       ]
 });
@@ -235,8 +240,8 @@ function sendData(data, endpoint) {
     return fetch(endpoint, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json; charset=utf-8"
-           // "token" : window.localStorage.getItem('token')
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
         },
         body: JSON.stringify(data)
     }).then(data => {
@@ -367,13 +372,41 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
 });
 
-$$(document).on('swipeout:deleted', function (e) {
-    let targetId = e.target.Id
+  $$(document).on('swipeout:deleted', function (e) {
+    let targetId = e.target.id
     let id = getCurrentIndex(targetId);
 
     if (targetId.includes("delQuestionId")) {
         deleteQuestion(id);
     }
+    else if("delCategoryId"){
+        let categoryName = e.target.getElementsByTagName("DIV")[2].innerText;
+        deleteCategory(id, categoryName);
+    }
+  });
+
+
+
+//Kjøres når siden bli kontaktet åpnes
+$$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
+    //Legger til onclick på "bli kontaktet"-knapp
+    $$('.open-confirm').on(
+        'click',
+        function () {
+            appF7.dialog.confirm(
+                'Jeg vil at trener skal kontakte meg for en prat.',
+                'Vennligst bekreft',
+                function () {
+                    appF7.dialog.alert(
+                        'Treneren din har fått beskjed.',
+                        'Melding sendt');
+                },
+                function () {
+                    appF7.dialog.alert(
+                        'Det går fint. Det er lov å ombestemme seg.',
+                        'Handling avbrutt');
+                });
+        });
 });
 
 //Kjøres når siden bli kontaktet åpnes
