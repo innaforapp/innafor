@@ -12,7 +12,9 @@ prpSql.regUser = new PrpSt('regUser',`INSERT INTO "public"."brukere" ("brukerid"
 
 prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE epost = $1`);
 
-prpSql.updateUser = new PrpSt('updateUser', `UPDATE "public"."brukere" SET $2=$3 WHERE epost = $1`);
+prpSql.updateUserEmail = new PrpSt('updateUserEmail', `UPDATE "public"."brukere" SET epost = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
+
+prpSql.updateUserPassword = new PrpSt('updateUserPassword', `UPDATE "public"."brukere" SET hash = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere" WHERE epost=$1 OR navn=$2`);
 
