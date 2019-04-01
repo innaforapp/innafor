@@ -12,6 +12,8 @@ prpSql.regUser = new PrpSt('regUser',`INSERT INTO "public"."brukere" ("brukerid"
 
 prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE epost = $1`);
 
+prpSql.updateUser = new PrpSt('updateUser', `UPDATE "public"."brukere" SET $1=$2 WHERE epost = $3`);
+
 prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere" WHERE epost=$1 OR navn=$2`);
 
 

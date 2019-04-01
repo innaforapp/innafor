@@ -25,20 +25,17 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
-function mainPageSelector(role){
+function mainPageSelector(role) {
 
-  if(role === "admin"){
-    return "mainView.router.navigate({ name: 'tabsAdmin' })"
-  }
-  else if(role === "member"){
-    return "mainView.router.navigate({ name: 'tabsMembers' })"
-  }
-  else if(role === "org"){
-    return "mainView.router.navigate({ name: 'tabsOrg' })"
-  }
-  else if(role === "leader"){
-    return "mainView.router.navigate({ name: 'tabsLeader' })"
-  }
+    if (role === "admin") {
+        return "mainView.router.navigate({ name: 'tabsAdmin' })"
+    } else if (role === "member") {
+        return "mainView.router.navigate({ name: 'tabsMembers' })"
+    } else if (role === "org") {
+        return "mainView.router.navigate({ name: 'tabsOrg' })"
+    } else if (role === "leader") {
+        return "mainView.router.navigate({ name: 'tabsLeader' })"
+    }
 
 }
 
@@ -50,39 +47,42 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
     let findUser = prpSql.findUser;
     findUser.values = [data.email];
 
-try {
-  let userData = await db.any(findUser);
-  let email = "";
-  let hash = "";
+    try {
+        let userData = await db.any(findUser);
+        let email = "";
+        let hash = "";
 
-  if(userData.length !== 0){
-    email = userData[0].epost;
-    hash = userData[0].hash;
-  }
+        if (userData.length !== 0) {
+            email = userData[0].epost;
+            hash = userData[0].hash;
+        }
 
-  let validateUser = (email) ? true:false;
-  let validateHash = await bcrypt.compare(data.password, hash);
-  let mainView = mainPageSelector(userData[0].rolle);
+        let validateUser = (email) ? true : false;
+        let validateHash = await bcrypt.compare(data.password, hash);
+        let mainView = mainPageSelector(userData[0].rolle);
 
 
-  if (validateUser && validateHash){
-    let payload = {
-      userID: userData[0].brukerid,
-      role: userData[0].rolle,
-      group: userData[0].gruppe,
-    };
-    let tok = jwt.sign(payload, secret, {
-      expiresIn: "12h"
-    });
-    res.status(200).json({
-    token: tok,
-    event: mainView
-  }).end();
-  }else{
-    res.status(400).json({
-      feedback: "Feil brukernavn eller passord"
-  }).end();
-  }
+        if (validateUser && validateHash) {
+            let payload = {
+                userID: userData[0].brukerid,
+                role: userData[0].rolle,
+                group: userData[0].gruppe,
+                email: userData[0].epost,
+            };
+            let tok = jwt.sign(payload, secret, {
+                expiresIn: "12h"
+            });
+            res.status(200).json({
+                token: tok,
+                firstname: userData[0].navn,
+                email: userData[0].epost,
+                event: mainView
+            }).end();
+        } else {
+            res.status(400).json({
+                feedback: "Feil brukernavn eller passord"
+            }).end();
+        }
 
 
     } catch (err) {
@@ -95,39 +95,35 @@ try {
 });
 
 
-function roleAssigner(role){
+function roleAssigner(role) {
 
-  if(role == "admin"){
-    return "org";
-  }
-  else if(role == "org"){
-    return "leader";
-  }
-  else if(role == "leader"){
-    return "member";
-  }
+    if (role == "admin") {
+        return "org";
+    } else if (role == "org") {
+        return "leader";
+    } else if (role == "leader") {
+        return "member";
+    }
 
 };
 
-function groupAssigner(data, token){
+function groupAssigner(data, token) {
 
-  if(token.role == "admin"){
-    return `{${data.type}-${data.name}}`;
-  }
-  else if(token.role == "org"){
-    return `{${token.group}-${data.gender}-${data.yearmodel}}`;
-    
-  }
-  else if(token.role == "leader"){
-    return token.group;
-  }
+    if (token.role == "admin") {
+        return `{${data.type}-${data.name}}`;
+    } else if (token.role == "org") {
+        return `{${token.group}-${data.gender}-${data.yearmodel}}`;
+
+    } else if (token.role == "leader") {
+        return token.group;
+    }
 
 };
 
 
 
 //TODO En trener og medlem kan ha flere grupper
-router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existingUsers, async function (req, res) {
+router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existingUsers, async function (req, res) {
 
     let randomstring = "123";
     //let randomstring = Math.random().toString(36).slice(-8);
@@ -179,9 +175,9 @@ router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existing
         //=======================
         */
 
-       res.status(200).json({
-        event: `toatsUserRegister.open();`
-      }).end();
+        res.status(200).json({
+            event: `toatsUserRegister.open();`
+        }).end();
 
 
     } catch (err) {
@@ -193,6 +189,47 @@ router.post("/registrer/",authorize, nameToLowerCase, emailToLowerCase, existing
 
 
 });
+
+router.post("/update/", authorize, async function (req, res) {
+
+    let type = req.body.type;
+    let newData = req.body.data;
+    
+    let email = req.token.email;
+
+    let findUserQuery = prpSql.findUser;
+    findUserQuery.values[email];
+    
+    let updateUserQuery = prpSql.updateUser;
+
+    try {
+        let user = await db.any(findUserQuery);
+        
+        console.log(user);
+        
+        if (type == 'epost') {
+            user.epost = newData;
+        }
+        
+        console.log(user);
+        
+        ///TODO: Sende inn oppdatert bruker
+        
+
+        res.status(200).json({
+        }).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
+
+});
+
 
 
 
