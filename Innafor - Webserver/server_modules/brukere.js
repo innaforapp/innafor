@@ -189,12 +189,12 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 });
 
 
-router.post("/update/email", authorize, async function (req, res) {
+router.post("/update/email", authorize,  async function (req, res) {
 
     // VARIABLES
     let column = req.body.column;
     let newValue = req.body.value;
-    let email = req.token.email;
+    let email = req.token.email.toLowerCase();
 
     // GET USER
     let getUserQuery = prpSql.findUser;
