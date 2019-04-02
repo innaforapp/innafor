@@ -428,7 +428,8 @@ $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
 });
 
 //MEMBER page event åpne iFrame
-$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
+$$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
+    console.log('kjører script for page CHAT');
     iframe();
 });
 
