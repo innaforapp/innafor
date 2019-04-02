@@ -5,6 +5,7 @@ const router = express.Router();
 
 const authorize = require("./auth.js").authenticateUser;
 const authorizeAdmin = require("./auth.js").authenticateAdmin;
+const authorizeLeader = require("./auth.js").authenticateLeader;
 
 
 const db = require('./dbconnect').db;
@@ -116,6 +117,43 @@ router.get("/getQuestions",authorize, async function(req,res){
 });
 
 
+
+router.get("/getQuestionSets",authorizeLeader, async function(req,res){
+
+    let type="";
+    if(req.token.group.indexOf("Idrett")){
+    type = "Idrett"
+    }
+    else if(req.token.group.indexOf("Skole")){
+        type = "Skole"
+    }
+
+    let getQuestionSet = prpSql.getQuestionSet;
+    getQuestionSet.values=[type]
+
+try {   
+    let result = await db.any(getQuestionSet);
+
+    res.status(200).json({
+        questionSet: result
+      }).end();
+
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+
+
+
+
+
 router.post("/deleteQuestion",authorizeAdmin, async function(req,res){
     let data = req.body;
 
@@ -137,6 +175,36 @@ try {
          mld: err
      }).end(); //something went wrong!
  }
+});
+
+
+router.post("/deleteCategory",authorizeAdmin, async function(req,res){
+    let data = req.body;
+
+    let deleteCategory = prpSql.deleteCategory;
+    deleteCategory.values=[data.id];
+
+    let deleteQuestions = prpSql.deleteQuestions;
+    deleteQuestions.values=[data.category];
+
+try {   
+    await db.any(deleteCategory);
+    await db.any(deleteQuestions);
+
+    res.status(200).json({
+        event: `
+        listOutQuestions();
+        `
+      }).end();
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
 });
 
 
@@ -196,34 +264,7 @@ try {
 
 
 
-router.post("/deleteCategory",authorizeAdmin, async function(req,res){
-    let data = req.body;
 
-    let deleteCategory = prpSql.deleteCategory;
-    deleteCategory.values=[data.id];
-
-    let deleteQuestions = prpSql.deleteQuestions;
-    deleteQuestions.values=[data.category];
-
-try {   
-    await db.any(deleteCategory);
-    await db.any(deleteQuestions);
-
-    res.status(200).json({
-        event: `
-        listOutQuestions();
-        `
-      }).end();
-
- } catch (err) {
-     console.log(err);
-     res.status(500).json({
-         mld: err
-     }).end(); //something went wrong!
- }
-
-
-});
 
 
 
