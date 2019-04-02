@@ -47,10 +47,10 @@ async function listOutQuestions() {
         div.appendChild(title);
 
         for (i = 0; i < ageGroups.length; i++) {
-            let ageGroupTitle2 = document.createElement('div');
-            ageGroupTitle2.innerHTML = ageGroups[i];
-            ageGroupTitle2.className = "block-title";
-            div.appendChild(ageGroupTitle2);
+            let ageGroupTitle = document.createElement('div');
+            ageGroupTitle.innerHTML = ageGroups[i];
+            ageGroupTitle.className = "block-title";
+            div.appendChild(ageGroupTitle);
             let listWrapper = document.createElement('div');
             listWrapper.className = "list inset";
             div.appendChild(listWrapper);

@@ -1,14 +1,15 @@
 <div class="page">
     <div class="page-content">
 
-        <div class='safe-area-div-top'></div>
-
-        <div class="container imageBg2">
+        <div class="container imageBg inner-shaddow">
             <div class='safe-area-div-top'></div>
-            <img class='logo-xsmall' src="./img/logo_hvit.png">
+
+            <div class='text-container'>
+                <h1>Spørsmålsbank</h1>
+            </div>
         </div>
 
-        <div class='text-container full-page lightBg'>
+        <div class='container full-page lightBg'>
 
 
             <!-- LEGG TIL NYTT TEMA -->
@@ -32,7 +33,7 @@
             <div class="block">
                 <div class="row">
                     <button class="col button button-raised button-fill" onclick="sendForm('addCategory', `/app/survey/addCatagory`)">Legg til</button>
-                    <button class="col button button-raised button-outline popup-open" href="#" data-popup=".popup-about">Rediger</button>
+                    <button class="col button button-raised button-fill color-gray popup-open" href="#" data-popup=".popup-about">Rediger</button>
                 </div>
             </div>
 
@@ -53,7 +54,7 @@
             <!-- LEGG TIL NYTT SPØRSMÅL -->
 
 
-            <h1>Spørsmålsbank</h1>
+            <h1>Legg til nytt spørsmål</h1>
 
             <form id="addQuestion" class="list inset">
                 <ul>

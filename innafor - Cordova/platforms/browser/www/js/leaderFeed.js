@@ -1,5 +1,5 @@
 async function feedPage(){
-    getId("btnSendPost").onclick = postToWp();
+   // getId("btnSendPost").onclick = postToWp();
     let data = await loadData();
     createCards(data);
     
@@ -66,16 +66,6 @@ async function postToWp(){
     });    
 }
 
-/*
-        jQuery.post(ajaxurl + "/api/get_nonce/?controller=posts&method=create_post", function (response) {
-            //debugger;
-            var nonce = response.nonce;
-            var frmdata = "nonce=" + nonce + "&" + jQuery("#frmCreateNewWpPost").serialize() + "&status=publish";
-
-            jQuery.post(ajaxurl + "/api/posts/create_post/", frmdata, function (response) {
-
-*/
-
 function createCards(data){
     console.log(data.posts);
     for(let i=0; i < data.posts.length; i++){
@@ -96,13 +86,12 @@ function createCards(data){
         footer.classList.add("card-footer");
         card.appendChild(footer);
 
-        header.innerHTML = `<p>${data.posts[i].title}</p>`
-        cardCont.innerHTML = `<p>${data.posts[i].content}</p> `
-        footer.innerHTML = `<p>${posts[i].footer}</p>`
+        header.innerHTML = `<p>${author}</p>`
+        cardCont.innerHTML = `<h3>${data.posts[i].title}</h3><p>${data.posts[i].content}</p> `//<img  src=${posts[i].img} height="200" >
+        footer.innerHTML = `<p>${data.posts[i].date}</p>`
         card.id = `post${i}`;
         console.log("lager cards"); 
     }
 }
-//<img  src=${posts[i].img} height="200" >
 
 

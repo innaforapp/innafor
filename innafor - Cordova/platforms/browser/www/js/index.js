@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsAdmin'
+            name: 'tabsOrg'
         });
     },
 
