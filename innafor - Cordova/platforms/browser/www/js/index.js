@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsLeader'
+            name: 'tabsAdmin'
         });
     },
 
@@ -231,8 +231,8 @@ function getCurrentIndex(target) {
 }
 
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -297,7 +297,7 @@ async function updateUser(value, column, endpoint) {
 
 
     });
-};
+}
 
 async function updatePassword(password, endpoint) {
 
@@ -361,8 +361,7 @@ async function checkPassword(password, endpoint) {
 
 
     });
-
-}
+};
 
 //=====================================
 
