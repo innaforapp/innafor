@@ -1,5 +1,5 @@
-
 async function feedPage(){
+    getId("btnSendPost").onclick = postToWp();
     let data = await loadData();
     createCards(data);
     
@@ -25,7 +25,7 @@ var postsTemp = [
         footer: "27.03.2017"
     }    
 ];
-
+let author = localStorage.getItem("firstname");
 
 async function loadData() {
     let url = "https://feed.innaforapp.no/api/get_posts/";
@@ -41,6 +41,40 @@ async function loadData() {
 }
 
 let form = getId("postForm");
+
+async function postToWp(){
+    console.log("sendt");
+    var fdata = new FormData();
+        fdata.append("title", getId("postTitle").value);
+        fdata.append("image", getId("inpImg").files[0]);
+        fdata.append("postCont", getId("postTxt").value);
+
+    var cfg = { //fetchSettings
+        method: "POST",
+        body: fdata
+    }
+
+    let url = "https://feed.innaforapp.no";   
+    await fetch(url+"/api/get_nonce/?controller=posts&method=create_post", function (response){
+        var nonce = response.nonce;
+        var frmdata = "nonce=" + nonce + "&" + getId("postFormt").serialize() + "&status=publish";
+
+        await fetch(url + "/api/posts/create_post/", frmdata, function (response) {
+            let newPost = await response.json();
+            console.log(newPost); 
+        });
+    });    
+}
+
+/*
+        jQuery.post(ajaxurl + "/api/get_nonce/?controller=posts&method=create_post", function (response) {
+            //debugger;
+            var nonce = response.nonce;
+            var frmdata = "nonce=" + nonce + "&" + jQuery("#frmCreateNewWpPost").serialize() + "&status=publish";
+
+            jQuery.post(ajaxurl + "/api/posts/create_post/", frmdata, function (response) {
+
+*/
 
 function createCards(data){
     console.log(data.posts);
@@ -62,11 +96,12 @@ function createCards(data){
         footer.classList.add("card-footer");
         card.appendChild(footer);
 
-        header.innerHTML = `<p>${data.posts[i]}</p>`
-        /*scardCont.innerHTML = `<p>${posts[i].post}</p> <img  src=${posts[i].img} height="200" >`
-        footer.innerHTML = `<p>${posts[i].footer}</p>`*/
+        header.innerHTML = `<p>${author}</p>`
+        cardCont.innerHTML = `<h3>${data.posts[i].title}</h3><p>${data.posts[i].content}</p> `//<img  src=${posts[i].img} height="200" >
+        footer.innerHTML = `<p>${data.posts[i].date}</p>`
         card.id = `post${i}`;
         console.log("lager cards"); 
     }
 }
+
 
