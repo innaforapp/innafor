@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsMembers'
         });
     },
 
@@ -247,9 +247,10 @@ function sendData(data, endpoint) {
     }).then(data => {
         return data;
     });
-}
+};
 
 function getData(endpoint) {
+    console.log(url+endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -257,7 +258,7 @@ function getData(endpoint) {
             "x-access-auth": localStorage.getItem("token")
         }
     });
-}
+};
 
 async function updateUser(value, column, endpoint) {
 
@@ -360,8 +361,7 @@ async function checkPassword(password, endpoint) {
 
 
     });
-
-}
+};
 
 //=====================================
 
@@ -408,9 +408,11 @@ $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
 
 //MEMBER page event Si ifra
 //Når en side åpnes så kjører denne. I dette tilfelle about siden
+/*
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
+*/
 
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
@@ -428,7 +430,8 @@ $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
 });
 
 //MEMBER page event åpne iFrame
-$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
+$$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
+    console.log('kjører script for page CHAT');
     iframe();
 });
 
@@ -467,7 +470,7 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-
+//Admin
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
 });
@@ -484,6 +487,10 @@ $$(document).on('swipeout:deleted', function (e) {
     }
 });
 
+  //Leader
+  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
+    createSurvay();
+});
 
 
 //Kjøres når siden bli kontaktet åpnes
