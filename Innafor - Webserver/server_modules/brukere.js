@@ -179,7 +179,6 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
             event: `toatsUserRegister.open();`
         }).end();
 
-
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -187,73 +186,128 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
         }).end(); //something went wrong!
     }
 
-
 });
 
 
-router.post("/update/", authorize, async function (req, res) {
+router.post("/update/email", authorize,  async function (req, res) {
 
+    // VARIABLES
     let column = req.body.column;
     let newValue = req.body.value;
-    
-    let email = req.token.email;
-    console.log(email);
-    
-    getUser(email);
-    
-    /*
-    let updateUserQuery = prpSql.updateUser;
-    //updateUserQuery.values[email, column, value]; //legges et annet sted
-    
+    let email = req.token.email.toLowerCase();
+
+    // GET USER
+    let getUserQuery = prpSql.findUser;
+    getUserQuery.values = [email];
+
     try {
-        let user = await db.any(findUserQuery);
+        let user = await db.any(getUserQuery);
+
+        // UPDATE USER
+        let updateUserQuery = prpSql.updateUserEmail;
+        updateUserQuery.values = [email, newValue];
+        let updatedUser = await db.any(updateUserQuery);
+
+        let payload = {
+            userID: updatedUser[0].brukerid,
+            role: updatedUser[0].rolle,
+            group: updatedUser[0].gruppe,
+            email: updatedUser[0].epost,
+        };
         
-        console.log(user);
-        
-        if (type == 'epost') {
-            user.epost = newData;
-        }
-        
-        console.log(user);
-        
-        ///TODO: Sende inn oppdatert bruker
-        
+        console.log(payload);
+        let tok = jwt.sign(payload, secret, {
+            expiresIn: "12h"
+        });
 
         res.status(200).json({
+            msg: 'Ok, e-post endret til ' + newValue,
+            email: updatedUser[0].epost,
+            token: tok,
+            firstname: updatedUser[0].navn,
+            email: updatedUser[0].epost,
         }).end();
 
 
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            mld: err
+            msg: err
         }).end(); //something went wrong!
     }
-*/
-
 
 });
 
-async function getUser (email) {
+router.post("/checkPassword", authorize, async function (req, res) {
+
+    let data = req.body;
+
+    let findUser = prpSql.findUser;
+    findUser.values = [data.email];
+
+    try {
+        let userData = await db.any(findUser);
+        let email = "";
+        let hash = "";
+
+        if (userData.length !== 0) {
+            email = userData[0].epost;
+            hash = userData[0].hash;
+        }
+
+        let validateHash = await bcrypt.compare(data.password, hash);
+
+        if (validateHash) {
+            res.status(200).json({}).end();
+
+        } else {
+            res.status(400).json({
+                msg: "Feil passord"
+            }).end();
+        }
+
+
+    } catch (err) {
+        res.status(500).json({
+            error: err
+        }); //something went wrong!
+    }
+
+});
+
+router.post("/update/password", authorize, async function (req, res) {
+
+    // VARIABLES
+    let newPassword = req.body.password;
+    let email = req.token.email;
+
+    // GET USER
     let getUserQuery = prpSql.findUser;
-    getUserQuery.values[email];
-    
+    getUserQuery.values = [email];
+
     try {
         let user = await db.any(getUserQuery);
-        
-        console.log(user);
+
+        // ENCRYPT PASSWORD
+        let hash = bcrypt.hashSync(newPassword, 10);
+
+        // UPDATE USER
+        let updateUserQuery = prpSql.updateUserPassword;
+        updateUserQuery.values = [email, hash];
+        let updatedUser = await db.any(updateUserQuery);
 
         res.status(200).json({
+            msg: 'Ok, passord endret.'
         }).end();
-
 
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            mld: err
+            msg: err
         }).end(); //something went wrong!
     }
-}
+
+});
 
 
 

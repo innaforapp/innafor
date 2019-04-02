@@ -96,12 +96,13 @@ function createCards(data){
         footer.classList.add("card-footer");
         card.appendChild(footer);
 
-        header.innerHTML = `<p>${author}</p>`
-        cardCont.innerHTML = `<h3>${data.posts[i].title}</h3><p>${data.posts[i].content}</p> `//<img  src=${posts[i].img} height="200" >
-        footer.innerHTML = `<p>${data.posts[i].date}</p>`
+        header.innerHTML = `<p>${data.posts[i].title}</p>`
+        cardCont.innerHTML = `<p>${data.posts[i].content}</p> `
+        footer.innerHTML = `<p>${posts[i].footer}</p>`
         card.id = `post${i}`;
         console.log("lager cards"); 
     }
 }
+//<img  src=${posts[i].img} height="200" >
 
 
