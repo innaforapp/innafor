@@ -21,8 +21,6 @@ function authenticateUser (req,res,next) {
     }
 }
 
-
-// AUTHENTICATE USER ------------------
 function authenticateAdmin (req,res,next) {
    
   let token = req.headers['x-access-auth'] || req.body.token; 
@@ -44,7 +42,28 @@ function authenticateAdmin (req,res,next) {
 }
 
 
+function authenticateLeader (req,res,next) {
+   
+  let token = req.headers['x-access-auth'] || req.body.token; 
+  try {
+      let decodedToken = jwt.verify(token, secret); // Is the token valid?
+      req.token = decodedToken; // we make the token available for later functions via the request object.
+      
+      if(req.token.role == "leader"){
+        next(); // The token was valid so we continue 
+      }
+      else{
+        res.status(401).end(); // The token could not be validated so we tell the user to log in again.
+      }
+      
+  } catch (err) {
+      res.status(401).end(); // The token could not be validated so we tell the user to log in again.
+  }
+}
+
+
 // EXPORTS ----------------------------
 module.exports.authenticateUser = authenticateUser;
 module.exports.authenticateAdmin = authenticateAdmin;
+module.exports.authenticateLeader = authenticateLeader;
 

@@ -71,7 +71,7 @@ async function listOutQuestions(){
           <li class="swipeout" id="delQuestionId${questions[k].id}">
           <div class="item-content swipeout-content">
           <div class="item-inner">
-            <div class="item-title">${questions[k].question} (${questions[k].weight})</div>
+            <div class="item-title">${questions[k].question} (${questions[k].weight}%)</div>
           </div>
         </div>
         <div class="swipeout-actions-right">

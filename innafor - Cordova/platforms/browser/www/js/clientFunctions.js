@@ -7,9 +7,11 @@ function logOut() {
 
 function welcome() {
     let name = window.localStorage.getItem('firstname');
-    let textbox = document.querySelector('#welcomeText');
 
-    textbox.innerHTML = `Velkommen, ${name}!`;
+    if(document.querySelector('#welcomeText')){
+        let textbox = document.querySelector('#welcomeText');
+        textbox.innerHTML = `Velkommen, ${name}!`;
+    }
 }
 
 function showCurrentEmail() {

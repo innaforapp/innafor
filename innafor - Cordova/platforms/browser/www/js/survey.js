@@ -1,5 +1,5 @@
 
-function init(){
+/*function init(){
     // createSurvay();  
  }
  
@@ -46,7 +46,7 @@ function init(){
          survayCont.appendChild(questionSet1);
      }
  
-    /*//Motivasjonsklima------------------------------------
+    //Motivasjonsklima------------------------------------
      let sortTags2 =  survayQA.filter(function(cat) {
          return cat.tag == "Motivasjonsklima";
      });
@@ -76,8 +76,9 @@ function init(){
          questionSet3.innerHTML += buttons;
          questionSet3.id = `questionsSet${i}`;
          survayCont.appendChild(questionSet3);       
-     }*/
+     }
  }
+ 
  
  function createButtons(){
      let buttonRow = "";
@@ -147,3 +148,26 @@ function init(){
          console.log("ånei");
      }); 
  }
+*/
+
+
+
+async function createSurvay(){
+    console.log("createSurvay");
+
+    let get = await getData(`/app/survey/getQuestionSets`);
+    get = await get.json();
+
+
+
+    let qSets = {}
+
+
+
+
+ };
+
+
+
+
+ 

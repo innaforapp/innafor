@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'tabsLeader'
         });
     },
 
@@ -230,13 +230,9 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
-<<<<<<< HEAD
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
-=======
-//let url = "https://innaforapp.no" //web server
-let url = "http://localhost:3000" //lokal server
->>>>>>> 015f437ac47b5104770c47123f732254a33103de
+
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
         
@@ -251,9 +247,10 @@ function sendData(data, endpoint) {
     }).then(data => {
         return data;
     });
-}
+};
 
 function getData(endpoint) {
+    console.log(url+endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -261,7 +258,7 @@ function getData(endpoint) {
             "x-access-auth": localStorage.getItem("token")
         }
     });
-}
+};
 
 function updateUser(data, datatype, endpoint) {
         
@@ -277,7 +274,7 @@ function updateUser(data, datatype, endpoint) {
     }).then(data => {
         return data;
     });
-}
+};
 
 //=====================================
 
@@ -324,9 +321,11 @@ $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
 
 //MEMBER page event Si ifra
 //Når en side åpnes så kjører denne. I dette tilfelle about siden
+/*
 $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
+*/
 
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
@@ -371,7 +370,7 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-
+//Admin
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
 });
@@ -389,6 +388,10 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     }
   });
 
+  //Leader
+  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
+    createSurvay();
+});
 
 
 //Kjøres når siden bli kontaktet åpnes

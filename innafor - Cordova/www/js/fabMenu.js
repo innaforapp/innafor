@@ -1,8 +1,10 @@
 function onTabOpen() {
 
+if(document.getElementById('myFab')){
+
     let myFab = document.getElementById('myFab');
     myFab.onclick = closeFab;
-    
+
     let tab2 = document.getElementById('tab-2-btn');
     tab2.onclick = openFab;
     
@@ -14,6 +16,7 @@ function onTabOpen() {
     
     let overlay = document.querySelector('.overlay');
     overlay.onclick = closeFab;
+}
 }
 
 function openFab() {
