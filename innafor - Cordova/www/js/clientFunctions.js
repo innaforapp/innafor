@@ -14,11 +14,13 @@ function welcome() {
     }
 }
 
-function showCurrentEmail() {
+function showCurrentEmail(newEmail) {
+    if (newEmail){
+        window.localStorage.setItem('email', newEmail);
+    }
+    
     let email = window.localStorage.getItem('email');
     let mailTextBox = document.querySelector('#currentEmail');
-
-    console.log(email);
-    console.log(mailTextBox);
+    
     mailTextBox.innerHTML = email;
 }

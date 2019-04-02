@@ -33,6 +33,7 @@
     background-size: cover;
     background-color: #222222;
     background-image: url('../img/soccerfield_bokeh_s.jpg');
+    color: #ffffff;
 }
 
 .imageBg2 {
@@ -40,6 +41,19 @@
     background-position: center;
     background-color: #222222;
     background-image: url('../img/soccer_friendship_s.jpg');
+    color: #222222;
+
+}
+
+.placeholder-kristian {
+    background-size: cover;
+    background-position: center;
+    background-color: #222222;
+    background-image: url('../img/placeholder.jpg');
+    color: #ffffff;
+    width: 100vw;
+    min-height: 100vh;
+    overflow: auto;
 }
 
 /* ----------------
@@ -102,7 +116,18 @@
 
 .full-page {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.max-width {
+    max-width: 700px;
+    margin: auto;
+}
+
+.inner-shaddow {
+    -webkit-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
+    -moz-box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
+    box-shadow: inset 0px -14px 13px -12px rgba(0, 0, 0, 0.64);
 }
 
 /* ----------------
@@ -160,12 +185,17 @@
 .navbar-spacer {
     display: block;
     height: 40px;
-    background-color: aqua
+}
+
+.safe-area-div-top {
+    padding-top: env(safe-area-inset-bottom);
 }
 
 /* ----------------
------ NAVBAR ------
+----- TABBAR ------
 ---------------- */
-.safe-area-div-top {
-    padding-top: env(safe-area-inset-bottom);
+
+.tabbar-spacer {
+    display: block;
+    height: 100px;
 }

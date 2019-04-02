@@ -141,15 +141,15 @@ let appF7 = new Framework7({
                     id: 'resultsLeader',
                     url: 'pages/Leader/resultsLeader.html'
             },
-            {
-                path: '/feed',
-                id: 'leaderFeed',
-                url: 'pages/Leader/feed.html'
+                {
+                    path: '/feed',
+                    id: 'leaderFeed',
+                    url: 'pages/Leader/feed.html'
              },
-            {
-                path: '/more/',
-                id: 'more',
-                url: 'pages/more/more.html'
+                {
+                    path: '/more/',
+                    id: 'more',
+                    url: 'pages/more/more.html'
             },
           ],
         },
@@ -235,9 +235,9 @@ function getCurrentIndex(target) {
 let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
-        
+
     console.log(data, endpoint);
-    return fetch(endpoint, {
+    return fetch(url + endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -260,21 +260,109 @@ function getData(endpoint) {
     });
 };
 
-function updateUser(data, datatype, endpoint) {
-        
-    let dataToSend = {'type': datatype, 'data': data}
-    
-    return fetch(endpoint, {
+async function updateUser(value, column, endpoint) {
+
+    let data = {
+        'column': column,
+        'value': value
+    }
+    console.log(data, endpoint);
+
+    return fetch(url + endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            "token" : window.localStorage.getItem('token')
+            "x-access-auth": localStorage.getItem("token")
         },
         body: JSON.stringify(data)
-    }).then(data => {
-        return data;
+    }).then(async function (data) {
+
+        if (data.status === 200) {
+            res = await data.json();
+            
+            if (res.token) {
+                localStorage.setItem("token", res.token);
+                localStorage.setItem("firstname", res.firstname);
+                localStorage.setItem("email", res.email);
+            };
+
+            showCurrentEmail(res.email);
+
+            appF7.dialog.alert(res.msg, 'Endre e-post');
+
+        } else {
+            res = await res.json();
+            appF7.dialog.alert(res.msg, 'Noe gikk galt');
+        };
+
+
     });
 };
+
+async function updatePassword(password, endpoint) {
+
+    let data = {
+        'password': password,
+    }
+    console.log(data, endpoint);
+
+    return fetch(url + endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
+        },
+        body: JSON.stringify(data)
+    }).then(async function (data) {
+
+        if (data.status === 200) {
+            res = await data.json();
+
+            appF7.dialog.alert(res.msg, 'Endre passord');
+
+        } else {
+            res = await res.json();
+            appF7.dialog.alert(res.msg, 'Noe gikk galt');
+        };
+
+
+    });
+}
+
+async function checkPassword(password, endpoint) {
+    let data = {
+        'password': password,
+        'email': window.localStorage.getItem('email')
+    }
+    console.log(data, endpoint);
+
+    return fetch(url + endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-access-auth": localStorage.getItem("token")
+        },
+        body: JSON.stringify(data)
+    }).then(async function (data) {
+
+        if (data.status === 200) {
+            res = await data.json();
+
+            appF7.dialog.password('Skriv nytt passord',
+                'Endre passord',
+                function (password) {
+                    updatePassword(password, `/app/brukere/update/password`);
+                });
+
+        } else {
+            res = await data.json();
+            appF7.dialog.alert(res.msg, 'Noe gikk galt');
+        };
+
+
+    });
+
+}
 
 //=====================================
 
@@ -290,7 +378,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
     for (i = 0; i < form.length; i++) {
         data[form.elements[i].name] = form.elements[i].value;
     };
-    let res = await sendData(data, url + endpoint);
+    let res = await sendData(data, endpoint);
 
     if (res.status === 200) {
         res = await res.json();
@@ -335,6 +423,10 @@ $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
 //Kjøres hver gang man skifter side/tab
 $$(document).on('page:afterin', function (e) {
     onTabOpen();
+});
+
+//Kjøres når hjem-side åpnes
+$$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
     welcome();
 });
 
@@ -360,12 +452,20 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
                         'Ønsker du å endre e-postadresse til ' + email + '?',
                         'Endre e-post',
                         function () {
-                            updateUser(email, 'epost', `/app/brukere/update`);
-                            
-                            appF7.dialog.alert(
-                                'Ok, e-post endret til ' + email,
-                                'Endre e-post');
+                            updateUser(email, 'epost', `/app/brukere/update/email`);
                         });
+                });
+        });
+
+    //Endre passord
+    $$('.open-password').on(
+        'click',
+        function () {
+            appF7.dialog.password(
+                'Skriv inn gammelt passord',
+                'Endre passord',
+                function (password) {
+                    checkPassword(password, `/app/brukere/checkPassword`);
                 });
         });
 });
@@ -375,18 +475,17 @@ $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     listOutQuestions()
 });
 
-  $$(document).on('swipeout:deleted', function (e) {
+$$(document).on('swipeout:deleted', function (e) {
     let targetId = e.target.id
     let id = getCurrentIndex(targetId);
 
     if (targetId.includes("delQuestionId")) {
         deleteQuestion(id);
-    }
-    else if("delCategoryId"){
+    } else if ("delCategoryId") {
         let categoryName = e.target.getElementsByTagName("DIV")[2].innerText;
         deleteCategory(id, categoryName);
     }
-  });
+});
 
   //Leader
   $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {

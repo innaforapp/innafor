@@ -211,7 +211,7 @@ try {
 
 //sender survay-data fra bruker til db
 
-router.post("/sendData", authorize, async function(req,res,next){
+/*router.post("/sendData", authorize, async function(req,res,next){
     let surveyData = req.body.result;
     let query = `INSERT INTO "public"."survayresults"("id","results") VALUES (DEFAULT,'${surveyData}')`;
     console.log(surveyData);
@@ -226,7 +226,7 @@ try {
 }catch (err) {
     res.status(500).json({error : err});
 }   
-});
+});*/
 
 
 /*router.post("/sendData", async function(req,res,next){
