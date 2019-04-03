@@ -11,6 +11,8 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <access origin="http://snakkommobbing.no" />
+    <allow-navigation href="*://*snakkommobbing.com" />
+    <allow-navigation href="*://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html" />
 
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -59,6 +61,8 @@
     </platform>
     <platform name="browser">
         <preference name="SplashScreen" value="/res/screen/browser/splashscreen.png" />
+        <preference name="SplashScreenWidth" value="2732" /> <!-- defaults to "170" -->
+    <preference name="SplashScreenHeight" value="2732" /> <!-- defaults to "200" -->
     </platform>
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <preference name="AutoHideSplashScreen" value="false" />

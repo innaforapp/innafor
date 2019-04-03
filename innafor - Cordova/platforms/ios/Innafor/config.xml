@@ -40,6 +40,8 @@
     <content src="index.html" />
     <access origin="*" />
     <access origin="http://snakkommobbing.no" />
+    <allow-navigation href="*://*snakkommobbing.com" />
+    <allow-navigation href="*://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
