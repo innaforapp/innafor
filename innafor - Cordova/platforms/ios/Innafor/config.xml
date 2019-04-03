@@ -19,6 +19,9 @@
         <param name="ios-package" value="CDVGestureHandler" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
     <feature name="SplashScreen">
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
@@ -26,9 +29,6 @@
     <feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" />
         <param name="onload" value="true" />
-    </feature>
-    <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
     <name>Innafor</name>
     <description>
@@ -39,6 +39,9 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="http://snakkommobbing.no" />
+    <allow-navigation href="*://*snakkommobbing.com" />
+    <allow-navigation href="*://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

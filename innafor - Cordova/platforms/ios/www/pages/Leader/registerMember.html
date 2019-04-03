@@ -1,50 +1,50 @@
 <div class="page">
-    <div class="page-content">
-        <div class='container lightBg full-page'>
-            <div class="container imageBg inner-shaddow">
-                <div class='safe-area-div-top'></div>
+    <div class='container lightBg full-page'>
+        <div class="container imageBg inner-shaddow">
+            <div class='safe-area-div-top'></div>
 
-                <div class='text-container'>
-                    <h1>Inviter bruker til din gruppe</h1>
-                </div>
+            <div class='text-container'>
+                <h1>Inviter bruker til din gruppe</h1>
             </div>
-            <form class="list inset" id="registrer">
-                <ul>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Fornavn</div>
-                            <div class="item-input-wrap">
-                                <input name="firstname" type="text" placeholder="Fornavn">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Etternavn</div>
-                            <div class="item-input-wrap">
-                                <input name="lastname" type="text" placeholder="Etternavn">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">E-post</div>
-                            <div class="item-input-wrap">
-                                <input name="email" type="email" placeholder="E-post">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="list">
-                    <div class="block-footer">
-                        <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
-                    </div>
-                </div>
-            </form>
-            <div class='tabbar-spacer'></div>
         </div>
+        <form class="list inset" id="registrer">
+            <ul>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Fornavn</div>
+                        <div class="item-input-wrap">
+                            <input name="firstname" type="text" placeholder="Fornavn">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Etternavn</div>
+                        <div class="item-input-wrap">
+                            <input name="lastname" type="text" placeholder="Etternavn">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">E-post</div>
+                        <div class="item-input-wrap">
+                            <input name="email" type="email" placeholder="E-post">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+
+        <div class="block">
+            <div class="row">
+                <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
+            </div>
+        </div>
+
+        <div class='tabbar-spacer'></div>
     </div>
 </div>

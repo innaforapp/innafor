@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsLeader'
+            name: 'login'
         });
     },
 
@@ -231,8 +231,8 @@ function getCurrentIndex(target) {
 }
 
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -250,7 +250,7 @@ function sendData(data, endpoint) {
 };
 
 function getData(endpoint) {
-    console.log(url+endpoint)
+    console.log(url + endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -279,7 +279,7 @@ async function updateUser(value, column, endpoint) {
 
         if (data.status === 200) {
             res = await data.json();
-            
+
             if (res.token) {
                 localStorage.setItem("token", res.token);
                 localStorage.setItem("firstname", res.firstname);
@@ -430,7 +430,8 @@ $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
 });
 
 //MEMBER page event åpne iFrame
-$$(document).on('page:init', '.page[data-name="chat"]', function (e) {
+$$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
+    console.log('kjører script for page CHAT');
     iframe();
 });
 
@@ -485,7 +486,6 @@ $$(document).on('swipeout:deleted', function (e) {
         deleteCategory(id, categoryName);
     }
 });
-
 
 
 

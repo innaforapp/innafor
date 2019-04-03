@@ -1,86 +1,86 @@
 <div class="page">
-    <div class="page-content">
-        <div class='container full-page lightBg'>
-            <div class="container imageBg inner-shaddow">
-                <div class='safe-area-div-top'></div>
+    <div class='container full-page lightBg'>
+        <div class="container imageBg inner-shaddow">
+            <div class='safe-area-div-top'></div>
 
-                <div class='text-container'>
-                    <h1>Registrer ny trener</h1>
-                </div>
+            <div class='text-container'>
+                <h1>Registrer ny trener</h1>
             </div>
-            <form class="list inset" id="registrer">
-                <ul>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Treners fornavn</div>
-                            <div class="item-input-wrap">
-                                <input name="firstname" type="text" placeholder="Fornavn">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Treners etternavn</div>
-                            <div class="item-input-wrap">
-                                <input name="lastname" type="text" placeholder="Etternavn">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Treners e-post</div>
-                            <div class="item-input-wrap">
-                                <input name="email" type="email" placeholder="E-post">
-                                <span class="input-clear-button"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-title">Hvilket lag har treneren ansvar for?</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-input-wrap input-dropdown-wrap ">
-                                    <select name="gender">
-                                        <option value="G">Gutter</option>
-                                        <option value="F">Jenter</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                                <div class="item-input-wrap ">
-                                    <input name="yearmodel" type="text" placeholder="05">
-                                    <span class="input-clear-button"></span>
-                                    <div class="item-input-info">To siste siffer i årstall. Eks. "2005" = "05"</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content item-input">
-                            <div class="item-inner">
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="list">
-                    <div class="block-footer">
-                        <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
-                    </div>
-                </div>
-            </form>
-            <div class='tabbar-spacer'></div>
         </div>
+        <form class="list inset" id="registrer">
+            <ul>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Treners fornavn</div>
+                        <div class="item-input-wrap">
+                            <input name="firstname" type="text" placeholder="Fornavn">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Treners etternavn</div>
+                        <div class="item-input-wrap">
+                            <input name="lastname" type="text" placeholder="Etternavn">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-content item-input">
+                    <div class="item-inner">
+                        <div class="item-title item-label">Treners e-post</div>
+                        <div class="item-input-wrap">
+                            <input name="email" type="email" placeholder="E-post">
+                            <span class="input-clear-button"></span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title">Hvilket lag har treneren ansvar for?</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-input-wrap input-dropdown-wrap ">
+                                <select name="gender">
+                                    <option value="G">Gutter</option>
+                                    <option value="F">Jenter</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-input-wrap ">
+                                <input name="yearmodel" type="text" placeholder="05">
+                                <span class="input-clear-button"></span>
+                                <div class="item-input-info">To siste siffer i årstall. Eks. "2005" = "05"</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+
+        <div class="block">
+            <div class="row">
+                <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
+            </div>
+        </div>
+
+        <div class='tabbar-spacer'></div>
     </div>
 </div>

@@ -1,87 +1,91 @@
 <div class="page">
-    <div class="page-content">
+    <div class="container imageBg inner-shaddow">
+        <div class='safe-area-div-top'></div>
+
         <div class='text-container'>
-
-            <h1>Legg til nytt tema</h1>
-                <form id='addCategory' class="list inset">
-                        <ul>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Nytt tema</div>
-                                        <div class="item-input-wrap">
-                                            <input required type="text" name="category" placeholder="Tema">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </form>
-                    <div class="list">
-                            <div class="block-footer">
-                                <div class="row">
-                                    <a onclick="sendForm('addCategory', `/app/survey/addCatagory`)" class="button col">Legg til</a>
-                                    <a class="button col link popup-open" href="#" data-popup=".popup-about">Rediger</a>
-                                </div>
-                            </div>
-
-                            <div class="popup popup-about">
-                                    <div class="block">
-                                      <p>Kategorier</p>
-                                      <!-- Close Popup -->
-                                      <p><a class="link popup-close" href="#">Lukk</a></p>
-                                      <div class="list">
-                                          <ul id="categoryEdit">
-
-                                          </ul>
-                                      </div>
-                                    </div>
-                                </div>
-
-
-
-        <h1>Spørsmålsbank</h1>
+            <h1>Spørsmålsbank</h1>
         </div>
-        <form class="list" id="addQuestion">
+    </div>
+
+    <div class='container full-page lightBg'>
+
+
+        <!-- LEGG TIL NYTT TEMA -->
+
+        <h1>Legg til nytt tema</h1>
+        <form id='addCategory' class="list inset">
+            <ul>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Nytt tema</div>
+                            <div class="item-input-wrap">
+                                <input required type="text" name="category" placeholder="Tema">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+
+        <div class="block">
+            <div class="row">
+                <button class="col button button-raised button-fill" onclick="sendForm('addCategory', `/app/survey/addCatagory`)">Legg til</button>
+                <button class="col button button-raised button-fill color-gray popup-open" href="#" data-popup=".popup-about">Rediger</button>
+            </div>
+        </div>
+
+        <div class="popup popup-about">
+            <div class="block">
+                <p>Kategorier</p>
+                <!-- Close Popup -->
+                <p><a class="link popup-close" href="#">Lukk</a></p>
+                <div class="list">
+                    <ul id="categoryEdit"></ul>
+                </div>
+            </div>
+        </div>
+
+        <hr class='container-divider'>
+
+        <!-- ---------------------- -->
+        <!-- LEGG TIL NYTT SPØRSMÅL -->
+
+
+        <h1>Legg til nytt spørsmål</h1>
+
+        <form id="addQuestion" class="list inset">
             <ul>
                 <li>
                     <div class="item-content item-input">
                         <div class="item-inner">
                             <div class="item-title item-label">Spørsmål</div>
                             <div class="item-input-wrap">
-                                <textarea name="question" class="resizable"></textarea>
+                                <textarea name="question" placeholder='Skriv nytt spørsmål her...'></textarea>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
-                        <div class="block-title">Spørsmålsvekt</div>
-                        <div class="block block-strong">
-                          <div class="range-slider range-slider-init"
-                            id="question-scale"
-                            data-min="0"
-                            data-max="200"
-                            data-label="true"
-                            data-step="10"
-                            data-value="100"
-                            data-scale="true"
-                            data-scale-steps="5"
-                            data-scale-sub-steps="4"
-                          ></div>
-
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Spørsmålsvekt</div>
+                            <div class="range-slider range-slider-init" id="question-scale" data-min="0" data-max="200" data-label="true" data-step="10" data-value="100" data-scale="true" data-scale-steps="5" data-scale-sub-steps="4"></div>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                        <a class="item-link smart-select smart-select-init" data-open-in="sheet">
-                                <select name="theme" id="categorySelect">
-                                <option value=""></option>
-                                </select>
-                                <div class="item-content" id="themeSelected">
-                                    <div class="item-inner">
-                                        <div class="item-title">Tema</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                    <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select name="theme" id="categorySelect">
+                            <option value=""></option>
+                        </select>
+                        <div class="item-content" id="themeSelected">
+                            <div class="item-inner">
+                                <div class="item-title">Tema</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
                 <li>
                     <a class="item-link smart-select smart-select-init" data-open-in="sheet">
                         <select name="type">
@@ -110,93 +114,18 @@
                 </li>
             </ul>
         </form>
-        <div class="list">
-            <div class="block-footer">
-                <a onclick="addQuestion('addQuestion', `/app/survey/addQuestion`)" class="button col">Legg til</a>
+
+        <div class="block">
+            <div class="row">
+                <button class="col button button-raised button-fill" onclick="addQuestion('addQuestion', `/app/survey/addQuestion`)">Legg til</button>
             </div>
         </div>
 
-        
+
+        <hr class='container-divider'>
         <div id="list"></div>
 
 
-
-        </div>
-        <!--
-            <div class="list">
-                <h2>9-12</h2>
-                <ul>
-                    <li class="accordion-item"><a href="#" class="item-content item-link">
-                        <div class="item-inner">
-                            <div class="item-title">Motivasjon</div>
-                        </div></a>
-                        <div class="accordion-item-content">
-                            <div class="block">
-                                <div id="fk-motivation-young">
-                            </div>
-                        </div>
-                    </li>
-                    <li class="accordion-item"><a href="#" class="item-content item-link">
-                            <div class="item-inner">
-                                <div class="item-title">Trvisel</div>
-                            </div></a>
-                            <div class="accordion-item-content">
-                                <div class="block">
-                                    <div id="fk-wellbeing-young">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion-item"><a href="#" class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title">Tilhørighet</div>
-                                </div></a>
-                                <div class="accordion-item-content">
-                                    <div class="block">
-                                        <div id="fk-affiliation-young">
-                                    </div>
-                                </div>
-                            </li>
-                </ul>
-                <h2>13-19</h2>
-                <ul>
-                        <li class="accordion-item"><a href="#" class="item-content item-link">
-                            <div class="item-inner">
-                                <div class="item-title">Motivasjon</div>
-                            </div></a>
-                            <div class="accordion-item-content">
-                                <div class="block">
-                                    <div id="fk-motivation-mature">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion-item"><a href="#" class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title">Trvisel</div>
-                                </div></a>
-                                <div class="accordion-item-content">
-                                    <div class="block">
-                                        <div id="fk-wellbeing-mature">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="accordion-item"><a href="#" class="item-content item-link">
-                                    <div class="item-inner">
-                                        <div class="item-title">Tilhørighet</div>
-                                    </div></a>
-                                    <div class="accordion-item-content">
-                                        <div class="block">
-                                            <div id="fk-affiliation-mature">
-                                        </div>
-                                    </div>
-                                </li>
-                    </ul>
-                
-            </div>
-        
-            -->
-
-
-
-        
+        <div class='tabbar-spacer'></div>
     </div>
 </div>

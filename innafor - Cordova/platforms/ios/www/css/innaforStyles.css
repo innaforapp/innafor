@@ -4,6 +4,12 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+hr.container-divider {
+    border: solid 0.5px #222;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 /* ----------------
 --- Backgrounds ---
 ---------------- */
@@ -14,6 +20,7 @@
 
 .lightBg {
     background-color: #e6feff;
+    color: #222222;
 }
 
 .lightImageBg {
@@ -166,7 +173,6 @@
 
 .iframe-container {
     position: relative;
-    padding-top: 150%;
 }
 
 .iframe {
@@ -174,7 +180,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 90%;
+    height: 90vh;
     border: 0;
 }
 
