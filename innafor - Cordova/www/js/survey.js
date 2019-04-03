@@ -149,20 +149,68 @@
      }); 
  }
 */
+  //Leader
+  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
+    loadSurvayOptions();
+});
 
+let tempObj = {};
+let ageGroups = ['9-12', '13-19'];
 
-
-async function createSurvay(){
+async function loadSurvayOptions(){
     console.log("createSurvay");
 
-    let get = await getData(`/app/survey/getQuestionSets`);
-    get = await get.json();
+    let getQ = await getData(`/app/survey/getQuestionSets`);
+    getQ = await getQ.json();
+
+    let getC = await getData(`/app/survey/getCategory`);
+    getC = await getC.json();
 
 
 
-    let qSets = {}
+
+for (j = 0; j < ageGroups.length; j++) {
+tempObj[ageGroups[j]] = {}
+
+    for (i = 0; i < getC.category.length; i++) {
+        let currentCategoryIndex = getC.category[i].category
+
+        if(!(currentCategoryIndex in tempObj[ageGroups[j]])){
+            tempObj[ageGroups[j]][getC.category[i].category] = {}
+
+            let questions = []
+            for (k = 0; k < getQ.questionSet.length; k++){
+                if(getC.category[i].category == getQ.questionSet[k].category && ageGroups[j] == getQ.questionSet[k].agegroup){
+                    questions.push(getQ.questionSet[k]);
+                    tempObj[ageGroups[j]][getC.category[i].category] = questions
+                    }
+
+                }
+
+            }
+
+        }
+
+}
 
 
+
+console.log(tempObj);
+
+let optionContainer = getId("survayOptions")
+
+for (i = 0; i < ageGroups.length; i++) {
+    let div = document.createElement("h2");
+    div.className = "list";
+
+    let ageGroupTitle = document.createElement("h2");
+    ageGroupTitle.innerHTML = ageGroups[i];
+    div.appendChild(ageGroupTitle);
+
+    let ul = document.createElement("ul");
+
+    optionContainer.appendChild(div);
+    }
 
 
  };

@@ -149,7 +149,7 @@ data["questionScale"]= questionScale.getElementsByTagName("DIV")[2].innerText;
 
 console.log(data);
   
-let res = await sendData(data, url + endpoint);
+let res = await sendData(data, endpoint);
 res = await res.json();
 
 eval(res.event);
@@ -165,7 +165,7 @@ let data = {
   token: token
 };
 
-let res = await sendData(data, url + `/app/survey/deleteQuestion`);
+let res = await sendData(data, `/app/survey/deleteQuestion`);
 
 
 }
@@ -180,7 +180,7 @@ async function deleteCategory(id, cat){
     token: token
   };
   
-  let res = await sendData(data, url + `/app/survey/deleteCategory`);
+  let res = await sendData(data, `/app/survey/deleteCategory`);
   res = await res.json();
   eval(res.event);
 

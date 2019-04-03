@@ -297,7 +297,7 @@ async function updateUser(value, column, endpoint) {
 
 
     });
-};
+}
 
 async function updatePassword(password, endpoint) {
 
@@ -361,8 +361,7 @@ async function checkPassword(password, endpoint) {
 
 
     });
-
-}
+};
 
 //=====================================
 
@@ -487,10 +486,7 @@ $$(document).on('swipeout:deleted', function (e) {
     }
 });
 
-  //Leader
-  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
-    createSurvay();
-});
+
 
 
 //Kjøres når siden bli kontaktet åpnes
