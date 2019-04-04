@@ -13,7 +13,6 @@
     <access origin="http://snakkommobbing.no" />
     <allow-navigation href="*://*snakkommobbing.com" />
     <allow-navigation href="*://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html" />
-
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -61,8 +60,8 @@
     </platform>
     <platform name="browser">
         <preference name="SplashScreen" value="/res/screen/browser/splashscreen.png" />
-        <preference name="SplashScreenWidth" value="2732" /> <!-- defaults to "170" -->
-    <preference name="SplashScreenHeight" value="2732" /> <!-- defaults to "200" -->
+        <preference name="SplashScreenWidth" value="2732" />
+        <preference name="SplashScreenHeight" value="2732" />
     </platform>
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <preference name="AutoHideSplashScreen" value="false" />
@@ -70,7 +69,6 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <engine name="browser" spec="^5.0.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
 </widget>
