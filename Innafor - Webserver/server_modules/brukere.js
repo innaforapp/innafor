@@ -142,38 +142,33 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
     try {
         let regUser = await db.any(regUserQuery);
 
-        /*
+
         //==Sender epost til bruker===
-                // create reusable transporter object using the default SMTP transport
-                let transporter = nodemailer.createTransport({
-                  host: "cpanel81.proisp.no",
-                  port: 465,
-                  secure: true, // true for 465, false for other ports
-                  auth: {
-                    user: "process.env.NOREPLY_MAIL", // generated ethereal user
-                    pass: "process.env.NOREPLY_PASSORD" // generated ethereal password
-                  }
-                });
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+            host: "cpanel81.proisp.no",
+            port: 26,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.NOREPLY_MAIL,
+                pass: process.env.NOREPLY_PASSORD
+            }
+        });
 
-                // setup email data with unicode symbols
-                let mailOptions = {
-                  from: `"No-Reply" <no-reply@innaforapp.no>`, // sender address
-                  to: `${req.body.epost}`, // list of receivers
-                  subject: "Velkommen til Innafor", // Subject line
-                  html: `<h1>Velkommen</h1> <p>Ditt passord er: ${randomstring} </p>` // html body
-                };
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: `"No-Reply" <no-reply@innaforapp.no>`, // sender address
+            to: `${req.body.email}`, // list of receivers
+            subject: "Velkommen til Innafor", // Subject line
+            html: `<h1>Velkommen</h1> <p>Ditt passord er: ${randomstring} </p>` // html body
+        };
 
-                // send mail with defined transport object
-                let info = await transporter.sendMail(mailOptions)
+        // send mail with defined transport object
+        let info = await transporter.sendMail(mailOptions)
 
-                console.log("Message sent: %s", info.messageId);
-                // Preview only available when sending through an Ethereal account
-                console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-                // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-                // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-        //=======================
-        */
+        console.log("Message sent: %s", info.messageId);
+        // Preview only available when sending through an Ethereal account
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
         res.status(200).json({
             event: `toatsUserRegister.open();`
@@ -189,7 +184,7 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 });
 
 
-router.post("/update/email", authorize,  async function (req, res) {
+router.post("/update/email", authorize, async function (req, res) {
 
     // VARIABLES
     let column = req.body.column;
@@ -214,7 +209,7 @@ router.post("/update/email", authorize,  async function (req, res) {
             group: updatedUser[0].gruppe,
             email: updatedUser[0].epost,
         };
-        
+
         console.log(payload);
         let tok = jwt.sign(payload, secret, {
             expiresIn: "12h"

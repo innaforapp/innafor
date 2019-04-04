@@ -158,7 +158,7 @@ async function addQuestion(formId, endpoint) {
 
     console.log(data);
 
-    let res = await sendData(data, url + endpoint);
+    let res = await sendData(data, endpoint);
     res = await res.json();
 
     eval(res.event);

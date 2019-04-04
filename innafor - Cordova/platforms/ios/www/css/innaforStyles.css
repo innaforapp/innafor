@@ -57,10 +57,13 @@ hr.container-divider {
     background-position: center;
     background-color: #222222;
     background-image: url('../img/placeholder.jpg');
-    color: #ffffff;
     width: 100vw;
     min-height: 100vh;
     overflow: auto;
+}
+
+.placeholder-kristian h1 {
+    color: #ffffff;
 }
 
 /* ----------------
@@ -119,6 +122,14 @@ hr.container-divider {
 .text-container {
     box-sizing: border-box;
     padding: 30px;
+}
+
+.chart-container {
+    margin: 25px;
+    padding: 25px;
+    overflow: scroll;
+    border-radius: 5px;
+    background-color: #ffffff;
 }
 
 .full-page {
