@@ -149,12 +149,119 @@
      }); 
  }
 */
+
   //Leader
   $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
     loadSurvayOptions();
 });
 
-let tempObj = {};
+let question;
+
+async function loadSurvayOptions(){
+
+    question = await getData(`/app/survey/getQuestionSets`);
+    question = await question.json();
+
+    console.log(question)
+
+    let mainDiv = getId("survayOptions");
+    mainDiv.innerHTML = "";
+
+    let viewQuestions = getId("viewQuestions")
+    viewQuestions.innerHTML = "";
+
+    for(i = 0; i < question.pool.length; i++) {
+
+
+        if(getId(`${question.pool[i].agegroup}`) == null){
+            let ageGroupTitle = document.createElement('div');
+            ageGroupTitle.innerHTML = question.pool[i].agegroup;
+            ageGroupTitle.className = "block-title";
+            ageGroupTitle.id = `${question.pool[i].agegroup}`
+
+            mainDiv.appendChild(ageGroupTitle);
+
+            let listWrapper = document.createElement('div');
+            listWrapper.className = "list inset";
+            mainDiv.appendChild(listWrapper);
+
+            let ul = document.createElement("ul");
+            ul.id = `${question.pool[i].agegroup}-ul`;
+            listWrapper.appendChild(ul);
+        }
+
+        if(getId(`${question.pool[i].agegroup}-${question.pool[i].category}`) == null){
+            let ul = getId(`${question.pool[i].agegroup}-ul`);
+            let li = document.createElement("li");
+            li.className = "swipeout";
+            li.id = `index-${i}`
+            li.innerHTML =`
+            <label class="item-checkbox item-content">
+            <input type="checkbox" name="demo-checkbox" onchange="addToSurvay(${i})"/>
+            <i class="icon icon-checkbox"></i>
+            <div class="item-inner">
+              <div class="item-title">${question.pool[i].category}</div>
+            </div>
+            <div class="swipeout-actions-right">
+                  <a class="popup-open" href="#" data-popup=".popup-${question.pool[i].agegroup}-${question.pool[i].category}">Se spørsmål</a>
+                </div>
+            </label>
+            `
+            ul.appendChild(li);
+            
+        }
+
+        let item = "";
+        for(j = 0; j < question.pool[i].questions.length; j++) {
+            item += `
+            <li>
+             ${question.pool[i].questions[j][0]} (${question.pool[i].questions[j][1]}%)
+            </li>`
+        }
+
+
+
+        let popupDiv = document.createElement("div");
+        popupDiv.className = `popup popup-${question.pool[i].agegroup}-${question.pool[i].category}`
+        popupDiv.innerHTML = `
+                    <div class="block">
+                <p>${question.pool[i].agegroup}-${question.pool[i].category}</p>
+                <!-- Close Popup -->
+                <p><a class="link popup-close" href="#">Lukk</a></p>
+                <div class="list simple-list">
+                <ul>
+                ${item}
+                </ul>
+              </div>
+            </div>`
+            
+        viewQuestions.appendChild(popupDiv);
+
+
+    }
+
+
+}
+
+let survay = {};
+function addToSurvay(index){
+
+survay[`${question.pool[index].agegroup}-${question.pool[index].category}`] = question.pool[index].questions;
+
+console.log(survay)
+    
+}
+
+
+
+
+/*
+  //Leader
+  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
+    loadSurvayOptions();
+});
+
+let qSets = {};
 let ageGroups = ['9-12', '13-19'];
 
 async function loadSurvayOptions(){
@@ -170,19 +277,19 @@ async function loadSurvayOptions(){
 
 
 for (j = 0; j < ageGroups.length; j++) {
-tempObj[ageGroups[j]] = {}
+qSets[ageGroups[j]] = {}
 
     for (i = 0; i < getC.category.length; i++) {
         let currentCategoryIndex = getC.category[i].category
 
-        if(!(currentCategoryIndex in tempObj[ageGroups[j]])){
-            tempObj[ageGroups[j]][getC.category[i].category] = {}
+        if(!(currentCategoryIndex in qSets[ageGroups[j]])){
+            qSets[ageGroups[j]][getC.category[i].category] = {}
 
             let questions = []
             for (k = 0; k < getQ.questionSet.length; k++){
                 if(getC.category[i].category == getQ.questionSet[k].category && ageGroups[j] == getQ.questionSet[k].agegroup){
                     questions.push(getQ.questionSet[k]);
-                    tempObj[ageGroups[j]][getC.category[i].category] = questions
+                    qSets[ageGroups[j]][getC.category[i].category] = questions
                     }
 
                 }
@@ -195,27 +302,49 @@ tempObj[ageGroups[j]] = {}
 
 
 
-console.log(tempObj);
+console.log(qSets);
 
 let optionContainer = getId("survayOptions")
 
 for (i = 0; i < ageGroups.length; i++) {
-    let div = document.createElement("h2");
+    let categories = Object.keys(qSets[ageGroups[i]])
+
+    let div = document.createElement("div");
     div.className = "list";
 
-    let ageGroupTitle = document.createElement("h2");
+    let ageGroupTitle = document.createElement("div");
+    ageGroupTitle.className = "block-title";
     ageGroupTitle.innerHTML = ageGroups[i];
     div.appendChild(ageGroupTitle);
 
     let ul = document.createElement("ul");
+    let li = "";
+    for (j = 0; j < categories.length; j++) {
+        li += `
+        <li class="swipeout">
+        <label class="item-checkbox item-content">
+          <input type="checkbox" name="demo-checkbox" value=${ageGroups[i]}-${categories[j]}/>
+          <i class="icon icon-checkbox"></i>
+          <div class="item-inner">
+            <div class="item-title">${categories[j]}</div>
+          </div>
+          <div class="swipeout-actions-right">
+                <a href="#" class="open-more-actions">Se spørsmål</a>
+              </div>
+        </label>
+      </li>
+        ` 
+    }
+    ul.innerHTML = li;
 
+    div.appendChild(ul);
     optionContainer.appendChild(div);
     }
 
 
  };
 
-
+*/
 
 
  

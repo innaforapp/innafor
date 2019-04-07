@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'login'
+            name: 'create-survay'
         });
     },
 
@@ -470,22 +470,9 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-//Admin
-$$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
-    listOutQuestions()
-});
 
-$$(document).on('swipeout:deleted', function (e) {
-    let targetId = e.target.id
-    let id = getCurrentIndex(targetId);
 
-    if (targetId.includes("delQuestionId")) {
-        deleteQuestion(id);
-    } else if ("delCategoryId") {
-        let categoryName = e.target.getElementsByTagName("DIV")[2].innerText;
-        deleteCategory(id, categoryName);
-    }
-});
+
 
 
 
