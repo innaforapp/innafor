@@ -21,7 +21,34 @@ prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere
 
 //survey--------------
 prpSql.addCategory = new PrpSt('addCategory',`INSERT INTO "public"."questioncategory" ("id", "category", "active") VALUES (DEFAULT, $1, DEFAULT)`);
-prpSql.getCategory = new PrpSt('getCategory', `SELECT * FROM "public"."questioncategory" WHERE "active" = 'true' `)
+prpSql.getCategory = new PrpSt('getCategory', `SELECT * FROM "public"."questioncategory" WHERE "active" = 'true' `);
+prpSql.getQuestions = new PrpSt('getQuestions', `SELECT * FROM "public"."questionpoolv2" WHERE "active" = 'true' ORDER BY category `);
+
+//Ser om spørsmål i samme kategori finnes
+prpSql.existingCombo = new PrpSt('existingCombo', `SELECT * FROM "public"."questionpoolv2" WHERE "category" = $1 AND "agegroup" = $2 AND "type" = $3 AND "active" = 'true' `);
+//Opretter et nytt spørsmål set
+prpSql.newQuestionRow = new PrpSt('newQuestionRow',
+`INSERT INTO "public"."questionpoolv2" ("id", "category", "agegroup", "questions", "active", "type")
+VALUES (DEFAULT, $1, $2, ARRAY[ARRAY[$3, $4]], DEFAULT, $5);`);
+//Legger nytt spørsmål til array
+prpSql.updateQuestionRow = new PrpSt('updateQuestionRow',
+`UPDATE "public"."questionpoolv2"
+SET questions = array_cat(questions, ARRAY[ARRAY[$1, $2]])
+WHERE category = $3 AND agegroup = $4 AND type = $5;
+`);
+
+
+prpSql.deleteCategory = new PrpSt('deleteCategory', `UPDATE "public"."questioncategory" SET "category" = '-', "active" = 'false' WHERE "id" = $1`);
+prpSql.deleteQuestions = new PrpSt('deleteQuestions', `UPDATE "public"."questionpoolv2" SET "questions" = '{}', "category" = '-', "active" = 'false', type = '-', agegroup = '-' WHERE "category" = $1`);
+
+prpSql.getQuestionArray = new PrpSt('getQuestionArray', `SELECT questions FROM "public"."questionpoolv2" WHERE id = $1`);
+prpSql.updateQuestion = new PrpSt('updateQuestion', `UPDATE "public"."questionpoolv2" SET questions = $1 WHERE id = $2`);
+prpSql.noMoreQuestions = new PrpSt('noMoreQuestions', `UPDATE "public"."questionpoolv2" SET "questions" = '{}', "category" = '-', "active" = 'false', type = '-', agegroup = '-' WHERE "id" = $1`);
+
+//Henter spørsmål til trener
+prpSql.getQuestionSet = new PrpSt('getQuestionSet', `SELECT * FROM "public"."questionpoolv2" WHERE "active" = 'true' AND "type" = $1`);
+
+/*
 prpSql.deleteCategory = new PrpSt('deleteCategory', `UPDATE "public"."questioncategory" SET "category" = '-', "active" = 'false' WHERE "id" = $1`)
 prpSql.deleteQuestions = new PrpSt('deleteQuestions', `UPDATE "public"."questionpool" SET "question" = '-', "category" = '-', "active" = 'false' WHERE "category" = $1`)
 
@@ -30,7 +57,7 @@ prpSql.getQuestions = new PrpSt('getQuestions', `SELECT * FROM "public"."questio
 prpSql.deleteQuestion = new PrpSt('deleteQuestion', `UPDATE "public"."questionpool" SET "question" = '-', "category" = '-', "active" = 'false' WHERE "id" = $1`)
 
 prpSql.getQuestionSet = new PrpSt('getQuestionSet', `SELECT * FROM "public"."questionpool" WHERE "active" = 'true' AND "type" = $1`)
-
+*/
 
 //export module
 module.exports.db = db; //db connection
