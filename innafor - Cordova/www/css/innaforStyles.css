@@ -124,6 +124,14 @@ hr.container-divider {
     padding: 30px;
 }
 
+.chart-container {
+    margin: 25px;
+    padding: 25px;
+    overflow: scroll;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
 .full-page {
     width: 100vw;
     min-height: 100vh;

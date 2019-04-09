@@ -137,9 +137,9 @@ let appF7 = new Framework7({
                     url: 'pages/Leader/registerMember.html'
             },
                 {
-                    path: '/resultsLeader/',
-                    id: 'resultsLeader',
-                    url: 'pages/Leader/resultsLeader.html'
+                    path: '/resultsLeaderMenu/',
+                    id: 'resultsLeaderMenu',
+                    url: 'pages/Leader/resultsLeaderMenu.html'
             },
                 {
                     path: '/feed',
@@ -187,6 +187,11 @@ let appF7 = new Framework7({
             name: 'create-survay',
             path: '/create-survay/',
             url: 'pages/Leader/create-survay.html'
+        },
+        {
+            name: 'resultsLeader',
+            path: '/resultsLeader/',
+            url: 'pages/Leader/resultsLeader.html'
         }
       ]
 });
@@ -441,6 +446,11 @@ $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
 $$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
     console.log('kjører script for page CHAT');
     iframe();
+});
+
+//Kjøres når min side åpnes
+$$(document).on('page:afterin', '.page[data-name="resultsLeader"]', function (e) {
+    createChart();
 });
 
 //Kjøres når min side åpnes

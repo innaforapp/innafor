@@ -23,6 +23,11 @@
 
 }
 
+html, body {
+    position: relative;
+    overflow: hidden;
+}
+
 /* NAVBAR - fix for at statusbar ikke skal overlappe verktøylinje i toppen */
 
 .ios {
