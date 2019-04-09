@@ -78,7 +78,8 @@ async function loadQuestionOptions(){
         //Lager en ny overskrift på type
 
         if(getId(question.pool[i].type) == null){
-            let title = document.createElement("h1")
+            let title = document.createElement("h1");
+            title.classList.add('list-header');
             title.innerHTML = question.pool[i].type;
             let div = document.createElement("div");
             div.id = question.pool[i].type;
