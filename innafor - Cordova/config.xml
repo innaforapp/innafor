@@ -11,7 +11,6 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <access origin="http://snakkommobbing.no" />
-
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -66,7 +65,6 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <engine name="browser" spec="^5.0.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
 </widget>
