@@ -7,6 +7,8 @@ const port = (process.env.PORT || 3000);
 
 const users = require('./server_modules/brukere.js');
 const survey = require('./server_modules/survey.js');
+const support = require('./server_modules/support.js');
+
 
 app.set('port', port);
 app.use(express.static('public'));
@@ -22,6 +24,8 @@ app.use(function(req, res, next) {
 
 app.use('/app/brukere/', users);
 app.use('/app/survey/', survey);
+app.use('/app/support/', support);
+
 
 app.listen(app.get('port'), function (){
     console.log('server running', app.get('port'));

@@ -8,6 +8,8 @@ const authorizeAdmin = require("./auth.js").authenticateAdmin;
 const authorizeLeader = require("./auth.js").authenticateLeader;
 
 
+
+
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
 
@@ -16,7 +18,7 @@ router.use(bodyParser.urlencoded({
 }));
 
 
-
+/*
 router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
 
     let addQuestionQuery = prpSql.addQuestion;
@@ -41,7 +43,7 @@ router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
 
 
 });
-
+*/
 
 router.post("/addCatagory",authorizeAdmin, async function (req, res) {
 
@@ -53,7 +55,7 @@ router.post("/addCatagory",authorizeAdmin, async function (req, res) {
         res.status(200).json({
             event: `
             toastCategoryAdded.open();
-            listOutQuestions();
+            loadQuestionOptions();
             `
           }).end();
 
@@ -88,10 +90,251 @@ try {
      }).end(); //something went wrong!
  }
 
+});
+
+router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
+    let  data = req.body
+    let existingQuestionSet = await existingCategory(data)
+    let query
+
+    if(existingQuestionSet === false){
+        query = prpSql.newQuestionRow;
+        query.values = [data.category, data.agegroup, data.question, data.weight, data.type];
+    }
+    else if(existingQuestionSet === true){
+        query = prpSql.updateQuestionRow;
+        query.values = [data.question, data.weight, data.category, data.agegroup, data.type];
+    }
+    
+    try {
+        let result = await db.any(query);
+
+        res.status(200).json({
+            event: `
+            toastQuestionAdded.open();
+            loadQuestionOptions();
+            `
+          }).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
 
 });
 
 
+
+
+async function existingCategory(data){
+
+    let existingCategory = prpSql.existingCombo;
+    existingCategory.values = [data.category, data.agegroup, data.type];
+    try {
+      let result = await db.any(existingCategory);
+      if(result.length == 0){
+        return false;
+      }
+      else{
+        return true;
+        
+      }
+
+
+    }catch (err) {
+      console.log(err);
+      res.status(500).json({
+          mld: err
+      }).end(); //something went wrong!
+    }
+
+  }
+
+
+  router.get("/getQuestions",authorize, async function(req,res){
+
+        let getQuestionsQuery = prpSql.getQuestions;
+
+    try {   
+        let result = await db.any(getQuestionsQuery);
+
+        
+        res.status(200).json({
+            pool: result
+          }).end();
+
+ 
+ 
+     } catch (err) {
+         console.log(err);
+         res.status(500).json({
+             mld: err
+         }).end(); //something went wrong!
+     }
+
+
+});
+
+router.post("/deleteCategory",authorizeAdmin, async function(req,res){
+    let data = req.body;
+
+    let deleteCategory = prpSql.deleteCategory;
+    deleteCategory.values=[data.id];
+
+    let deleteQuestions = prpSql.deleteQuestions;
+    deleteQuestions.values=[data.category];
+
+try {   
+    await db.any(deleteCategory);
+    await db.any(deleteQuestions);
+
+    res.status(200).json({
+        event: `
+        loadQuestionOptions();
+        `
+      }).end();
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+
+router.post("/deleteQuestion",authorizeAdmin, async function(req,res){
+    let data = req.body;
+    let newArray = [];
+    
+
+    console.log(data);
+
+    let findCurrentArray = prpSql.getQuestionArray;
+    findCurrentArray.values=[data.id];
+
+
+try {
+    
+    let dbArray =  await db.any(findCurrentArray);
+    let oldArray = dbArray[0].questions;
+    let newArray = [];
+    let delItem = [data.question, data.weight];
+
+    
+    for(i = 0; i < oldArray.length; i++) {
+        let is_same = oldArray[i].length == delItem.length && oldArray[i].every(function arrayCheck(element, index) {
+            return element === delItem[index]; 
+        });
+        
+        if(is_same !== true){
+            newArray.push(oldArray[i]);
+        }
+        }
+
+
+     let eventFunction;  
+    if(newArray.length == 0){
+        let deleteQuestionSet = prpSql.noMoreQuestions;
+        deleteQuestionSet.values=[data.id];
+        let removeSet =  await db.any(deleteQuestionSet);
+        eventFunction = `loadQuestionOptions();`
+    }
+    else{
+        let updateQuestion = prpSql.updateQuestion;
+        updateQuestion.values =[newArray, data.id]
+        let updateArray =  await db.any(updateQuestion);
+    }
+    console.log(eventFunction);
+    res.status(200).json({
+        event: eventFunction
+      }).end();
+
+
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+});
+
+
+function arrayCheck(element, index) {
+    return element === array2[index]; 
+}
+
+
+
+
+
+router.get("/getQuestionSets",authorizeLeader, async function(req,res){
+
+    let type="";
+    if(req.token.group.indexOf("Idrett")){
+    type = "Idrett"
+    }
+    else if(req.token.group.indexOf("Skole")){
+        type = "Skole"
+    }
+
+console.log(req.token.group)
+    let getQuestionSet = prpSql.getQuestionSet;
+    getQuestionSet.values=[type]
+
+try {   
+    let result = await db.any(getQuestionSet);
+
+    res.status(200).json({
+        pool: result,
+        group: req.token.group
+      }).end();
+
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+
+router.post("/createSurvay",authorizeLeader, async function(req,res){
+let data = req.body
+
+let createSurvay = prpSql.newSurvay;
+createSurvay.values=[data.survay, data.group, data.survayPeriod, data.weekly]
+
+
+try {   
+
+    await db.any(createSurvay);
+
+    res.status(200).json({
+        res: data
+      }).end();
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+/*
 router.get("/getQuestions",authorize, async function(req,res){
 
         let getQuestionsQuery = prpSql.getQuestions;
@@ -207,7 +450,7 @@ try {
 
 });
 
-
+*/
 
 //sender survay-data fra bruker til db
 

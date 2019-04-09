@@ -137,9 +137,9 @@ let appF7 = new Framework7({
                     url: 'pages/Leader/registerMember.html'
             },
                 {
-                    path: '/resultsLeader/',
-                    id: 'resultsLeader',
-                    url: 'pages/Leader/resultsLeader.html'
+                    path: '/resultsLeaderMenu/',
+                    id: 'resultsLeaderMenu',
+                    url: 'pages/Leader/resultsLeaderMenu.html'
             },
                 {
                     path: '/feed',
@@ -187,6 +187,11 @@ let appF7 = new Framework7({
             name: 'create-survay',
             path: '/create-survay/',
             url: 'pages/Leader/create-survay.html'
+        },
+        {
+            name: 'resultsLeader',
+            path: '/resultsLeader/',
+            url: 'pages/Leader/resultsLeader.html'
         }
       ]
 });
@@ -207,7 +212,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'tabsLeader'
         });
     },
 
@@ -250,7 +255,7 @@ function sendData(data, endpoint) {
 };
 
 function getData(endpoint) {
-    console.log(url+endpoint)
+    console.log(url + endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -279,7 +284,7 @@ async function updateUser(value, column, endpoint) {
 
         if (data.status === 200) {
             res = await data.json();
-            
+
             if (res.token) {
                 localStorage.setItem("token", res.token);
                 localStorage.setItem("firstname", res.firstname);
@@ -436,6 +441,11 @@ $$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
 });
 
 //Kjøres når min side åpnes
+$$(document).on('page:afterin', '.page[data-name="resultsLeader"]', function (e) {
+    createChart();
+});
+
+//Kjøres når min side åpnes
 $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
     //Legg til current epost på liste
     showCurrentEmail();
@@ -487,8 +497,8 @@ $$(document).on('swipeout:deleted', function (e) {
     }
 });
 
-  //Leader
-  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
+//Leader
+$$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
     createSurvay();
 });
 
