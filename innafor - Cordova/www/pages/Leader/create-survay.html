@@ -13,12 +13,64 @@
     </div>
     
     <div class="page-content">
-            <h1>Velg tema</h1>
-
+            
 
           <div id="survayOptions"></div>
 
           <div id="viewQuestions"></div>
+
+          <div class="list">
+            <ul>
+                <li>
+                    <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select name="groupId" id="groupSelector">
+                            <option value=""></option>
+                        </select>
+                        <div class="item-content" id="groupSelected">
+                            <div class="item-inner">
+                                <div class="item-title">Gruppe</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                        <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                          <select name="week" id="weeklyfrequency">
+                            <option value=1 selected>Hver uke</option>
+                            <option value=2>Hver andre uke</option>
+                            <option value=3>Hver tredje uke</option>
+                            <option value=4>Hver fjerde uke</option>
+                          </select>
+                          <div class="item-content">
+                            <div class="item-inner">
+                              <div class="item-title">Hvor ofte skal spørreundersøkelsen kjøre</div>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+            </ul>
+        </div>
+
+        <div class="block-title">Spørreundersøkelse periode</div>
+        <div class="list no-hairlines-md">
+        <ul>
+            <li>
+            <div class="item-content item-input">
+                <div class="item-inner">
+                <div class="item-input-wrap">
+                    <input required type="text" placeholder="Start og sluttdato" readonly="readonly" id="dateSelect"/>
+                </div>
+                </div>
+            </div>
+            </li>
+        </ul>
+        </div>
+
+        
+          
+          <div class="row">
+            <button class="col button button-raised button-fill!" onclick="createSurvay()">Oprett spørreundersøkelse</button>
+        </div>
 
 
 

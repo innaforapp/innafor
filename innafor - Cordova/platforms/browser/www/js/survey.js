@@ -149,14 +149,32 @@
      }); 
  }
 */
-
   //Leader
+
+let calendar;
+
+
   $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
     loadSurvayOptions();
+
+    appF7.preloader.show();
+
+    calendar = appF7.calendar.create({
+        inputEl: '#dateSelect',
+        dateFormat: 'dd M yyyy',
+        rangePicker: true,
+        monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August' , 'September' , 'Oktober', 'Novmeber', 'Desember'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+        dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
+        dayNamesShort: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],
+        
+    });
+
 });
 
-let question;
 
+
+let question;
 async function loadSurvayOptions(){
 
     question = await getData(`/app/survey/getQuestionSets`);
@@ -169,6 +187,21 @@ async function loadSurvayOptions(){
 
     let viewQuestions = getId("viewQuestions")
     viewQuestions.innerHTML = "";
+
+    let groupSelect = getId("groupSelector");
+    groupSelect.innerHTML = "";
+    let groupOptions = "";
+    for (i = 0; i < question.group.length; i++) {
+        if (i == 0) {
+            groupOptions += `<option value="${question.group[i]}" selected>${question.group[i]}</option>`
+        } else {
+            groupOptions += `<option value="${question.group[i]}">${question.group[i]}</option>`
+        }
+    }
+
+    groupSelect.innerHTML = groupOptions;
+    document.getElementById("groupSelected").getElementsByClassName("item-after")[0].innerHTML = question.group[0]
+    
 
     for(i = 0; i < question.pool.length; i++) {
 
@@ -240,16 +273,62 @@ async function loadSurvayOptions(){
 
     }
 
-
+    appF7.preloader.hide();
 }
 
 let survay = {};
+
+
+
 function addToSurvay(index){
-
-survay[`${question.pool[index].agegroup}-${question.pool[index].category}`] = question.pool[index].questions;
-
-console.log(survay)
+    let category = `${question.pool[index].agegroup}-${question.pool[index].category}`;
+   
+    if (category in survay){
+        delete survay[category];
+    }
+    else{
+        survay[category] = [];   
     
+        for(j = 0; j < question.pool[index].questions.length; j++) {      
+            let survayQuestions = {
+                question: "",
+                weight: "",
+                answer: "" 
+            };
+
+            survayQuestions.question =  question.pool[index].questions[j][0]
+            survayQuestions.weight =  question.pool[index].questions[j][1]
+            survay[category].push(survayQuestions)
+        }
+    }
+
+    console.log(survay)
+    
+}
+
+async function createSurvay(){
+
+    if(isEmpty(survay)){
+        appF7.dialog.alert(
+            'Du har ikke valgt tema(er) for spørreundersøkelsen');
+            return;
+    }
+    else if(calendar.getValue() == undefined){
+        appF7.dialog.alert(
+            'Velg periode spørreundersøkelsen skal kjøre');
+            return;
+    }else{
+    let data = {
+        survay: survay,
+        group: getId("groupSelector").value,
+        survayPeriod: calendar.getValue(),
+        weekly: getId("weeklyfrequency").value
+    }
+
+    let res = await sendData(data, `/app/survey/createSurvay`);
+    res = await res.json();
+    console.log(res);
+}
 }
 
 

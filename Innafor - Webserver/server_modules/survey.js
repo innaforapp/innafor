@@ -285,7 +285,7 @@ router.get("/getQuestionSets",authorizeLeader, async function(req,res){
         type = "Skole"
     }
 
-
+console.log(req.token.group)
     let getQuestionSet = prpSql.getQuestionSet;
     getQuestionSet.values=[type]
 
@@ -293,9 +293,36 @@ try {
     let result = await db.any(getQuestionSet);
 
     res.status(200).json({
-        pool: result
+        pool: result,
+        group: req.token.group
       }).end();
 
+
+ } catch (err) {
+     console.log(err);
+     res.status(500).json({
+         mld: err
+     }).end(); //something went wrong!
+ }
+
+
+});
+
+
+router.post("/createSurvay",authorizeLeader, async function(req,res){
+let data = req.body
+
+let createSurvay = prpSql.newSurvay;
+createSurvay.values=[data.survay, data.group, data.survayPeriod, data.weekly]
+
+
+try {   
+
+    await db.any(createSurvay);
+
+    res.status(200).json({
+        res: data
+      }).end();
 
  } catch (err) {
      console.log(err);

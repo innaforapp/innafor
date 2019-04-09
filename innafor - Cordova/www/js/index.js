@@ -207,7 +207,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'create-survay'
+            name: 'tabsLeader'
         });
     },
 
@@ -228,6 +228,14 @@ function getId(id) {
 function getCurrentIndex(target) {
     let getNr = target.match(/\d+/g).map(Number);
     return parseInt(getNr);
+}
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }
 
 

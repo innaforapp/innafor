@@ -1,6 +1,7 @@
 
 $$(document).on('tab:init', '.tab[id="questionBank"]', function (e) {
     loadQuestionOptions()
+    appF7.preloader.show();
 });
 
 
@@ -149,6 +150,7 @@ async function loadQuestionOptions(){
 
 
     }
+    appF7.preloader.hide();
 }
 
 

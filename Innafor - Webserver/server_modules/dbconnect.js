@@ -48,6 +48,8 @@ prpSql.noMoreQuestions = new PrpSt('noMoreQuestions', `UPDATE "public"."question
 //Henter spørsmål til trener
 prpSql.getQuestionSet = new PrpSt('getQuestionSet', `SELECT * FROM "public"."questionpoolv2" WHERE "active" = 'true' AND "type" = $1`);
 
+prpSql.newSurvay = new PrpSt('newSurvay',`INSERT INTO "public"."surveys" ("id", "survay", "group", "survayperiod", "week", "active") VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT);`);
+
 /*
 prpSql.deleteCategory = new PrpSt('deleteCategory', `UPDATE "public"."questioncategory" SET "category" = '-', "active" = 'false' WHERE "id" = $1`)
 prpSql.deleteQuestions = new PrpSt('deleteQuestions', `UPDATE "public"."questionpool" SET "question" = '-', "category" = '-', "active" = 'false' WHERE "category" = $1`)
