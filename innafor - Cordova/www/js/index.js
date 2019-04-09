@@ -235,6 +235,14 @@ function getCurrentIndex(target) {
     return parseInt(getNr);
 }
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
