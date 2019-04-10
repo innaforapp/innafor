@@ -23,7 +23,8 @@
     
     /* LIST */
     --f7-block-title-margin-bottom: 8px;
-    --f7-block-margin-vertical: 8px;
+    --f7-block-margin-vertical: 16px;
+    --f7-list-margin-vertical: 16px;
 
 }
 

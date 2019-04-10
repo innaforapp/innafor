@@ -1,5 +1,3 @@
-
-
 const pgp = require('pg-promise')();
 //db connect string
 const db = pgp(process.env.DB_URL);
@@ -12,11 +10,18 @@ prpSql.regUser = new PrpSt('regUser',`INSERT INTO "public"."brukere" ("brukerid"
 
 prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE epost = $1`);
 
+prpSql.findUserById = new PrpSt('findUserById', `SELECT * FROM "public"."brukere" WHERE brukerid = $1`);
+
+prpSql.updateUserGroups = new PrpSt('updateUserGroups', `UPDATE "public"."brukere" SET gruppe = $2 WHERE brukerid = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
+
 prpSql.updateUserEmail = new PrpSt('updateUserEmail', `UPDATE "public"."brukere" SET epost = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.updateUserPassword = new PrpSt('updateUserPassword', `UPDATE "public"."brukere" SET hash = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere" WHERE epost=$1 OR navn=$2`);
+
+prpSql.getUsersInGroup = new PrpSt('getUsersInGroup',
+                                   `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe)`);
 
 
 //survey--------------

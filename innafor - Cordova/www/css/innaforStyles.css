@@ -93,8 +93,8 @@ hr.container-divider {
     margin: auto;
     height: 30vw;
     max-height: 125px;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 }
 
 .logo-xsmall {
@@ -106,15 +106,20 @@ hr.container-divider {
     padding-bottom: 10vh;
 }
 
-i.logo-large,
-i.logo-medium,
-i.logo-small,
-i.logo-xsmall {
+i.logo-medium {
     width: 100%;
     text-align: center;
     color: #ffffff;
     font-size: 187.5px;
-    
+    text-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+}
+
+i.logo-small {
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    font-size: 125px;
+    text-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 }
 
 /* ----------------
@@ -126,7 +131,7 @@ i.logo-xsmall {
     overflow: auto;
 }
 
-.toolbar-safety-area {
+.toolbar-safe-area {
     padding-top: calc(env(safe-area-inset-top) + 50px);
 }
 
@@ -164,8 +169,8 @@ i.logo-xsmall {
 ---------------- */
 
 .list-header {
-    margin-bottom: -10px;
-    margin-top: 60px;
+    margin-bottom: 0px;
+    margin-top: 40px;
 }
 
 /* ----------------
@@ -211,7 +216,6 @@ i.logo-xsmall {
     top: 0;
     left: 0;
     width: 100%;
-    height: 90vh;
     border: 0;
 }
 

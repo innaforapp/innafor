@@ -192,6 +192,11 @@ let appF7 = new Framework7({
             name: 'resultsLeader',
             path: '/resultsLeader/',
             url: 'pages/Leader/resultsLeader.html'
+        },
+        {
+            name: 'myGroupsLeader',
+            path: '/myGroupsLeader/',
+            url: 'pages/Leader/myGroupsLeader.html'
         }
       ]
 });
@@ -212,7 +217,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsAdmin'
+            name: 'tabsLeader'
         });
     },
 
@@ -451,6 +456,16 @@ $$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
 //Kjøres når min side åpnes
 $$(document).on('page:afterin', '.page[data-name="resultsLeader"]', function (e) {
     createChart();
+});
+
+//Kjøres når ny registerMember åpnes
+$$(document).on('tab:init', '.tab[data-name="registerMember"]', function (e) {
+    initRegisterMember();
+});
+
+//Kjøres når ny gruppeoversikt åpnes
+$$(document).on('page:afterin', '.page[data-name="myGroupsLeader"]', function (e) {
+    initMyGroupsLeader();
 });
 
 //Kjøres når min side åpnes
