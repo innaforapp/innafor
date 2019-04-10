@@ -24,7 +24,6 @@ $$(document).on('swipeout:deleted', function (e) {
 
 
 
-
 async function loadQuestionOptions(){
     
     let cat = await getData(`/app/survey/getCategory`);
