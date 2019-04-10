@@ -11,8 +11,11 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <access origin="http://snakkommobbing.no" />
+<<<<<<< HEAD
+=======
     <allow-navigation href="*://*snakkommobbing.com" />
     <allow-navigation href="*://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html" />
+>>>>>>> f9bbb6c6560930d71dad5d276ea36577d964f323
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

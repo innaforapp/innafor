@@ -248,7 +248,10 @@ function isEmpty(obj) {
     return true;
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> f9bbb6c6560930d71dad5d276ea36577d964f323
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
 
