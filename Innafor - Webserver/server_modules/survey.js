@@ -8,8 +8,6 @@ const authorizeAdmin = require("./auth.js").authenticateAdmin;
 const authorizeLeader = require("./auth.js").authenticateLeader;
 
 
-
-
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
 
@@ -315,14 +313,27 @@ let data = req.body
 let createSurvay = prpSql.newSurvay;
 createSurvay.values=[data.survay, data.group, data.survayPeriod, data.weekly]
 
+let getAll = prpSql.getAllSurvay;
 
-try {   
+
+try {
+
+   let currentSurvay = await db.any(getAll)
+
+ 
 
     await db.any(createSurvay);
 
     res.status(200).json({
-        res: data
+
       }).end();
+    
+
+
+        
+    
+
+    
 
  } catch (err) {
      console.log(err);
@@ -333,6 +344,33 @@ try {
 
 
 });
+
+
+
+
+router.get("/checkParticipant",authorize, async function(req,res){
+    console.log(req.token.group)
+    let checkAfterSurvay = prpSql.checkAfterSurvay;
+    checkAfterSurvay.values=[req.token.group]
+    
+    try {   
+    
+        let survay = await db.any(checkAfterSurvay)
+        console.log(survay);
+        
+     } catch (err) {
+         console.log(err);
+         res.status(500).json({
+             mld: err
+         }).end(); //something went wrong!
+     }
+    
+    
+    });
+
+
+
+
 
 /*
 router.get("/getQuestions",authorize, async function(req,res){

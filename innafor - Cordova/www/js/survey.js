@@ -328,8 +328,23 @@ async function createSurvay(){
     let res = await sendData(data, `/app/survey/createSurvay`);
     res = await res.json();
     console.log(res);
+    }
 }
-}
+
+
+
+
+
+
+$$(document).on('tab:init', '.tab[id="siIfraFrontpage"]', async function (e) {
+    
+    let res = await getData(`/app/survey/checkParticipant`);
+    res = await res.json();
+
+    
+});
+
+
 
 
 

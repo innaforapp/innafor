@@ -21,7 +21,7 @@
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
-                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel">
+                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel" >
                   <span class="input-clear-button"></span>
                 </div>
               </div>
@@ -34,6 +34,19 @@
                 </div>
               </div>
             </li>
+            <!-- gruppevalg -->
+            <li>
+              <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                <select id="groupSelect" name="mac-windows">
+                  
+                </select>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title">Velg gruppe</div>
+                  </div>
+                </div>
+              </a>
+            </li><br>
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
@@ -45,18 +58,22 @@
               </div>
             </li>
           </ul>
-        </div>
+        </div>        
     </form>
     <div class="list">
-        <div class="block-footer">
-          <button id="btnSendPost" class="col button button-raised button-fill button-round" >Send </button>
+        <div id="block" class="block-footer">
+          <div id="imgPre"></div>
+            <button onclick="postToWp()">Post</button>
+            <button onclick="sel()">Trykk</button>
         </div>
     </div>
+    
     <div id="showPostCont"></div>
-        
 </div>
 <style>
-    input[type="file"] {
-    display: none;
-}
+      input[type="file"] {
+          display: none;
+      }
+
+      
 </style>

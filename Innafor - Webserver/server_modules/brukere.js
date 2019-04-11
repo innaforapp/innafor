@@ -68,6 +68,7 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
                 role: userData[0].rolle,
                 group: userData[0].gruppe,
                 email: userData[0].epost,
+                name: userData[0].navn
             };
             let tok = jwt.sign(payload, secret, {
                 expiresIn: "12h"
