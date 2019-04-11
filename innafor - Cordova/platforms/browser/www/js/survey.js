@@ -163,6 +163,8 @@ let calendar;
         inputEl: '#dateSelect',
         dateFormat: 'dd M yyyy',
         rangePicker: true,
+        footer: true,
+        toolbarCloseText: 'Ferdig',
         monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August' , 'September' , 'Oktober', 'Novmeber', 'Desember'],
         monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
@@ -208,7 +210,7 @@ async function loadSurvayOptions(){
 
         if(getId(`${question.pool[i].agegroup}`) == null){
             let ageGroupTitle = document.createElement('div');
-            ageGroupTitle.innerHTML = question.pool[i].agegroup;
+            ageGroupTitle.innerHTML = 'Aldersgruppe: ' + question.pool[i].agegroup;
             ageGroupTitle.className = "block-title";
             ageGroupTitle.id = `${question.pool[i].agegroup}`
 
@@ -310,12 +312,12 @@ async function createSurvay(){
 
     if(isEmpty(survay)){
         appF7.dialog.alert(
-            'Du har ikke valgt tema(er) for spørreundersøkelsen');
+            'Du har ikke valgt tema(er) for spørreundersøkelsen.', 'Mangler tema');
             return;
     }
     else if(calendar.getValue() == undefined){
         appF7.dialog.alert(
-            'Velg periode spørreundersøkelsen skal kjøre');
+            'Velg periode spørreundersøkelsen skal kjøre.', 'Mangler periode');
             return;
     }else{
     let data = {

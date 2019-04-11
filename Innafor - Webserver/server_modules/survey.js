@@ -64,8 +64,6 @@ router.post("/addCatagory",authorizeAdmin, async function (req, res) {
             mld: err
         }).end(); //something went wrong!
     }
-
-
 });
 
 

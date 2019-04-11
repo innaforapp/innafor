@@ -192,6 +192,11 @@ let appF7 = new Framework7({
             name: 'resultsLeader',
             path: '/resultsLeader/',
             url: 'pages/Leader/resultsLeader.html'
+        },
+        {
+            name: 'myGroupsLeader',
+            path: '/myGroupsLeader/',
+            url: 'pages/Leader/myGroupsLeader.html'
         }
       ]
 });
@@ -242,7 +247,6 @@ function isEmpty(obj) {
     }
     return true;
 }
-
 
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
@@ -451,6 +455,16 @@ $$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
 //Kjøres når min side åpnes
 $$(document).on('page:afterin', '.page[data-name="resultsLeader"]', function (e) {
     createChart();
+});
+
+//Kjøres når ny registerMember åpnes
+$$(document).on('tab:init', '.tab[data-name="registerMember"]', function (e) {
+    initRegisterMember();
+});
+
+//Kjøres når ny gruppeoversikt åpnes
+$$(document).on('page:afterin', '.page[data-name="myGroupsLeader"]', function (e) {
+    initMyGroupsLeader();
 });
 
 //Kjøres når min side åpnes

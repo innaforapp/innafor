@@ -11,6 +11,7 @@ function welcome() {
     if(document.querySelector('#welcomeText')){
         let textbox = document.querySelector('#welcomeText');
         textbox.innerHTML = `Velkommen, ${name}!`;
+        textbox.style.textTransform = 'capitalize';
     }
 }
 
