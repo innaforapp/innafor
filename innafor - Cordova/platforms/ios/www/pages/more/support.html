@@ -15,7 +15,10 @@
 
 
     <!-- PAGE CONTENT -->
-    <div class="container colorBg full-page toolbar-safety-area">
+    <div class="container lightBg full-page toolbar-safety-area">
+        <div class="container imageBg2">
+            <i class="icon material-icons logo-small">help</i>
+        </div>
 
         <div class="block-title">Ofte stilte spørsmål</div>
         <div class="list accordion-list inset">
@@ -53,101 +56,6 @@
         </div>
 
 
-        <div class="card card-expandable" style="height: 100px">
-            <div class="card-content">
-                <div class="bg-color-primary" style="height: 100px">
-                    <div class="card-header text-color-white display-block">
-                        FAQ
-                        <br>
-                        <small style="opacity: 0.7">Hvordan logger jeg ut?</small>
-                    </div>
-                    <a href="#" class="link card-close card-opened-fade-in color-white" style="position: absolute; right: 15px; top: 15px">
-                        <i class=" material-icons">close</i>
-                    </a>
-                </div>
-                <div class="card-content-padding">
-                    <p>
-                        For å logge ut klikker du på "mer" i verktøylinjen nederst på hovedsiden. Deretter klikker du på knappen "Logg ut".</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-expandable" style="height: 100px">
-            <div class="card-content">
-                <div class="bg-color-primary" style="height: 100px">
-                    <div class="card-header text-color-white display-block">
-                        FAQ
-                        <br>
-                        <small style="opacity: 0.7">Hvordan bla bla?</small>
-                    </div>
-                    <a href="#" class="link card-close card-opened-fade-in color-white" style="position: absolute; right: 15px; top: 15px">
-                        <i class=" material-icons">close</i>
-                    </a>
-                </div>
-                <div class="card-content-padding">
-                    <p>
-                        Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi
-                    </p>
-                    <p>
-                        Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi Blabbedi bla bla bla blabla lanb blabbedi blabbedi
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-expandable" style="height: 100px">
-            <div class="card-content">
-                <div class="bg-color-gray" style="height: 100px">
-                    <div class="card-header text-color-white display-block">
-                        Kontakt oss
-                        <br>
-                        <small style="opacity: 0.7">Fant du ikke det du lette etter?</small>
-                    </div>
-                    <a href="#" class="link card-close card-opened-fade-in color-white" style="position: absolute; right: 15px; top: 15px">
-                        <i class=" material-icons">close</i>
-                    </a>
-                </div>
-                <div class="card-content-padding">
-                    <form id='askQuestion' class="list inset">
-                        <ul>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Ditt navn</div>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="name" placeholder="Ditt navn">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">E-mail</div>
-                                        <div class="item-input-wrap">
-                                            <input type="email" name="email" placeholder="E-mail">
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-input-wrap ">
-                                        <div class="item-title item-label">Spørsmål</div>
-                                        <textarea class="resizable" placeholder="Hva lurer du på?"></textarea>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </form>
-                    <div class="block">
-                        <p class="row">
-                            <button class="col button button-large button-raised button-fill" onclick="sendForm('askQuestion', `/app/support/askQuestion`, 'askQuestionFeedback')">Send</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class='tabbar-spacer'></div>
     </div>
 </div>

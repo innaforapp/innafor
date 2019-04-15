@@ -68,9 +68,10 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
                 role: userData[0].rolle,
                 group: userData[0].gruppe,
                 email: userData[0].epost,
+                name: userData[0].navn
             };
             let tok = jwt.sign(payload, secret, {
-                expiresIn: "12h"
+                expiresIn: "1000h"
             });
             res.status(200).json({
                 token: tok,
@@ -115,7 +116,7 @@ function groupAssigner(data, token) {
         return `{${token.group}-${data.gender}-${data.yearmodel}}`;
 
     } else if (token.role == "leader") {
-        return token.group;
+        return `{${data.group}}`;
     }
 
 };
@@ -141,7 +142,6 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 
     try {
         let regUser = await db.any(regUserQuery);
-
 
         //==Sender epost til bruker===
         // create reusable transporter object using the default SMTP transport
@@ -299,6 +299,101 @@ router.post("/update/password", authorize, async function (req, res) {
         console.log(err);
         res.status(500).json({
             msg: err
+        }).end(); //something went wrong!
+    }
+
+});
+
+router.post("/delete", authorize, async function (req, res) {
+
+    console.log(req.body);
+    // VARIABLES
+    let id = req.body.id;
+    let group = req.body.group;
+
+    // GET USER
+    let getUserQuery = prpSql.findUserById;
+    getUserQuery.values = [id];
+
+    try {
+        let user = await db.any(getUserQuery);
+        let oldGroups = user[0].gruppe;
+        let newGroups = [];
+
+        for (let i = 0; i < oldGroups.length; i++) {
+            console.log(oldGroups[i], group);
+
+            if (oldGroups[i] !== group) {
+                newGroups.push(oldGroups[i]);
+            }
+        }
+
+        // UPDATE USER
+        let updateUserQuery = prpSql.updateUserGroups;
+        updateUserQuery.values = [id, newGroups];
+        let updatedUser = await db.any(updateUserQuery);
+
+        res.status(200).json({
+            msg: 'Ok, bruker er fjernet fra din gruppe.'
+        }).end();
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            msg: err
+        }).end(); //something went wrong!
+    }
+
+});
+
+router.get("/getMyGroups", authorize, async function (req, res) {
+
+    let email = req.token.email.toLowerCase();
+
+    // GET USER
+    let getUserQuery = prpSql.findUser;
+    getUserQuery.values = [email];
+
+    try {
+        let user = await db.any(getUserQuery);
+
+        let groups = user[0].gruppe;
+
+        res.status(200).json({
+            groups: groups
+        }).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
+});
+
+router.get("/getUsersInGroup", authorize, async function (req, res) {
+
+    let email = req.token.email.toLowerCase();
+    let group = req.get('Group');
+    console.log(group);
+
+    // GET USER
+    let getUsersQuery = prpSql.getUsersInGroup;
+    getUsersQuery.values = [group];
+
+    try {
+        let users = await db.any(getUsersQuery);
+        console.log(users);
+
+        res.status(200).json(users).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
         }).end(); //something went wrong!
     }
 

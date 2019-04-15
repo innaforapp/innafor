@@ -20,12 +20,12 @@
     --f7-fab-label-border-radius: 2px;
     --f7-fab-label-padding: 4px 8px;
     --f7-fab-button-size: 70px;
+    
+    /* LIST */
+    --f7-block-title-margin-bottom: 8px;
+    --f7-block-margin-vertical: 16px;
+    --f7-list-margin-vertical: 16px;
 
-}
-
-html, body {
-    position: relative;
-    overflow: hidden;
 }
 
 /* NAVBAR - fix for at statusbar ikke skal overlappe verktøylinje i toppen */

@@ -12,7 +12,7 @@
 
         <!-- LEGG TIL NYTT TEMA -->
 
-        <h1>Legg til nytt tema</h1>
+        <h1 class='list-header'>Legg til nytt tema</h1>
         <form id='addCategory' class="list inset">
             <ul>
                 <li>
@@ -46,13 +46,12 @@
             </div>
         </div>
 
-        <hr class='container-divider'>
 
         <!-- ---------------------- -->
         <!-- LEGG TIL NYTT SPØRSMÅL -->
 
 
-        <h1>Legg til nytt spørsmål</h1>
+        <h1 class='list-header'>Legg til nytt spørsmål</h1>
 
         <form id="addQuestion" class="list inset">
             <ul>
@@ -61,7 +60,7 @@
                         <div class="item-inner">
                             <div class="item-title item-label">Spørsmål</div>
                             <div class="item-input-wrap">
-                                <textarea name="question" placeholder='Skriv nytt spørsmål her...'></textarea>
+                                <textarea id="questionText"name="question" placeholder='Skriv nytt spørsmål her...'></textarea>
                             </div>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
                 </li>
                 <li>
                     <a class="item-link smart-select smart-select-init" data-open-in="sheet">
-                        <select name="type">
+                        <select name="type" id="questionType">
                             <option value="Idrett" selected>Idrett</option>
                             <option value="Skole">Skole</option>
                         </select>
@@ -101,7 +100,7 @@
                 </li>
                 <li>
                     <a class="item-link smart-select smart-select-init" data-open-in="sheet">
-                        <select name="ageGroup">
+                        <select name="ageGroup" id="questionAgeGroup">
                             <option value="9-12" selected>9-12</option>
                             <option value="13-19">13-19</option>
                         </select>
@@ -117,14 +116,11 @@
 
         <div class="block">
             <div class="row">
-                <button class="col button button-raised button-fill" onclick="addQuestion('addQuestion', `/app/survey/addQuestion`)">Legg til</button>
+                <button class="col button button-raised button-fill" onclick="addQuestion(`/app/survey/addQuestion`)">Legg til</button>
             </div>
         </div>
 
-
-        <hr class='container-divider'>
         <div id="list"></div>
-
 
         <div class='tabbar-spacer'></div>
     </div>
