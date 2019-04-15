@@ -8,8 +8,6 @@ const authorizeAdmin = require("./auth.js").authenticateAdmin;
 const authorizeLeader = require("./auth.js").authenticateLeader;
 
 
-
-
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
 
@@ -18,32 +16,6 @@ router.use(bodyParser.urlencoded({
 }));
 
 
-/*
-router.post("/addQuestion/",authorizeAdmin, async function (req, res) {
-
-    let addQuestionQuery = prpSql.addQuestion;
-    addQuestionQuery.values = [req.body.question, req.body.theme, req.body.ageGroup, req.body.type, req.body.questionScale];
-    try {
-       let add = await db.any(addQuestionQuery);
-        console.log(addQuestionQuery.values)
-       res.status(200).json({
-        event: `
-        toastQuestionAdded.open();
-        listOutQuestions();
-        `
-      }).end();
-
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            mld: err
-        }).end(); //something went wrong!
-    }
-
-
-});
-*/
 
 router.post("/addCatagory",authorizeAdmin, async function (req, res) {
 
@@ -314,15 +286,22 @@ let data = req.body
 
 let createSurvay = prpSql.newSurvay;
 createSurvay.values=[data.survay, data.group, data.survayPeriod, data.weekly]
-
-
-try {   
-
+try {
+    let activeSurvay = await validateDate(data.survayPeriod, data.group);
+    console.log(activeSurvay)
+    if(activeSurvay == false){
     await db.any(createSurvay);
-
     res.status(200).json({
-        res: data
+            event: `toastSurvayCreated.open()`
       }).end();
+    }
+    else{
+        res.status(400).json({
+            event: `appF7.dialog.alert(
+                'Du har allerede en spørreundersøkelse i denne perioden.');` 
+
+        }).end();
+    }
 
  } catch (err) {
      console.log(err);
@@ -334,21 +313,32 @@ try {
 
 });
 
-/*
-router.get("/getQuestions",authorize, async function(req,res){
 
-        let getQuestionsQuery = prpSql.getQuestions;
+async function validateDate(newSurvayDate, group){
+
+    let getSurvay = prpSql.getSurvay;
+    getSurvay.values = [group]
+
+    let startDate = new Date(newSurvayDate[0]);
+    let endDate =  new Date(newSurvayDate[1]);
 
     try {   
-        let result = await db.any(getQuestionsQuery);
+        let survays = await db.any(getSurvay);
 
+        let validDate = survays.reduce((hasElement, element) => {
+            let survayStartDate = new Date(element.survayperiod[0]);
+            var survayEndDate =  new Date(element.survayperiod[1]);
+            //sjekker om datoen er innafor range
+            if((startDate >= survayStartDate && startDate <= survayEndDate) ||
+                (survayStartDate >= startDate && survayStartDate <= endDate)){
+
+            hasElement = hasElement || true;
+            }
+            return hasElement;
+      }, false);
+
+      return validDate
         
-        res.status(200).json({
-            questions: result
-          }).end();
-
- 
- 
      } catch (err) {
          console.log(err);
          res.status(500).json({
@@ -357,155 +347,204 @@ router.get("/getQuestions",authorize, async function(req,res){
      }
 
 
-});
+}
 
 
 
-router.get("/getQuestionSets",authorizeLeader, async function(req,res){
+router.get("/getActiveSurvay",authorize, async function(req,res){
 
-    let type="";
-    if(req.token.group.indexOf("Idrett")){
-    type = "Idrett"
-    }
-    else if(req.token.group.indexOf("Skole")){
-        type = "Skole"
-    }
+    let survayByGroup = prpSql.survayByGroup;
+    survayByGroup.values=[req.token.group]
 
-    let getQuestionSet = prpSql.getQuestionSet;
-    getQuestionSet.values=[type]
-
-try {   
-    let result = await db.any(getQuestionSet);
-
-    res.status(200).json({
-        questionSet: result
-      }).end();
-
-
- } catch (err) {
-     console.log(err);
-     res.status(500).json({
-         mld: err
-     }).end(); //something went wrong!
- }
-
-
-});
-
-
-
-
-
-
-router.post("/deleteQuestion",authorizeAdmin, async function(req,res){
-    let data = req.body;
-
-    let deleteQuestion = prpSql.deleteQuestion;
-    deleteQuestion.values=[data.id]
-
-try {   
-    await db.any(deleteQuestion);
 
     
-    res.status(200).json({
-      }).end();
+    try {
+
+        let result = await db.any(survayByGroup);
+        let currentDate = new Date();
+        let survay = []
+        let particCheckData = [req.token.userID]
+/*
+        for (i = 0; i < result.length; i++) {
+            if(currentDate > new Date(result[i].survayperiod[0]) && currentDate < new Date(result[i].survayperiod[1])){
+                survay.push(result[i])
+            }
+        }*/
+          for (i = 0; i < result.length; i++) {
+            if(currentDate > new Date(result[i].survayperiod[0]) && currentDate < new Date(result[i].survayperiod[1])){
+                survay.push(result[i])
+                particCheckData.push(result[i].id)
+
+            }
+          }
+
+          console.log(particCheckData);
+          let quary = ``;
+          for (j = 0; j < particCheckData.length; j++) {
+            if(j == 0){
+                quary += `SELECT timestamp, surveyid FROM "public"."participants" WHERE "userid" = ${particCheckData[j]}`
+            }
+            else if(j == 1){
+                quary += ` AND surveyid = ${particCheckData[j]}`
+            }
+            else if(j >=2){
+                quary += ` OR surveyid = ${particCheckData[j]} `
+            }
+          }
+
+          let timestamps = await db.any(quary);
+          console.log(timestamps)
 
 
+          let currentTime = getTimeStamp(new Date());
+          
+          for (k = 0; k < survay.length; k++) {
 
- } catch (err) {
-     console.log(err);
-     res.status(500).json({
-         mld: err
-     }).end(); //something went wrong!
- }
-});
+            let unlockTime = timestamps.find(unlockTime => {
+            if(survay[k].id == unlockTime.surveyid){
+                console.log(survay[k].id, unlockTime.surveyid)
 
+                timeObj = unlockTime.timestamp.unlockDate;
+                console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
-router.post("/deleteCategory",authorizeAdmin, async function(req,res){
-    let data = req.body;
+                if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
+                    console.log("true")
+                    return
+                }
+                else{
+                    delete survay[k]["survay"]
+                    delete survay[k]["week"]
+                    delete survay[k]["active"]
+                    delete survay[k]["id"]
+                    console.log("false")
+                }
 
-    let deleteCategory = prpSql.deleteCategory;
-    deleteCategory.values=[data.id];
-
-    let deleteQuestions = prpSql.deleteQuestions;
-    deleteQuestions.values=[data.category];
-
-try {   
-    await db.any(deleteCategory);
-    await db.any(deleteQuestions);
-
-    res.status(200).json({
-        event: `
-        listOutQuestions();
-        `
-      }).end();
-
- } catch (err) {
-     console.log(err);
-     res.status(500).json({
-         mld: err
-     }).end(); //something went wrong!
- }
-
-
-});
-
-*/
-
-//sender survay-data fra bruker til db
-
-/*router.post("/sendData", authorize, async function(req,res,next){
-    let surveyData = req.body.result;
-    let query = `INSERT INTO "public"."survayresults"("id","results") VALUES (DEFAULT,'${surveyData}')`;
-    console.log(surveyData);
-
-try {
-    let result = await db.any(query);
-    console.log(result);
-    res.status(200).json({
-        msg: "Til server: "
-    }).end();
-
-}catch (err) {
-    res.status(500).json({error : err});
-}   
-});*/
-
-
-/*router.post("/sendData", async function(req,res,next){
-    let surveyData = req.body.result;
-    let whatToDo = req.body.whatToDo;
-    console.log(req.body);
-
-    if(whatToDo === "add results"){
-        let query = `INSERT INTO public."survayresults"("results") VALUES('${surveyData}') RETURNING *`;
-        console.log("query " + query);
-    
-
-        try {
-            let result = await db.any(query);
-            console.log("try");
-            if(result.rows.length>0){
-                res.status(200).json({
-                    msg: "Til server: " + result.rows[0].surveyData,
-                    surveyData: result.rows[0].surveyData
-                }).end();
-            }else{
-                res.status(500).json({
-                    error: "Kunne ikke snakke til server"
-                });
             }
 
-        } catch (error) {
-            res.status(500).json({
-                error: error
-            }); //something went wrong!
-            console.log("ERROR: " + error);
+             });
+
+            unlockTime
+
+
+
+          }
+
+         
+
+
+
+        console.log(survay)
+
+        res.status(200).json({
+            survay: survay
+      }).end();
+       
+        
+     } catch (err) {
+         console.log(err);
+         res.status(500).json({
+             mld: err
+         }).end(); //something went wrong!
+     }
+    
+    
+    });
+
+
+    router.post("/sendSurvay",authorize, checkTimestamp, async function(req,res){
+
+        //[Uke, Mnd, År]
+        let date = getTimeStamp(new Date());
+        //timestamp til den åpner igjen
+        let timestamp = {"unlockDate": {
+            week:  req.body.weekInBetween + date[0],
+            month: date[1],
+            year: date[2]
+            }
         }
-    }
-});*/
+           
+        
+        let participate = prpSql.participate;
+        participate.values=[req.token.userID, timestamp, req.body.surveyId]
+
+        let sendSurvey = prpSql.sendSurvey;
+        sendSurvey.values=[req.body.results, req.body.surveyId]
 
 
+        try {   
+
+            
+            await db.any(participate);
+            await db.any(sendSurvey);
+
+
+         } catch (err) {
+             console.log(err);
+             res.status(500).json({
+                 mld: err
+             }).end(); //something went wrong!
+         }
+
+
+
+        });
+
+        function getTimeStamp(d) {
+            // Copy date so don't modify original
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            // Set to nearest Thursday: current date + 4 - current day number
+            // Make Sunday's day number 7
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+            // Get first day of year
+            let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            // Calculate full weeks to nearest Thursday
+            let weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        
+            let month = new Date().getMonth() + 1;
+        
+            return [weekNo, month, d.getUTCFullYear()]
+        }
+
+
+        
+        
+        async function checkTimestamp(req,res,next){
+            
+            let getparticipants = prpSql.getparticipants;
+            getparticipants.values=[req.token.userID, req.body.surveyId]
+
+            let currentTime = getTimeStamp(new Date());
+            
+            try {   
+                let particCheck = await db.any(getparticipants)
+                
+                let unlockTime = particCheck.find(unlockTime => {
+                   timeObj = unlockTime.timestamp.unlockDate;
+                   //console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
+
+                   if(timeObj.week < currentTime[0] && timeObj.year <= currentTime[2]){
+                       return true
+                   }
+                   else{
+                      return false
+                   }
+                });
+
+                if(unlockTime || particCheck.length == 0){
+                    next()
+                }
+                else{
+                    res.status(401).end();
+                }
+            
+             } catch (err) {
+                 console.log(err);
+                 res.status(500).json({
+                     mld: err
+                 }).end(); //something went wrong!
+             }
+
+        }
 
 
 
