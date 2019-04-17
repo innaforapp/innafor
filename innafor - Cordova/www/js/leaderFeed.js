@@ -1,58 +1,94 @@
 async function feedPage(){
    selectGroups();
     let data = await listOutData();
-    createCards(data);  
+    createCards(data);    
 }
+
+//TODO: sorter post etter dato
+
+//TODO refresh post-innhold når man har sendt inn en ny post
 
 async function selectGroups(){
     let groups = await getData(`/app/feed/getGroups`);
     groups = await groups.json();
-    console.log(groups.groups[0]);
-    var option;
-
-    for (let i = 0; i < groups.groups.length; i++){
-        option = document.createElement("option");
-        option.value = groups.groups[i];
-        option.innerHTML = groups.groups[i];
-        getId("groupSelect").appendChild(option);  
-    }
-}
-
-function sel(){
-    let selected = document.querySelector("[type=radio]:checked"); // css selector
-    console.log(selected);
-    //return selected;
+    //console.log(groups.groups);
+    
+    var pickerDevice = appF7.picker.create({
+        inputEl: '#inpGroup',
+        cols: [{
+            textAlign: 'center',
+            values: groups.groups,
+        }],
+        toolbarCloseText: 'Ferdig'
+    });
 }
 
 //lag ny post til wordpress --------------------------------
- async function postToWp(){
-    let title = getId("postTitle").value;
-    let content = getId("postTxt").value;
-    let img = getId("inpImg").value;  
-    getId("imgPreview").innerHTML = img;
+async function uploadeImg() {
+    let filename = getId("inpImg").files[0].name;
+    console.log(filename);
 
-    let postData = {
-        title: title,
-        content: content + img,
-        status: "publish"
-    }
-    
-    console.log(postData);
-    let res = await sendData(postData, `/app/feed/createPost`);
+   /*let res = await sendData(filename, `/app/feed/uploadeImg`);
     res = await res.json();
-    eval(res.event);
- }
+    eval(res.event);*/
+}
+
+async function postToWp(){
+    let selected = document.querySelector('#inpGroup');
+    console.log(selected.value);
+
+    let title = getId("postTitle");
+    let content = getId("postTxt");
+    
+    let postData = {
+        title: title.value,
+        groups: selected.value
+    }  
+    let alertTxt = "";
+
+    if (!title.checkValidity()){
+        $$('#btn').on('click', alert());
+        alertTxt += "Tittel"
+    }
+    if (!content.checkValidity()){
+        getId("checkValidity").innerHTML = content.validationMessage + "Innhold";
+        $$('#btn').on('click', alert());
+        alertTxt += "Innhold"
+    }
+    if (selected.value ==""){
+        $$('#btn').on('click', alert());
+        alertTxt += "Valg av gruppa"         
+    } 
+    else{
+        let res = await sendData(postData, `/app/feed/createPost`);
+        res = await res.json();
+        eval(res.event);
+        title.value = ""; content.value = ""; selected.value = "";
+        createCards(data);    
+    }   
+
+    function alert() {
+        console.log("trykk")
+        appF7.dialog.alert("Vennligst fyll ut følgende felter: <ul>" + `<li>${alertTxt}</li` +  "</ul>");
+     }
+ } 
 
 //hente ned og viser posts --------------------------------
-async function listOutData() {
+async function listOutData(){
     let data = await getData(`/app/feed/showPosts`);
     data = await data.json();
     return data;
 }
 
 function createCards(data){
-    console.log(data.sort); 
-    for (let i = 0; i < data.sort.length ; i++){
+    console.log(data.fromOrg);    
+
+    for (let i = 1; i < data.posts.length; i++) {
+        var posts = data.posts[0].concat(data.posts[i]);        
+    }
+    console.log(posts);
+
+    for (let i = 0; i < posts.length; i++){
         let card = document.createElement("div");
         let header = document.createElement("div");
         let cardCont = document.createElement("div");
@@ -64,16 +100,68 @@ function createCards(data){
         header.classList.add("card-header");
         card.appendChild(header); 
        
-        cardCont.classList.add("card-content");
+        cardCont.classList.add("card-content", "card-content-padding");
         card.appendChild(cardCont); 
         
         footer.classList.add("card-footer");
         card.appendChild(footer);
-        //header.innerHTML = `<p>${author}</p>`
-        cardCont.innerHTML = `<h3>${data.sort[i].title}</h3><p>${data.sort[i].content}</p> `//<img  src=${posts[i].img} height="200" >
-        footer.innerHTML = `<p>${data.sort[i].date}</p>`
+
+        let d = new Date(`${posts[i].date}`);
+        let  date = d.toDateString();
+
+        header.innerHTML = `<p>${posts[i].customFields[0].value}</p> `;
+        let btnDel = document.createElement("i"); btnDel.innerHTML = "delete";
+        btnDel.classList.add("material-icons"); btnDel.id = posts[i].id;
+        btnDel.addEventListener("click", deletePost);
+        header.appendChild(btnDel);
+        
+        cardCont.innerHTML += `<h3>${posts[i].title}</h3><p>${posts[i].content}</p> `
+        footer.innerHTML = `<p>${date}</p>`
+        card.id = `post-${i}`;
+    }
+    
+    for (let i = 0; i < data.fromOrg.length; i++) {
+        let card = document.createElement("div");
+        let header = document.createElement("div");
+        let cardCont = document.createElement("div");
+        let footer = document.createElement("div");
+
+        card.classList.add("card");
+        card.style.backgroundColor = "#dbdbdb";
+        getId("showPostCont").appendChild(card);
+
+        header.classList.add("card-header");
+        card.appendChild(header);
+
+        cardCont.classList.add("card-content", "card-content-padding");
+        card.appendChild(cardCont);
+
+        footer.classList.add("card-footer");
+        card.appendChild(footer);
+
+        var d = new Date(`${data.fromOrg[i].date}`);
+        let date = d.toDateString();
+
+        header.innerHTML = `<p>${posts[i].customFields[0].value}</p> `;
+        let btnDel = document.createElement("i"); btnDel.innerHTML = "delete";
+        btnDel.classList.add("material-icons"); btnDel.id = posts[i].id;
+        btnDel.addEventListener("click", deletePost);
+        header.appendChild(btnDel);
+
+        cardCont.innerHTML = `<h3>${data.fromOrg[i].title}</h3><p>${data.fromOrg[i].content}</p> `
+        footer.innerHTML = `<p>${date}</p>`
         card.id = `post-${i}`
     }
 }
 
+//slett post --------------------------------
+async function deletePost(evt) {
+    let currentPost = evt.currentTarget.id;
+    console.log("slett " + currentPost);
+
+   /* let res = await sendData(currentPost, `/app/feed/deletePost/`);
+    res = await res.json();
+    eval(res.event);
+    //listOutData();*/
+}
 

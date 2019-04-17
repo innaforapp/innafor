@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET;
 var wordpress = require('wordpress');
 
+//logger inn på wordpress -admin
 var client = wordpress.createClient({
     url: "https://feed.innaforapp.no/",
     username: process.env.WP_USERNAME,
@@ -44,28 +44,46 @@ router.get("/getGroups/", authFeed, async function (req, res) {
     }
 });
 
+/*router.post("/uploadeImg/", authFeed, async function (req, res) {
+    let filename = req.body.filename;
+    var file = fs.readFileSync(filename);
+
+    try {
+        client.uploadFile({
+            name: filename,
+            type: "image/jpg",
+            bits: file        
+        }, function (error, data) {
+            console.log("Bilde er sendt!");
+    });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end();
+    }
+});*/
+
 router.post("/createPost/", authFeed, async function(req, res) {
-  
     let title = req.body.title;
     let cont =  req.body.content;
-    console.log(title, cont);
-    
+    let selectedGroup = req.body.groups;
+ 
     try {              
         client.newPost({
             title: title,
             content: cont,
             status: "publish",
             termNames: {
-                "category": [`${req.token.group}`] //trenerens gruppe som skal se postene
+                "category": [`${selectedGroup}`] //trenerens gruppe som skal se postene
             },  
             customFields: [
-                { key: "author", value: req.token.name},
-                { key: "Role", value: "Leader" }
+                {key: "author", value: req.token.name},
+                {key: "Role", value: req.token.role}
             ]
         }, function (error, data) {
             console.log("Post sent! The server replied with the following:\n");
             console.log(arguments);
-            console.log("\n");
         });
 
      } catch (err) {
@@ -76,21 +94,51 @@ router.post("/createPost/", authFeed, async function(req, res) {
      } 
 });
 
-router.get("/showPosts/", async function(req, res) {
+/*router.post("/deletePost/", async function (req, res) {
+    let postId = req.body.currentPost;
+    try { 
+        client.editPost({
+            id: postId,
+            status: "draft",
+        }, function (error, data) {
+            console.log("Post er slettet!");
+        });        
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end();
+    } 
+});*/
+
+router.get("/showPosts/", authFeed,  async function(req, res) {
+
+    let groups = req.token.group;
     try{
+        console.log(groups);
         client.getPosts({
             status: 'publish'
         }, 
         ['title', 'content', 'customFields', 'date', 'terms'],
         function (err, data) {
-            //console.log(data);
-            var sortGroup = data.filter(function (group) {
-                return group.terms[0].name == "cat1";
-            });
-            console.log(sortGroup);
+            
+            var sortOrg = data.filter(function (orgGroup) {
+                return orgGroup.terms[0].name == "org";
+            });          
+
+            var myGroups =[];
+
+            for (let i = 0; i < groups.length; i++) {
+                var sort = data.filter(function (group) {
+                    return group.terms[0].name == groups[i];
+                }); 
+                myGroups.push(sort);
+                console.log(myGroups);
+            }
+            
             res.status(200).json({
-                posts: data,
-                sort: sortGroup
+                posts: myGroups,
+                fromOrg: sortOrg
             }).end();
         }
     );            
