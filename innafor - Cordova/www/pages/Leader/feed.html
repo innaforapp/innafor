@@ -21,7 +21,7 @@
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
-                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel">
+                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel" min="1" required >
                   <span class="input-clear-button"></span>
                 </div>
               </div>
@@ -29,34 +29,49 @@
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
-                    <textarea id="postTxt" id="postTxt" rows="5" cols="80" placeholder="Skriv...."></textarea>
+                    <textarea id="postTxt" id="postTxt" rows="5" cols="80" placeholder="Skriv...." min="1" required></textarea>
                   <span class="input-clear-button"></span>
                 </div>
               </div>
             </li>
+            <!-- gruppevalg -->
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-input-wrap">
+                    <input type="text" placeholder="Velg gruppe" readonly="readonly" id="inpGroup" />
+                  </div>
+                </div>
+              </div>
+            </li><br>
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
                         <label for="inpImg"  class="col button button-raised button-fill button-round">
                                 Last opp bilde
                             </label>
-                        <input id="inpImg" type="file" accept="image/*">
+                        <input id="inpImg" type="file" accept="image/*" onchange="uploadeImg()">
+                        <!--<p id="imgPreview" onchange="uploadeImg()"></p>-->
                 </div>
               </div>
             </li>
           </ul>
-        </div>
+        </div>        
     </form>
     <div class="list">
-        <div class="block-footer">
-          <button id="btnSendPost" class="col button button-raised button-fill button-round" >Send </button>
+        <div id="block" class="block-footer">
+          <div id="imgPre"></div>
+            <button id="btnPost" class="col button button-raised button-fill button-round open-alert" onclick="postToWp()">Post</button>
+            <p id="checkValidity"></p>
+            <button id="btn"class="open-alert">Trykk</button>
         </div>
-    </div>
+    </div>       
     <div id="showPostCont"></div>
-        
 </div>
 <style>
-    input[type="file"] {
-    display: none;
-}
+      input[type="file"] {
+          display: none;
+      }
+
+      
 </style>

@@ -179,11 +179,6 @@ let appF7 = new Framework7({
             url: 'pages/more/support.html'
         },
         {
-            name: 'si-ifra-survay',
-            path: '/si-ifra-survay/',
-            url: 'pages/Members/si-ifra-survay.html'
-        },
-        {
             name: 'create-survay',
             path: '/create-survay/',
             url: 'pages/Leader/create-survay.html'
@@ -192,6 +187,16 @@ let appF7 = new Framework7({
             name: 'resultsLeader',
             path: '/resultsLeader/',
             url: 'pages/Leader/resultsLeader.html'
+        },
+        {
+            name: 'si-ifra-survay',
+            path: '/si-ifra-survay/',
+            url: 'pages/Members/si-ifra-survay.html',
+            on: {
+                pageAfterOut: function (e, page){
+                    openedSurvey = {};
+                  },
+            },
         },
         {
             name: 'myGroupsLeader',
@@ -217,7 +222,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsLeader'
+            name: 'tabsMembers'
         });
     },
 
@@ -542,6 +547,15 @@ var toatsUserRegister = appF7.toast.create({
 var toastQuestionAdded = appF7.toast.create({
     icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
     text: 'Spørsmål er lagt til',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+
+//Overlay som sier ifra at spørsmål er lagt til
+var toastSurvayCreated = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Spørreundersøkelsen er oprettet',
     position: 'center',
     closeTimeout: 2000,
 });
