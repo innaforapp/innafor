@@ -135,17 +135,17 @@ let appF7 = new Framework7({
                     path: 'registerMember/',
                     id: 'registerMember',
                     url: 'pages/Leader/registerMember.html'
-            },
+                },
                 {
                     path: '/resultsLeaderMenu/',
                     id: 'resultsLeaderMenu',
                     url: 'pages/Leader/resultsLeaderMenu.html'
-            },
+                },
                 {
                     path: '/feed',
                     id: 'leaderFeed',
                     url: 'pages/Leader/feed.html'
-             },
+                },
                 {
                     path: '/more/',
                     id: 'more',
@@ -222,7 +222,7 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         navigator.splashscreen.hide();
         mainView.router.navigate({
-            name: 'tabsMembers'
+            name: 'tabsLeader'
         });
     },
 
@@ -252,6 +252,10 @@ function isEmpty(obj) {
     }
     return true;
 }
+
+function getSum(total, num) {
+    return total + num;
+  }
 
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"

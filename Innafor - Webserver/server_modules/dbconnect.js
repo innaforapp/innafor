@@ -59,7 +59,7 @@ prpSql.getSurvay = new PrpSt('getSurvay', `SELECT * FROM "public"."surveys" WHER
 prpSql.survayByGroup = new PrpSt('survayByGroup', `SELECT * FROM "public"."surveys" WHERE "group"=ANY($1)`);
 
 prpSql.participate = new PrpSt('participate', `INSERT INTO "public"."participants" ("id", "userid", "timestamp", "surveyid") VALUES (DEFAULT, $1, $2, $3)`)
-prpSql.sendSurvey = new PrpSt('sendSurvey', `INSERT INTO "public"."survayresults" ("id", "results", "surveyid") VALUES (DEFAULT, $1, $2)`)
+prpSql.sendSurvey = new PrpSt('sendSurvey', `INSERT INTO "public"."survayresults" ("id", "results", "surveyid", "month") VALUES (DEFAULT, $1, $2, $3)`)
 
 prpSql.getparticipants = new PrpSt('getparticipants', `SELECT timestamp FROM "public"."participants" WHERE "userid" = $1 AND surveyid = $2`);
 
