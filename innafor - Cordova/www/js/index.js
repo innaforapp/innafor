@@ -131,6 +131,11 @@ let appF7 = new Framework7({
                     id: 'mainPageLeader',
                     url: 'pages/Leader/mainPageLeader.html'
                  },
+                 {
+                    path: '/feed',
+                    id: 'leaderFeed',
+                    url: 'pages/Leader/feed.html'
+                },  
                 {
                     path: 'registerMember/',
                     id: 'registerMember',
@@ -140,11 +145,6 @@ let appF7 = new Framework7({
                     path: '/resultsLeaderMenu/',
                     id: 'resultsLeaderMenu',
                     url: 'pages/Leader/resultsLeaderMenu.html'
-                },
-                {
-                    path: '/feed',
-                    id: 'leaderFeed',
-                    url: 'pages/Leader/feed.html'
                 },
                 {
                     path: '/more/',
@@ -439,6 +439,11 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
     init();
 });
 */
+
+//feed-member
+$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
+    memberFeed();
+});
 
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {

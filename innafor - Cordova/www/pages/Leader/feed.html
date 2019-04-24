@@ -21,7 +21,7 @@
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
-                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel" >
+                  <input name="postTitle"  id="postTitle" type="text" placeholder="Tittel" min="1" required >
                   <span class="input-clear-button"></span>
                 </div>
               </div>
@@ -29,23 +29,20 @@
             <li class="item-content item-input">
               <div class="item-inner">
                 <div class="item-input-wrap">
-                    <textarea id="postTxt" id="postTxt" rows="5" cols="80" placeholder="Skriv...."></textarea>
+                    <textarea id="postTxt" id="postTxt" rows="5" cols="80" placeholder="Skriv...." min="1" required></textarea>
                   <span class="input-clear-button"></span>
                 </div>
               </div>
             </li>
             <!-- gruppevalg -->
             <li>
-              <a class="item-link smart-select smart-select-init" data-open-in="sheet">
-                <select id="groupSelect" name="mac-windows">
-                  
-                </select>
-                <div class="item-content">
-                  <div class="item-inner">
-                    <div class="item-title">Velg gruppe</div>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-input-wrap">
+                    <input type="text" placeholder="Velg gruppe" readonly="readonly" id="inpGroup" />
                   </div>
                 </div>
-              </a>
+              </div>
             </li><br>
             <li class="item-content item-input">
               <div class="item-inner">
@@ -53,7 +50,8 @@
                         <label for="inpImg"  class="col button button-raised button-fill button-round">
                                 Last opp bilde
                             </label>
-                        <input id="inpImg" type="file" accept="image/*">
+                        <input id="inpImg" type="file" accept="image/*" onchange="uploadeImg()">
+                        <!--<p id="imgPreview" onchange="uploadeImg()"></p>-->
                 </div>
               </div>
             </li>
@@ -63,11 +61,9 @@
     <div class="list">
         <div id="block" class="block-footer">
           <div id="imgPre"></div>
-            <button onclick="postToWp()">Post</button>
-            <button onclick="sel()">Trykk</button>
+            <button id="btnPost" class="col button button-raised button-fill button-round open-alert" onclick="postToWp()">Post</button>
         </div>
-    </div>
-    
+    </div>       
     <div id="showPostCont"></div>
 </div>
 <style>
