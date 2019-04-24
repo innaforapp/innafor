@@ -23,6 +23,8 @@ prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere
 prpSql.getUsersInGroup = new PrpSt('getUsersInGroup',
                                    `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe)`);
 
+prpSql.getOrgs = new PrpSt ('getOrgs', `SELECT * FROM "public"."brukere" WHERE rolle = 'org'`)
+
 
 //survey--------------
 prpSql.addCategory = new PrpSt('addCategory',`INSERT INTO "public"."questioncategory" ("id", "category", "active") VALUES (DEFAULT, $1, DEFAULT)`);

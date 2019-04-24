@@ -110,11 +110,6 @@ let appF7 = new Framework7({
                     url: 'pages/Organisation/registerLeader.html'
             },
                 {
-                    path: '/resultsOrg/',
-                    id: 'resultsOrg',
-                    url: 'pages/Organisation/resultsOrg.html'
-            },
-                {
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more/more.html'
@@ -202,6 +197,11 @@ let appF7 = new Framework7({
             name: 'myGroupsLeader',
             path: '/myGroupsLeader/',
             url: 'pages/Leader/myGroupsLeader.html'
+        },
+        {
+            name: 'orgOverview',
+            path: '/orgOverview/',
+            url: 'pages/Admin/orgOverview.html'
         }
       ]
 });
@@ -218,12 +218,25 @@ let appCordova = {
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function () {
+    onDeviceReady: async function () {
         //  this.receivedEvent('deviceready');
-        navigator.splashscreen.hide();
-        mainView.router.navigate({
-            name: 'tabsLeader'
-        });
+        let autoLogin = await getData(`/app/brukere/autoLogin`);
+
+        if(autoLogin.status == 200){
+            autoLogin = await autoLogin.json();
+            eval(autoLogin.event)
+            navigator.splashscreen.hide();
+        }
+        else{
+            navigator.splashscreen.hide();
+            mainView.router.navigate({
+                name: 'login'
+            });
+        }
+        
+
+        
+
     },
 
     /*   // Update DOM on a Received Event
@@ -234,7 +247,6 @@ let appCordova = {
 };
 
 appCordova.initialize();
-
 //Hjelpefunksjoner======================
 function getId(id) {
     return document.getElementById(id);
