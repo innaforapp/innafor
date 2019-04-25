@@ -63,3 +63,24 @@ router.post("/report/", authorize, emailToLowerCase, async function (req, res) {
 });
 
 module.exports = router;
+
+
+
+router.post("/sendMailToLeader/", authorize, async function (req, res) {
+    console.log(req.token)
+
+    try {
+
+
+
+        
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
+
+
+});

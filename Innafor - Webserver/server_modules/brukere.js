@@ -98,6 +98,7 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
                 token: tok,
                 firstname: userData[0].navn,
                 email: userData[0].epost,
+                groups: userData[0].gruppe,
                 event: mainView
             }).end();
         } else {

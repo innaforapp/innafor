@@ -424,6 +424,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
             localStorage.setItem("token", res.token);
             localStorage.setItem("firstname", res.firstname);
             localStorage.setItem("email", res.email);
+            localStorage.setItem("groups", res.groups);
         };
 
         if (res.event) {
@@ -528,11 +529,7 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-
-
-
-
-
+    
 
 //Kjøres når siden bli kontaktet åpnes
 $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
@@ -543,10 +540,12 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
             appF7.dialog.confirm(
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
-                function () {
+                async function () {
+                    let sendMail = await sendData(`/app/support/sendMailtoLeader`);
                     appF7.dialog.alert(
                         'Treneren din har fått beskjed.',
                         'Melding sendt');
+
                 },
                 function () {
                     appF7.dialog.alert(

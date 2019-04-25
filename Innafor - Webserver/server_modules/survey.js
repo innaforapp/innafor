@@ -244,18 +244,19 @@ function arrayCheck(element, index) {
 
 
 
-
 router.get("/getQuestionSets",authorizeLeader, async function(req,res){
 
+    console.log(req.token.group[0].indexOf("Skole"), req.token.group)
     let type="";
-    if(req.token.group.indexOf("Idrett")){
+    if(req.token.group[0].indexOf("Idrett") == 0){
     type = "Idrett"
+    console.log(type, "expecting Idrett")
     }
-    else if(req.token.group.indexOf("Skole")){
+    else if(req.token.group[0].indexOf("Skole")== 0){
         type = "Skole"
+        console.log(type, "expecting Skole")
     }
 
-console.log(req.token.group)
     let getQuestionSet = prpSql.getQuestionSet;
     getQuestionSet.values=[type]
 
