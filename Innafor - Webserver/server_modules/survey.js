@@ -553,7 +553,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                    timeObj = unlockTime.timestamp.unlockDate;
                    //console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
-                   if(timeObj.week < currentTime[0] && timeObj.year <= currentTime[2]){
+                   if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
                        return true
                    }
                    else{
