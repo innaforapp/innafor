@@ -10,9 +10,9 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
-        "cordova-android": "^7.1.4",
+        "cordova-android": "8.0.0",
         "cordova-browser": "^5.0.4",
-        "cordova-ios": "^4.5.5",
+        "cordova-ios": "^5.0.1",
         "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -28,9 +28,9 @@
             "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
-            "ios",
             "android",
-            "browser"
+            "browser",
+            "ios"
         ]
     }
 }

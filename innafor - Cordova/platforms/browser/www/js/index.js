@@ -264,17 +264,10 @@ function isEmpty(obj) {
     return true;
 }
 
-<<<<<<< HEAD
+
 let url = "https://innaforapp.no"
 //let url = "http://localhost:3000"
-=======
-function getSum(total, num) {
-    return total + num;
-}
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
->>>>>>> 96e34f83f2efecdd659ebb2f6eb50c967006897e
 
 function sendData(data, endpoint) {
 
