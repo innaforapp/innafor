@@ -1,6 +1,9 @@
 const db = require('./dbconnect').db;
 const prpSql = require('./dbconnect').prpSql;
 
+const jwt = require('jsonwebtoken');
+const secret = process.env.SECRET;
+
 
 
 function emailToLowerCase(req,res,next){
@@ -86,20 +89,56 @@ async function existingUsers(req,res,next){
 };
 
 
-  function existingEmail(userData, data, res, next){
+  async function existingEmail(userData, data, res, next){
     if(userData[0] == null || userData[0].epost != data.email){
       return next();
     }
       else if(userData[0].epost == data.email){
-      return res.status(400).json({
+
+        let add = await addGroup(userData[0], data)
+
+        add
+      /*return res.status(400).json({
             feedback:"Epost er allerede registrert i systemet"
-        }).end();
+        }).end();*/
       }
   };
 
 
+async function addGroup(dbData, clientData, token){
+  
+  try {
+    let decodedToken = jwt.verify(clientData.token, secret); // Is the token valid?
+    token = decodedToken; // we make the token available for later functions via the request object.
+    //TODO: FIX THIS!
+    let addGroup = `UPDATE "public"."brukere" SET gruppe = array_append(gruppe, '${token.name}-${clientData.gender}-${clientData.yearmodel}') WHERE brukerid = ${dbData.brukerid}`;
 
+    if(dbData.gruppe.length > 0 && !dbData.gruppe.includes(`${token.name}-${clientData.gender}-${clientData.yearmodel}`)){
+      let dbGroup = dbData.gruppe[0].split("-");
+      let orgGroup = token.group[0].split("-");
 
+      if(dbGroup[0]+[dbGroup[1]] == orgGroup[0]+[orgGroup[1]]){
+        await db.any(addGroup);
+      }
+      else{
+        console.log("Bruker registrert hos en annen org")
+      }
+  }
+  else if(dbData.gruppe.length == 0){
+        await db.any(addGroup);
+  }
+  else{
+    console.log("Epost du prøver å registerere er allerede i denne gruppen")
+  }
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+        mld: err
+    }).end(); //something went wrong!
+}
+
+}
 
 
 

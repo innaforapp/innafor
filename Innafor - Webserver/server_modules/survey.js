@@ -15,7 +15,7 @@ router.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
+const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des']
 
 router.post("/addCatagory",authorizeAdmin, async function (req, res) {
 
@@ -244,18 +244,19 @@ function arrayCheck(element, index) {
 
 
 
-
 router.get("/getQuestionSets",authorizeLeader, async function(req,res){
 
+    console.log(req.token.group[0].indexOf("Skole"), req.token.group)
     let type="";
-    if(req.token.group.indexOf("Idrett")){
+    if(req.token.group[0].indexOf("Idrett") == 0){
     type = "Idrett"
+    console.log(type, "expecting Idrett")
     }
-    else if(req.token.group.indexOf("Skole")){
+    else if(req.token.group[0].indexOf("Skole")== 0){
         type = "Skole"
+        console.log(type, "expecting Skole")
     }
 
-console.log(req.token.group)
     let getQuestionSet = prpSql.getQuestionSet;
     getQuestionSet.values=[type]
 
@@ -460,20 +461,52 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             year: date[2]
             }
         }
-           
+        let currentMonth = monthName[new Date().getMonth()];
         
         let participate = prpSql.participate;
         participate.values=[req.token.userID, timestamp, req.body.surveyId]
 
         let sendSurvey = prpSql.sendSurvey;
-        sendSurvey.values=[req.body.results, req.body.surveyId]
+        sendSurvey.values=[req.body.results, req.body.surveyId, currentMonth]
 
 
         try {   
 
-            
-            await db.any(participate);
-            await db.any(sendSurvey);
+            let validAnswers
+            for(i = 0; i < Object.keys(req.body.results).length; i++) {
+                let questionCat = Object.keys(req.body.results)[i];
+                console.log(req.body.results[questionCat]);
+        
+                let checkSurvey = req.body.results[questionCat].find(checkSurvey => {
+                   if(checkSurvey.answer === ""){
+                    validAnswers = false
+                   }
+                   else{
+                    validAnswers = true
+                   }
+                 });
+            }
+
+            console.log(validAnswers)
+            if(validAnswers){
+                await db.any(participate);
+                await db.any(sendSurvey);
+
+                res.status(200).json({
+                    event: `appF7.preloader.hide(); 
+                            mainView.router.back({url: 'pages/Members/siIfraFrontpage.html', force: true, ignoreCache: true,reload: true});
+                            toastSurveySendt.open();
+                            `
+
+                            
+              }).end();
+            }
+            else{
+                res.status(400).json({
+                    event: `appF7.dialog.alert('Vennligs svar på alle spørsmålene');`
+              }).end();
+
+            }
 
 
          } catch (err) {
@@ -520,15 +553,15 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                    timeObj = unlockTime.timestamp.unlockDate;
                    //console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
-                   if(timeObj.week < currentTime[0] && timeObj.year <= currentTime[2]){
+                   if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
                        return true
                    }
                    else{
                       return false
                    }
                 });
-
-                if(unlockTime || particCheck.length == 0){
+                console.log(unlockTime)
+                if(unlockTime || particCheck.length === 0){
                     next()
                 }
                 else{
@@ -546,6 +579,123 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
 
 
+    router.get("/getResults",authorizeLeader, async function(req,res){
+        let survayByGroup = prpSql.survayByGroup;
+        survayByGroup.values=[req.token.group]
+
+        let currentDate = new Date();
+        let activeSurveys = {};
+        let arcivedSurveys = {};
+
+        try {   
+
+            let survays = await db.any(survayByGroup);
+
+            for (i = 0; i < survays.length; i++) {
+                let fromDate  = new Date(survays[i].survayperiod[0]);
+                let toDate  = new Date(survays[i].survayperiod[1]);
+                let period = `${fromDate.getDate()}.${monthName[fromDate.getMonth()]}.${fromDate.getFullYear()} - ${toDate.getDate()}.${monthName[toDate.getMonth()]}.${toDate.getFullYear()}`
+                
+                let survayKeys = Object.keys(survays[i].survay); 
+                let theme = "";
+
+                survayKeys.forEach(function(survayKeys) {
+                    theme += survayKeys.split('-')[2]+" "
+                    
+                  });
+                  
+                
+                
+                if(currentDate > new Date(survays[i].survayperiod[0]) && currentDate < new Date(survays[i].survayperiod[1])){
+                    activeSurveys[survays[i].group] = {
+                        [`${survays[i].id}`] : {
+                            period: period,
+                            theme: theme,
+                            results: []
+                        } 
+                    };
+                }
+                else{
+
+                    arcivedSurveys[survays[i].group] = {
+                        [`${survays[i].id}`] : {
+                            period: period,
+                            theme: theme,
+                            results: []
+                        } 
+                    };
+                }
+              }
+
+
+
+            let getSurvayResults = ``;
+            for(j = 0; j < survays.length; j++) {
+                if(j === 0){
+                    getSurvayResults = `SELECT * FROM public.survayresults WHERE "surveyid"='${survays[j].id}'`;
+                }
+                else{
+                    getSurvayResults += `  OR "surveyid"='${survays[j].id}'`;
+                }
+
+            };
+            getSurvayResults +=` ORDER BY id`
+            let results = await db.any(getSurvayResults);
+            console.log(results)
+            
+            let activeResultKey=[]
+            let activeGroupKey = Object.keys(activeSurveys); 
+            activeGroupKey.forEach(function(activeGroupKey) {
+                activeResultKey.push(Object.keys(activeSurveys[activeGroupKey])[0]); 
+            });
+            
+
+            let arciveResultKey=[]
+            let arciveGroupKey = Object.keys(arcivedSurveys); 
+            arciveGroupKey.forEach(function(arciveGroupKey) {
+                arciveResultKey.push(Object.keys(arcivedSurveys[arciveGroupKey])[0]); 
+            });
+
+
+            for (h = 0; h < activeGroupKey.length; h++) {
+                for (k = 0; k < results.length; k++) {
+                    activeResultKey.forEach(function(activeResultKey) {
+                        if(activeSurveys[activeGroupKey[h]][activeResultKey] && activeResultKey == results[k].surveyid){
+                            activeSurveys[activeGroupKey[h]][activeResultKey].results.push(results[k])
+                        }
+                    });
+                }
+            }
+
+
+            for (h = 0; h < arciveGroupKey.length; h++) {
+                for (k = 0; k < results.length; k++) {
+                    arciveResultKey.forEach(function(arciveResultKey) {
+                        if(activeSurveys[arciveGroupKey[h]][arciveResultKey] && arciveResultKey == results[k].surveyid){
+                            arcivedSurveys[arciveGroupKey[h]][arciveResultKey].results.push(results[k])
+                        }
+                    });
+                }
+
+            }
+
+
+
+            res.status(200).json({
+                groups: req.token.group,
+                arcivedSurveys: arcivedSurveys,
+                activeSurvays: activeSurveys 
+            }).end();
+            
+        
+         } catch (err) {
+             console.log(err);
+             res.status(500).json({
+                 mld: err
+             }).end(); //something went wrong!
+         }
+
+    });
 
 
 

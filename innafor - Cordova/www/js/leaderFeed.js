@@ -43,21 +43,17 @@ async function postToWp(){
     let postData = {
         title: title.value,
         groups: selected.value
-    }  
-    let alertTxt = "";
+    } 
 
     if (!title.checkValidity()){
-        $$('#btn').on('click', alert());
-        alertTxt += "Tittel"
+        $$('#btnPost').on('click', alert());
     }
     if (!content.checkValidity()){
         getId("checkValidity").innerHTML = content.validationMessage + "Innhold";
-        $$('#btn').on('click', alert());
-        alertTxt += "Innhold"
+        $$('#btnPost').on('click', alert());
     }
     if (selected.value ==""){
-        $$('#btn').on('click', alert());
-        alertTxt += "Valg av gruppa"         
+        $$('#btnPost').on('click', alert());
     } 
     else{
         let res = await sendData(postData, `/app/feed/createPost`);
@@ -69,7 +65,7 @@ async function postToWp(){
 
     function alert() {
         console.log("trykk")
-        appF7.dialog.alert("Vennligst fyll ut følgende felter: <ul>" + `<li>${alertTxt}</li` +  "</ul>");
+        appF7.dialog.alert("Vennligst fyll ut alle felter");
      }
  } 
 

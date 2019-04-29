@@ -19,7 +19,7 @@ function authFeed(req, res, next) {
         let decodedToken = jwt.verify(token, secret); // Is the token valid?
         req.token = decodedToken; // we make the token available for later functions via the request object.
 
-        if (req.token.role == "leader" || req.token.role == "org") {
+        if (req.token.role == "org" || req.token.role == "leader"  || req.token.role == "member") {
             next(); // The token was valid so we continue 
         }
         else {

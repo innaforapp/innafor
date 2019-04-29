@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET;
 
 const authorize = require("./auth.js").authenticateUser;
+const authorizeAdmin = require("./auth.js").authenticateAdmin
 
 const existingUsers = require("./utilities.js").existingUsers;
 const nameAssigner = require("./utilities.js").nameAssigner;
@@ -38,6 +39,26 @@ function mainPageSelector(role) {
     }
 
 }
+
+
+router.get("/autologin", authorize, async function (req, res) {
+    
+    try{
+        let mainView = mainPageSelector(req.token.role);
+
+        res.status(200).json({
+            event: mainView
+        }).end();
+
+
+    }catch (err) {
+        res.status(500).json({
+            error: err
+        }); //something went wrong!
+    }
+
+});
+
 
 //TODO: cahtche hvis den ikke finner brukeren
 router.post("/login/", emailToLowerCase, async function (req, res) {
@@ -77,6 +98,7 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
                 token: tok,
                 firstname: userData[0].navn,
                 email: userData[0].epost,
+                groups: userData[0].gruppe,
                 event: mainView
             }).end();
         } else {
@@ -400,5 +422,22 @@ router.get("/getUsersInGroup", authorize, async function (req, res) {
 });
 
 
+router.get("/getOrgs", authorizeAdmin, async function (req, res) {
+
+    let getOrgs = prpSql.getOrgs;
+    
+    try {
+        let orgs = await db.any(getOrgs);
+        res.status(200).json(orgs).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
+
+});
 
 module.exports = router;

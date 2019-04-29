@@ -72,7 +72,7 @@ async function loadGroup() {
                     `</div>`+
                 `</div>`+
                 `<div class="swipeout-actions-right">`+
-                    `<a href="#" class="swipeout-delete">Slett</a>`+
+                    `<a href="#" class="swipeout-delete" data-confirm="Er du sikker på at du vil fjerne denne personen fra gruppen din?" data-confirm-title="Fjerne person?">Fjern</a>`+
                 `</div>`+
             `</li>`;
         

@@ -12,6 +12,8 @@ prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE 
 
 prpSql.findUserById = new PrpSt('findUserById', `SELECT * FROM "public"."brukere" WHERE brukerid = $1`);
 
+prpSql.findLeaderOfGroup = new PrpSt('findLeaderOfGroup', `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe) AND rolle = 'leader'`);
+
 prpSql.updateUserGroups = new PrpSt('updateUserGroups', `UPDATE "public"."brukere" SET gruppe = $2 WHERE brukerid = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.updateUserEmail = new PrpSt('updateUserEmail', `UPDATE "public"."brukere" SET epost = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
@@ -22,6 +24,8 @@ prpSql.existingUser = new PrpSt('existingUser', `SELECT * FROM "public"."brukere
 
 prpSql.getUsersInGroup = new PrpSt('getUsersInGroup',
                                    `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe)`);
+
+prpSql.getOrgs = new PrpSt ('getOrgs', `SELECT * FROM "public"."brukere" WHERE rolle = 'org'`)
 
 
 //survey--------------
@@ -59,7 +63,7 @@ prpSql.getSurvay = new PrpSt('getSurvay', `SELECT * FROM "public"."surveys" WHER
 prpSql.survayByGroup = new PrpSt('survayByGroup', `SELECT * FROM "public"."surveys" WHERE "group"=ANY($1)`);
 
 prpSql.participate = new PrpSt('participate', `INSERT INTO "public"."participants" ("id", "userid", "timestamp", "surveyid") VALUES (DEFAULT, $1, $2, $3)`)
-prpSql.sendSurvey = new PrpSt('sendSurvey', `INSERT INTO "public"."survayresults" ("id", "results", "surveyid") VALUES (DEFAULT, $1, $2)`)
+prpSql.sendSurvey = new PrpSt('sendSurvey', `INSERT INTO "public"."survayresults" ("id", "results", "surveyid", "month") VALUES (DEFAULT, $1, $2, $3)`)
 
 prpSql.getparticipants = new PrpSt('getparticipants', `SELECT timestamp FROM "public"."participants" WHERE "userid" = $1 AND surveyid = $2`);
 

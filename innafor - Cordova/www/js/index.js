@@ -110,11 +110,6 @@ let appF7 = new Framework7({
                     url: 'pages/Organisation/registerLeader.html'
             },
                 {
-                    path: '/resultsOrg/',
-                    id: 'resultsOrg',
-                    url: 'pages/Organisation/resultsOrg.html'
-            },
-                {
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more/more.html'
@@ -132,20 +127,20 @@ let appF7 = new Framework7({
                     url: 'pages/Leader/mainPageLeader.html'
                  },
                 {
+                    path: '/feed',
+                    id: 'leaderFeed',
+                    url: 'pages/Leader/feed.html'
+                },
+                {
                     path: 'registerMember/',
                     id: 'registerMember',
                     url: 'pages/Leader/registerMember.html'
-            },
+                },
                 {
                     path: '/resultsLeaderMenu/',
                     id: 'resultsLeaderMenu',
                     url: 'pages/Leader/resultsLeaderMenu.html'
-            },
-                {
-                    path: '/feed',
-                    id: 'leaderFeed',
-                    url: 'pages/Leader/feed.html'
-             },
+                },
                 {
                     path: '/more/',
                     id: 'more',
@@ -193,15 +188,20 @@ let appF7 = new Framework7({
             path: '/si-ifra-survay/',
             url: 'pages/Members/si-ifra-survay.html',
             on: {
-                pageAfterOut: function (e, page){
+                pageAfterOut: function (e, page) {
                     openedSurvey = {};
-                  },
+                },
             },
         },
         {
             name: 'myGroupsLeader',
             path: '/myGroupsLeader/',
             url: 'pages/Leader/myGroupsLeader.html'
+        },
+        {
+            name: 'orgOverview',
+            path: '/orgOverview/',
+            url: 'pages/Admin/orgOverview.html'
         }
       ]
 });
@@ -218,12 +218,24 @@ let appCordova = {
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function () {
+    onDeviceReady: async function () {
         //  this.receivedEvent('deviceready');
-        navigator.splashscreen.hide();
-        mainView.router.navigate({
-            name: 'tabsMembers'
-        });
+        let autoLogin = await getData(`/app/brukere/autoLogin`);
+
+        if (autoLogin.status == 200) {
+            autoLogin = await autoLogin.json();
+            eval(autoLogin.event)
+            navigator.splashscreen.hide();
+        } else {
+            navigator.splashscreen.hide();
+            mainView.router.navigate({
+                name: 'login'
+            });
+        }
+
+
+
+
     },
 
     /*   // Update DOM on a Received Event
@@ -234,7 +246,6 @@ let appCordova = {
 };
 
 appCordova.initialize();
-
 //Hjelpefunksjoner======================
 function getId(id) {
     return document.getElementById(id);
@@ -246,15 +257,17 @@ function getCurrentIndex(target) {
 }
 
 function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key))
             return false;
     }
     return true;
 }
 
+
 let url = "https://innaforapp.no"
 //let url = "http://localhost:3000"
+
 
 function sendData(data, endpoint) {
 
@@ -408,6 +421,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
             localStorage.setItem("token", res.token);
             localStorage.setItem("firstname", res.firstname);
             localStorage.setItem("email", res.email);
+            localStorage.setItem("groups", res.groups);
         };
 
         if (res.event) {
@@ -436,6 +450,11 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
 });
 */
 
+//feed-member
+/*$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
+    memberFeed();
+});*/
+
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
     feedPage();
@@ -449,6 +468,7 @@ $$(document).on('page:afterin', function (e) {
 //Kjøres når hjem-side åpnes
 $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
     welcome();
+    memberFeed();
 });
 
 //MEMBER page event åpne iFrame
@@ -507,9 +527,23 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
+//Kjøres når siden "rapporter et problem" åpnes
+$$(document).on('page:afterin', '.page[data-name="report"]', function (e) {
 
+    //Endre e-post
+    $$('.open-alert').on(
+        'click',
+        function () {
+            appF7.dialog.alert(
+                'Melding sendt',
+                'Takk for henvendelsen!'
+            );
+        });
 
-
+    mainView.router.navigate({
+        name: 'more'
+    });
+});
 
 
 
@@ -522,16 +556,25 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
             appF7.dialog.confirm(
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
-                function () {
+                async function () {
+                    
                     appF7.dialog.alert(
-                        'Treneren din har fått beskjed.',
-                        'Melding sendt');
-                },
-                function () {
-                    appF7.dialog.alert(
-                        'Det går fint. Det er lov å ombestemme seg.',
-                        'Handling avbrutt');
-                });
+                            'Treneren din har fått beskjed.',
+                            'Melding sendt');
+                    
+                    let data = {
+                        name: localStorage.getItem('firstname'),
+                        group: localStorage.getItem('groups')
+                    };
+
+                    await sendData(data, `/app/support/sendMailtoLeader`);
+
+                    },
+                    function () {
+                        appF7.dialog.alert(
+                            'Det går fint. Det er lov å ombestemme seg.',
+                            'Handling avbrutt');
+                    });
         });
 });
 

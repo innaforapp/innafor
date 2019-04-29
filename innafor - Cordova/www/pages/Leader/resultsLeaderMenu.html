@@ -1,34 +1,57 @@
-<div class='page'>
-    <div class='placeholder-kristian'>
-        <h1>Innhåll kjeme snart på denne sia!</h1>
+<div class='page' data-name='resultsMenu'>
 
-
+    <div class='container lightBg full-page'>
         <div class='safe-area-div-top'></div>
+        <div class='text-container'>
+
+            <h1>Undersøkelser</h1>
+        </div>
+        <div class="container">
+            <div class="list inset">
+                <ul>
+                    <li>
+                        <a href="/create-survay/" class="item-link item-content">
+                            <div class="item-media">
+                                <i class="icon material-icons">person</i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Lag ny spørreundersøkelse</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='text-container'>
+            <h1>Resultater</h1>
+        </div>
+        <div class="block-title">Gruppe</div>
         <div class="list inset">
             <ul>
                 <li>
-                    <a href="/create-survay/" class="item-link item-content">
-                        <div class="item-media">
-                            <i class="icon material-icons">person</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title">Ny spørreundersøkelse</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/resultsLeader/" class="item-link item-content">
-                        <div class="item-media">
-                            <i class="icon material-icons">info</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title">Resultat</div>
+                    <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select id="resultGroup" onchange="resultLinks()">
+                            <option value=""></option>
+                        </select>
+                        <div class="item-content" id="resultGroupSelected">
+                            <div class="item-inner">
+                                <div class="item-title">Gruppe</div>
+                            </div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
 
+
+        <div class="block-title">Aktive undersøkelser</div>
+        <div class="list inset" id="activeSurveysDiv"></div>
+
+        <div class="block-title">Arkiv</div>
+        <div class="list inset" id="arcivedSurveysDiv"></div>
+
+        <div class='tabbar-spacer'></div>
 
     </div>
 </div>
