@@ -12,6 +12,8 @@ prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE 
 
 prpSql.findUserById = new PrpSt('findUserById', `SELECT * FROM "public"."brukere" WHERE brukerid = $1`);
 
+prpSql.findLeaderOfGroup = new PrpSt('findLeaderOfGroup', `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe) AND rolle = 'leader'`);
+
 prpSql.updateUserGroups = new PrpSt('updateUserGroups', `UPDATE "public"."brukere" SET gruppe = $2 WHERE brukerid = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.updateUserEmail = new PrpSt('updateUserEmail', `UPDATE "public"."brukere" SET epost = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);

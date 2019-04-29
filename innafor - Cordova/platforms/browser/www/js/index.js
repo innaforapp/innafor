@@ -541,10 +541,10 @@ $$(document).on('page:afterin', '.page[data-name="report"]', function (e) {
                 'Takk for henvendelsen!'
             );
         });
-    
+
     mainView.router.navigate({
-                name: 'more'
-            });
+        name: 'more'
+    });
 });
 
 
@@ -559,10 +559,17 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
                 async function () {
-                        let sendMail = await sendData(`/app/support/sendMailtoLeader`);
-                        appF7.dialog.alert(
+                    
+                    appF7.dialog.alert(
                             'Treneren din har fått beskjed.',
                             'Melding sendt');
+                    
+                    let data = {
+                        name: localStorage.getItem('firstname'),
+                        group: localStorage.getItem('groups')
+                    };
+
+                    await sendData(data, `/app/support/sendMailtoLeader`);
 
                     },
                     function () {
