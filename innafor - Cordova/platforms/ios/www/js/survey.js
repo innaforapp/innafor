@@ -329,9 +329,209 @@ async function createSurvay(){
 
     let res = await sendData(data, `/app/survey/createSurvay`);
     res = await res.json();
-    console.log(res);
+    eval(res.event)
+    }
 }
+
+
+
+
+$$(document).on('tab:init', '.tab[id="siIfraFrontpage"]', async function (e) {
+
+    let res = await getData(`/app/survey/getActiveSurvay`);
+    res = await res.json();
+    window.localStorage.setItem("surveys", JSON.stringify(res.survay));
+
+
+
+    listOutActiveSurveys(res);
+ 
+});
+
+function listOutActiveSurveys(res){
+
+    let mainDiv = getId("activeSurveys");
+
+    for(i = 0; i < res.survay.length; i++) {
+        let fromDate  = new Date(res.survay[i].survayperiod[0]);
+        let toDate  = new Date(res.survay[i].survayperiod[1]);
+        
+
+        let groupList = document.createElement("div");
+        groupList.className ="list-group";
+        let ul = document.createElement("ul");
+        let li = document.createElement("li");
+        
+        console.log(res.survay[i].survay)
+        
+        if(res.survay[i].survay == undefined){
+            li.innerHTML = `      
+            <a class="item-link item-content">
+            <div class="item-media"><i class="material-icons" style="color:red">highlight_off</i></div>
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">${fromDate.getDate()}.${fromDate.getMonth()}.${fromDate.getFullYear()} til ${toDate.getDate()}.${toDate.getMonth()}.${toDate.getFullYear()}</div>
+                ${res.survay[i].group}
+              </div>
+              <div class="item-after">Start</div>
+            </div>
+          </a>`
+        }
+        else{
+            li.innerHTML = `      
+            <a onclick=openSurvey(${i}) class="item-link item-content">
+            <div class="item-media"><i class="material-icons" style="color:green">thumb_up</i></div>
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">${fromDate.getDate()}.${fromDate.getMonth()}.${fromDate.getFullYear()} til ${toDate.getDate()}.${toDate.getMonth()}.${toDate.getFullYear()}</div>
+                ${res.survay[i].group}
+              </div>
+              <div class="item-after">Start</div>
+            </div>
+          </a>`
+
+        }
+        
+
+
+      mainDiv.appendChild(groupList)
+      groupList.appendChild(ul)
+      ul.appendChild(li);
+
+    }
+    
 }
+
+
+let openedSurvey;
+
+async function openSurvey(surveyIndex){
+    openedSurvey = JSON.parse(localStorage.getItem('surveys'))[surveyIndex];
+    await mainView.router.navigate({name: "si-ifra-survay"});
+}
+
+
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    drawSurvay(openedSurvey);
+});
+
+ 
+
+
+
+function drawSurvay(res){
+    
+    let surveyPage = getId("surveyPage");
+
+    for(i = 0; i < Object.keys(res.survay).length; i++) {
+        let prevNextFinish = document.createElement("p");
+        prevNextFinish.className = "row"
+
+        let pageContent = document.createElement("div");
+        pageContent.className = "page-content tab";
+        pageContent.id = `survayPage-${i}`
+
+        if(i == 0){
+            pageContent.className += " tab-active";
+            prevNextFinish.innerHTML = `
+            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">Neste</button>
+            `
+        }
+        else if(i == Object.keys(res.survay).length-1){
+            prevNextFinish.innerHTML = `
+            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
+            <button onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fulfør</button>
+            `
+        }
+        else{
+            prevNextFinish.innerHTML = `
+            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
+            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">neste</button>
+            `
+
+        }
+        console.log(i)
+        surveyPage.appendChild(pageContent);
+
+        let divBlock = document.createElement("div");
+        divBlock.className = "block";
+        pageContent.appendChild(divBlock);
+
+        let questionSet = Object.keys(res.survay)[i];
+
+        console.log(res.survay[questionSet])
+        for(j = 0; j < res.survay[questionSet].length; j++){
+
+            let questionText = document.createElement("h1");
+            questionText.innerHTML = res.survay[questionSet][j].question;
+            divBlock.appendChild(questionText);
+
+            let p = document.createElement("p");
+            p.className="segmented segmented-raised";
+
+            
+            let buttons = `
+            <button onclick="select(${j}, ${i}, 1)" class="button buttonRow${j}${i}">1</button>
+            <button onclick="select(${j}, ${i}, 2)" class="button buttonRow${j}${i}">2</button>
+            <button onclick="select(${j}, ${i}, 3)" class="button buttonRow${j}${i}">3</button>
+            <button onclick="select(${j}, ${i}, 4)" class="button buttonRow${j}${i}">4</button>
+            <button onclick="select(${j}, ${i}, 5)" class="button buttonRow${j}${i}">5</button>
+            `
+
+            p.innerHTML = buttons;
+            divBlock.appendChild(p)
+        }
+        pageContent.appendChild(prevNextFinish);
+
+    }
+
+
+}
+
+
+
+
+
+function select(btnRow,pageIndex, value) {
+
+    console.log(btnRow, pageIndex, value)
+
+    let buttonRow = document.getElementsByClassName(`buttonRow${btnRow}${pageIndex}`)
+
+    for (i = 0; i < buttonRow.length; i++) {
+        buttonRow[i].className = buttonRow[i].className.replace(" button-active", "");
+    }
+    buttonRow[value - 1].className += " button-active";
+
+
+    let questionSet = Object.keys(openedSurvey.survay)[pageIndex];
+    
+    openedSurvey.survay[questionSet][btnRow].answer = value
+
+
+    console.log(openedSurvey.survay[questionSet])
+
+
+}
+
+
+async function sendSurvay(){
+
+    data = {
+        surveyId: openedSurvey.id,
+        weekInBetween: openedSurvey.week,
+        results: openedSurvey.survay
+    }
+
+    let res = await sendData(data, `/app/survey/sendSurvay`);
+
+    console.log(data)
+}
+
+
+
+
+
 
 
 
