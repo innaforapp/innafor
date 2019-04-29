@@ -437,9 +437,9 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
 */
 
 //feed-member
-$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
+/*$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
     memberFeed();
-});
+});*/
 
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
@@ -454,6 +454,7 @@ $$(document).on('page:afterin', function (e) {
 //Kjøres når hjem-side åpnes
 $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
     welcome();
+    memberFeed();
 });
 
 //MEMBER page event åpne iFrame
