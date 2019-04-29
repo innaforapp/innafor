@@ -1,4 +1,4 @@
-function createChart() {
+/*function createChart() {
     google.charts.load('current', {
         'packages': ['corechart']
     });
@@ -113,3 +113,4 @@ function createChart() {
     }
 
 }
+*/

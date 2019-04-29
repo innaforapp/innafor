@@ -17,8 +17,9 @@ $$(document).on('swipeout:deleted', function (e) {
     } else if (targetId.includes("user")) {
         console.log('skal slette user');
         let group = window.localStorage.getItem('deleteUserFromGroup');
-        console.log(group);
         deleteUser(id, group);
+    } else if (targetId.includes("org")) {
+        deleteOrg(id);
     }
 });
 

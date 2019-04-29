@@ -110,11 +110,6 @@ let appF7 = new Framework7({
                     url: 'pages/Organisation/registerLeader.html'
             },
                 {
-                    path: '/resultsOrg/',
-                    id: 'resultsOrg',
-                    url: 'pages/Organisation/resultsOrg.html'
-            },
-                {
                     path: '/more/',
                     id: 'more',
                     url: 'pages/more/more.html'
@@ -202,6 +197,11 @@ let appF7 = new Framework7({
             name: 'myGroupsLeader',
             path: '/myGroupsLeader/',
             url: 'pages/Leader/myGroupsLeader.html'
+        },
+        {
+            name: 'orgOverview',
+            path: '/orgOverview/',
+            url: 'pages/Admin/orgOverview.html'
         }
       ]
 });
@@ -218,12 +218,25 @@ let appCordova = {
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function () {
+    onDeviceReady: async function () {
         //  this.receivedEvent('deviceready');
-        navigator.splashscreen.hide();
-        mainView.router.navigate({
-            name: 'tabsMembers'
-        });
+        let autoLogin = await getData(`/app/brukere/autoLogin`);
+
+        if(autoLogin.status == 200){
+            autoLogin = await autoLogin.json();
+            eval(autoLogin.event)
+            navigator.splashscreen.hide();
+        }
+        else{
+            navigator.splashscreen.hide();
+            mainView.router.navigate({
+                name: 'login'
+            });
+        }
+        
+
+        
+
     },
 
     /*   // Update DOM on a Received Event
@@ -234,7 +247,6 @@ let appCordova = {
 };
 
 appCordova.initialize();
-
 //Hjelpefunksjoner======================
 function getId(id) {
     return document.getElementById(id);
@@ -252,6 +264,10 @@ function isEmpty(obj) {
     }
     return true;
 }
+
+function getSum(total, num) {
+    return total + num;
+  }
 
 //let url = "https://innaforapp.no"
 let url = "http://localhost:3000"
@@ -408,6 +424,7 @@ async function sendForm(formId, endpoint, feedbackMsg) {
             localStorage.setItem("token", res.token);
             localStorage.setItem("firstname", res.firstname);
             localStorage.setItem("email", res.email);
+            localStorage.setItem("groups", res.groups);
         };
 
         if (res.event) {
@@ -528,10 +545,12 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
             appF7.dialog.confirm(
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
-                function () {
+                async function () {
+                    let sendMail = await getData(`/app/support/sendMailtoLeader`);
                     appF7.dialog.alert(
                         'Treneren din har fått beskjed.',
                         'Melding sendt');
+
                 },
                 function () {
                     appF7.dialog.alert(
