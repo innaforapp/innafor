@@ -551,12 +551,15 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                 
                 let unlockTime = particCheck.find(unlockTime => {
                    timeObj = unlockTime.timestamp.unlockDate;
-                   //console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
+                   console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
-                   if(timeObj.week < currentTime[0] && timeObj.year <= currentTime[2]){
+                   if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
+                    console.log("true")
                        return true
+                       
                    }
                    else{
+                    console.log("false")
                       return false
                    }
                 });
@@ -565,6 +568,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                     next()
                 }
                 else{
+                    console.log("hey")
                     res.status(401).end();
                 }
             

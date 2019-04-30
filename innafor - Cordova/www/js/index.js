@@ -269,8 +269,8 @@ function getSum(total, num) {
     return total + num;
   }
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -529,7 +529,7 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-    
+
 
 //Kjøres når siden bli kontaktet åpnes
 $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
@@ -559,6 +559,14 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
 var toatsUserRegister = appF7.toast.create({
     icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+//Overlay som sier ifra at bruker er lagt til 
+var toatsUserAddToGrp = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker er lagt til gruppe',
     position: 'center',
     closeTimeout: 2000,
 });

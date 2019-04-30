@@ -269,8 +269,8 @@ function getSum(total, num) {
     return total + num;
   }
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -531,10 +531,6 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
 
 
 
-
-
-
-
 //Kjøres når siden bli kontaktet åpnes
 $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
     //Legger til onclick på "bli kontaktet"-knapp
@@ -545,7 +541,7 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
                 async function () {
-                    let sendMail = await getData(`/app/support/sendMailtoLeader`);
+                    let sendMail = await sendData(`/app/support/sendMailtoLeader`);
                     appF7.dialog.alert(
                         'Treneren din har fått beskjed.',
                         'Melding sendt');
@@ -563,6 +559,14 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
 var toatsUserRegister = appF7.toast.create({
     icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+//Overlay som sier ifra at bruker er lagt til 
+var toatsUserAddToGrp = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker er lagt til gruppe',
     position: 'center',
     closeTimeout: 2000,
 });

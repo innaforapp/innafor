@@ -95,9 +95,9 @@ async function existingUsers(req,res,next){
     }
       else if(userData[0].epost == data.email){
 
-        let add = await addGroup(userData[0], data)
+        await addGroup(userData[0], data, res)
 
-        add
+        
       /*return res.status(400).json({
             feedback:"Epost er allerede registrert i systemet"
         }).end();*/
@@ -105,32 +105,78 @@ async function existingUsers(req,res,next){
   };
 
 
-async function addGroup(dbData, clientData, token){
+async function addGroup(dbData, clientData, res){
   
   try {
     let decodedToken = jwt.verify(clientData.token, secret); // Is the token valid?
     token = decodedToken; // we make the token available for later functions via the request object.
     //TODO: FIX THIS!
-    let addGroup = `UPDATE "public"."brukere" SET gruppe = array_append(gruppe, '${token.name}-${clientData.gender}-${clientData.yearmodel}') WHERE brukerid = ${dbData.brukerid}`;
+    if(token.role == "org"){
+      let addGroup = `UPDATE "public"."brukere" SET gruppe = array_append(gruppe, '${token.name}-${clientData.gender}-${clientData.yearmodel}') WHERE brukerid = ${dbData.brukerid}`;
+      if(dbData.gruppe.length > 0 && !dbData.gruppe.includes(`${token.name}-${clientData.gender}-${clientData.yearmodel}`)){
+        let dbGroup = dbData.gruppe[0].split("-");
+        let orgGroup = token.group[0].split("-");
 
-    if(dbData.gruppe.length > 0 && !dbData.gruppe.includes(`${token.name}-${clientData.gender}-${clientData.yearmodel}`)){
-      let dbGroup = dbData.gruppe[0].split("-");
-      let orgGroup = token.group[0].split("-");
+        if(dbGroup[0]+[dbGroup[1]] == orgGroup[0]+[orgGroup[1]]){
+          //await db.any(addGroup);
+          res.status(200).json({
+            event: `toatsUserAddToGrp.open();`
+        }).end();
+        }
+        else{
+          res.status(400).json({
+            feedback:"Bruker registrert hos en annen org"
+        }).end();
+      
+        }
+    }
+    else if(dbData.gruppe.length == 0){
+        // await db.any(addGroup);
+        res.status(200).json({
+          event: `toatsUserAddToGrp.open();`
+      }).end();
+    }
+    else{
+      res.status(400).json({
+        feedback:"Epost du prøver å registerere er allerede i denne gruppen"
+    }).end();
+      
+    }
+  }
+  else if(token.role == "leader"){
+      let addGroup = `UPDATE "public"."brukere" SET gruppe = array_append(gruppe, '${clientData.group}') WHERE brukerid = ${dbData.brukerid}`;
+      if(dbData.gruppe.length > 0 && !dbData.gruppe.includes(`${clientData.group}`)){
+        let dbGroup = dbData.gruppe[0].split("-");
+        let orgGroup = token.group[0].split("-");
 
-      if(dbGroup[0]+[dbGroup[1]] == orgGroup[0]+[orgGroup[1]]){
-        await db.any(addGroup);
-      }
-      else{
-        console.log("Bruker registrert hos en annen org")
-      }
+        if(dbGroup[0]+[dbGroup[1]] == orgGroup[0]+[orgGroup[1]]){
+          await db.any(addGroup);
+          res.status(200).json({
+            event: `toatsUserAddToGrp.open();`
+        }).end();
+        }
+        else{
+          res.status(400).json({
+            feedback:"Bruker registrert hos en annen org"
+        }).end();
+        }
+    }
+    else if(dbData.gruppe.length == 0){
+          await db.any(addGroup);
+          res.status(200).json({
+            event: `toatsUserAddToGrp.open();`
+        }).end();
+    }
+    else{
+      res.status(400).json({
+        feedback:"Epost du prøver å registerere er allerede i denne gruppen"
+    }).end();
+
+    }
   }
-  else if(dbData.gruppe.length == 0){
-        await db.any(addGroup);
-  }
-  else{
-    console.log("Epost du prøver å registerere er allerede i denne gruppen")
-  }
-    
+
+
+
   } catch (err) {
     console.log(err);
     res.status(500).json({
