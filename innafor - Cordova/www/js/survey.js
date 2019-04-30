@@ -281,19 +281,19 @@ function drawSurvay(res){
         if(i == 0){
             pageContent.className += " tab-active";
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">Neste</button>
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
         }
         else if(i == Object.keys(res.survay).length-1){
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
-            <button onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fulfør</button>
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fullfør</a>
             `
         }
         else{
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
-            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">neste</button>
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
 
         }

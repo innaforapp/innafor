@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.cordova.hellocordova" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Innafor</name>
     <description>
         En applikasjon utviklet av studenter ved Universitetet i Agder for fotballklubben Jerv og Blå Kors Kristiansand.
     </description>
-    <author email="post@innaforapp.no" href="http://innaforapp.no">
+    <author email="post@innaforapp.no" href="https://innaforapp.no">
         Innafor
     </author>
     <content src="index.html" />
@@ -69,7 +69,6 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^5.0.4" />
 </widget>

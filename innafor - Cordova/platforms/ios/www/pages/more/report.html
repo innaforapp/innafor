@@ -1,4 +1,4 @@
-<div class='page'>
+<div class='page' data-name="report">
     <!-- NAVBAR -->
     <div class="navbar">
         <div class="navbar-inner sliding">
@@ -11,6 +11,9 @@
             <div class="title">Rapportér et problem</div>
         </div>
     </div>
+    
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
 
     <div class="container darkBg full-page toolbar-safety-area">
 
@@ -19,9 +22,9 @@
                 <li>
                     <div class="item-content item-input">
                         <div class="item-inner">
-                            <div class="item-title item-label">Name</div>
+                            <div class="item-title item-label">Navn</div>
                             <div class="item-input-wrap">
-                                <input type="text" name="name" placeholder="Your name">
+                                <input type="text" name="name" placeholder="Ditt navn">
                             </div>
                         </div>
                     </div>
@@ -29,9 +32,9 @@
                 <li>
                     <div class="item-content item-input">
                         <div class="item-inner">
-                            <div class="item-title item-label">E-mail</div>
+                            <div class="item-title item-label">E-post</div>
                             <div class="item-input-wrap">
-                                <input type="email" name="email" placeholder="E-mail">
+                                <input type="email" name="email" placeholder="E-post">
                             </div>
                         </div>
                     </div>
@@ -50,10 +53,11 @@
         </form>
         <div class="block">
             <p class="row">
-                <button class="col button button-large button-raised button-fill" onclick="sendForm('report', `/app/support/report`, 'reportFeedback')">Send</button>
+                <button class="col button button-large button-raised button-fill open-alert" onclick="sendForm('report', `/app/support/report`, 'reportFeedback')">Send</button>
             </p>
         </div>
         <div class='tabbar-spacer'></div>
+    </div>
     </div>
 </div>
 

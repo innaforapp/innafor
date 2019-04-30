@@ -554,7 +554,6 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                    console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
                    if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
-                    console.log("true")
                        return true
                        
                    }

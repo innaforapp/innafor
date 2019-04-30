@@ -23,7 +23,7 @@ function iframe() {
                             '<span class="ios-only">Lukk</span>' +
                         '</a>' +
                     '</div>' +
-                    '<div class="title">Om Innafor</div>' +
+                    '<div class="title"></div>' +
                 '</div>' +
             '</div>' +
         

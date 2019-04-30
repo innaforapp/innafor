@@ -126,11 +126,11 @@ let appF7 = new Framework7({
                     id: 'mainPageLeader',
                     url: 'pages/Leader/mainPageLeader.html'
                  },
-                 {
+                {
                     path: '/feed',
                     id: 'leaderFeed',
                     url: 'pages/Leader/feed.html'
-                },  
+                },
                 {
                     path: 'registerMember/',
                     id: 'registerMember',
@@ -188,9 +188,9 @@ let appF7 = new Framework7({
             path: '/si-ifra-survay/',
             url: 'pages/Members/si-ifra-survay.html',
             on: {
-                pageAfterOut: function (e, page){
+                pageAfterOut: function (e, page) {
                     openedSurvey = {};
-                  },
+                },
             },
         },
         {
@@ -222,20 +222,19 @@ let appCordova = {
         //  this.receivedEvent('deviceready');
         let autoLogin = await getData(`/app/brukere/autoLogin`);
 
-        if(autoLogin.status == 200){
+        if (autoLogin.status == 200) {
             autoLogin = await autoLogin.json();
             eval(autoLogin.event)
             navigator.splashscreen.hide();
-        }
-        else{
+        } else {
             navigator.splashscreen.hide();
             mainView.router.navigate({
                 name: 'login'
             });
         }
-        
 
-        
+
+
 
     },
 
@@ -258,16 +257,13 @@ function getCurrentIndex(target) {
 }
 
 function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key))
             return false;
     }
     return true;
 }
 
-function getSum(total, num) {
-    return total + num;
-  }
 
 let url = "https://innaforapp.no"
 //let url = "http://localhost:3000"
@@ -454,9 +450,9 @@ $$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
 */
 
 //feed-member
-$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
+/*$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
     memberFeed();
-});
+});*/
 
 //feed-leader
 $$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
@@ -471,6 +467,7 @@ $$(document).on('page:afterin', function (e) {
 //Kjøres når hjem-side åpnes
 $$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
     welcome();
+    memberFeed();
 });
 
 //MEMBER page event åpne iFrame
@@ -529,6 +526,24 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
+//Kjøres når siden "rapporter et problem" åpnes
+$$(document).on('page:afterin', '.page[data-name="report"]', function (e) {
+
+    //Endre e-post
+    $$('.open-alert').on(
+        'click',
+        function () {
+            appF7.dialog.alert(
+                'Melding sendt',
+                'Takk for henvendelsen!'
+            );
+        });
+
+    mainView.router.navigate({
+        name: 'more'
+    });
+});
+
 
 
 //Kjøres når siden bli kontaktet åpnes
@@ -541,17 +556,24 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
                 async function () {
-                    let sendMail = await sendData(`/app/support/sendMailtoLeader`);
+                    
                     appF7.dialog.alert(
-                        'Treneren din har fått beskjed.',
-                        'Melding sendt');
+                            'Treneren din har fått beskjed.',
+                            'Melding sendt');
+                    
+                    let data = {
+                        name: localStorage.getItem('firstname'),
+                        group: localStorage.getItem('groups')
+                    };
 
-                },
-                function () {
-                    appF7.dialog.alert(
-                        'Det går fint. Det er lov å ombestemme seg.',
-                        'Handling avbrutt');
-                });
+                    await sendData(data, `/app/support/sendMailtoLeader`);
+
+                    },
+                    function () {
+                        appF7.dialog.alert(
+                            'Det går fint. Det er lov å ombestemme seg.',
+                            'Handling avbrutt');
+                    });
         });
 });
 
