@@ -118,7 +118,7 @@ async function addGroup(dbData, clientData, res){
         let orgGroup = token.group[0].split("-");
 
         if(dbGroup[0]+[dbGroup[1]] == orgGroup[0]+[orgGroup[1]]){
-          //await db.any(addGroup);
+          await db.any(addGroup);
           res.status(200).json({
             event: `toatsUserAddToGrp.open();`
         }).end();
@@ -131,7 +131,7 @@ async function addGroup(dbData, clientData, res){
         }
     }
     else if(dbData.gruppe.length == 0){
-        // await db.any(addGroup);
+        await db.any(addGroup);
         res.status(200).json({
           event: `toatsUserAddToGrp.open();`
       }).end();

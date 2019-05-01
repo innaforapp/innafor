@@ -109,9 +109,9 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
 
 
     } catch (err) {
-        res.status(500).json({
-            error: err
-        }); //something went wrong!
+        res.status(400).json({
+            feedback: "Feil brukernavn eller passord"
+        }).end();
     }
 
 
@@ -198,9 +198,9 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 
     } catch (err) {
         console.log(err);
-        res.status(500).json({
-            mld: err
-        }).end(); //something went wrong!
+        res.status(400).json({
+            feedback: "Vennligs bruk en gyldig epost"
+        }).end();
     }
 
 });
