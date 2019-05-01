@@ -227,10 +227,10 @@ let appCordova = {
             eval(autoLogin.event)
             navigator.splashscreen.hide();
         } else {
-            navigator.splashscreen.hide();
             mainView.router.navigate({
                 name: 'login'
             });
+            navigator.splashscreen.hide();
         }
 
 
@@ -270,8 +270,8 @@ function getSum(total, num) {
 
 
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
