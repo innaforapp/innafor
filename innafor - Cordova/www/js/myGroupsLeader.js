@@ -65,7 +65,7 @@ async function loadGroup() {
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Trener</div>`+
                     `</div>`+
                 `</div>`+
             `</li>`;
@@ -86,7 +86,7 @@ async function loadGroup() {
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Medlem</div>`+
                     `</div>`+
                 `</div>`+
                 `<div class="swipeout-actions-right">`+
@@ -136,7 +136,7 @@ async function loadOrgGroups(){
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Trener</div>`+
                     `</div>`+
                 `</div>`+
                 `<div class="swipeout-actions-right">`+
@@ -160,7 +160,7 @@ async function loadOrgGroups(){
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Medlem</div>`+
                     `</div>`+
                 `</div>`+
                 `<div class="swipeout-actions-right">`+

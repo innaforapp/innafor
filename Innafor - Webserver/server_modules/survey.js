@@ -428,10 +428,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
           }
 
-         
-
-
-
+        
         console.log(survay)
 
         res.status(200).json({
