@@ -84,14 +84,16 @@ router.get("/showPosts/", authFeed,  async function(req, res) {
         function (err, data) {
             let grp = groups[0].split("-")
             var myGroups =[]; //samler alle gruppe-array i en 
+            console.log(data);
 
             for (let i = 0; i < groups.length; i++) {
                 data.filter(function (group) {
-                    if (group.terms[0].name == groups[i] || group.terms[0].name == grp[0] + "-"+ grp[1]){
+                    if (group.terms[0].name == groups[i] || (group.terms[0].name == grp[0] + "-"+ grp[1] && !myGroups.includes(group))){
                         myGroups.push(group)
                     }
                 });          
             } 
+
             res.status(200).json({
                 posts: myGroups
             }).end();

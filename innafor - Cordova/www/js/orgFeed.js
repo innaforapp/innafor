@@ -37,8 +37,10 @@ async function postToWpOrg() {
     }
 
     function alertDone() {
-        appF7.dialog.alert('Innlegget er publisert!', function () {
-            location.reload();
+        appF7.dialog.alert('Innlegget er publisert!', async function () {
+            //location.reload();
+            let data = await listOutDataOrg();
+            createCardsOrg(data);
         });
     }
 }
@@ -54,7 +56,7 @@ function createCardsOrg(data) {
         let dataA = new Date(a.date), dateB = new Date(b.date)
         return dateB - dataA;
     });
-
+    getId("orgShowPosts").innerHTML ="";
     for (let i = 0; i < data.posts.length; i++) {
         let card = document.createElement("div");
         let header = document.createElement("div");
@@ -81,7 +83,7 @@ function createCardsOrg(data) {
         btnDel.innerHTML = "delete";
         btnDel.classList.add("material-icons");
         btnDel.id = data.posts[i].id;
-        btnDel.addEventListener("click", deletePost);
+        btnDel.addEventListener("click", deletePostOrg);
         header.appendChild(btnDel);
 
         cardCont.innerHTML += `<h3>${data.posts[i].title}</h3><p>${data.posts[i].content}</p> `
@@ -93,8 +95,10 @@ function createCardsOrg(data) {
 //slett post --------------------------------
 async function deletePostOrg(evt) {
     let currentPost = { postId: evt.currentTarget.id };
-    appF7.dialog.alert('Innlegget er slettet!', function () {
-        location.reload();
+    appF7.dialog.alert('Innlegget er slettet!', async function () {
+        //location.reload();
+        let data = await listOutDataOrg();
+        createCardsOrg(data);
     });
 
     let res = await sendData(currentPost, `/app/feed/deletePost`);

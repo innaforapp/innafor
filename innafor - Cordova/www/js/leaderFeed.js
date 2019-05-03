@@ -52,8 +52,10 @@ async function postToWp(){
      }
 
     function alertDone() {
-        appF7.dialog.alert('Innlegget er publisert!', function () {
-            location.reload();
+        appF7.dialog.alert('Innlegget er publisert!', async function () {
+            //location.reload();
+            let data = await listOutData();
+            createCards(data);
         });
     }
  } 
@@ -70,7 +72,7 @@ function createCards(data){
         let dataA = new Date(a.date), dateB = new Date(b.date)
         return dateB - dataA  ;
     });
-
+    getId("showPostCont").innerHTML = "";
     for (let i = 0; i < data.posts.length; i++){
         let card = document.createElement("div");
         let header = document.createElement("div");
@@ -116,12 +118,15 @@ function createCards(data){
 //slett post --------------------------------
 async function deletePost(evt) {
     let currentPost = {postId: evt.currentTarget.id};
-    appF7.dialog.alert('Innlegget er slettet!', function () {
-        location.reload();
+    appF7.dialog.alert('Innlegget er slettet!', async function () {
+        //location.reload();
+        let data = await listOutData();
+        createCards(data);
     });
-
+    console.log("hey2")
     let res = await sendData(currentPost, `/app/feed/deletePost`);
     res = await res.json();
-    eval(res.event); 
+    //eval(res.event); 
+
 }
 
