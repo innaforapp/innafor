@@ -126,11 +126,6 @@ let appF7 = new Framework7({
                     id: 'mainPageLeader',
                     url: 'pages/Leader/mainPageLeader.html'
                  },
-                 {
-                    path: '/feed',
-                    id: 'leaderFeed',
-                    url: 'pages/Leader/feed.html'
-                },  
                 {
                     path: 'registerMember/',
                     id: 'registerMember',
@@ -273,8 +268,6 @@ function getSum(total, num) {
 let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
-
-    console.log(data, endpoint);
     return fetch(url + endpoint, {
         method: "POST",
         headers: {
@@ -288,7 +281,6 @@ function sendData(data, endpoint) {
 };
 
 function getData(endpoint) {
-    console.log(url + endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -445,31 +437,25 @@ $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
     console.log(test);
 });
 
-//MEMBER page event Si ifra
-//Når en side åpnes så kjører denne. I dette tilfelle about siden
-/*
-$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
-    init();
-});
-*/
-
-//feed-member
-/*$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
-    memberFeed();
-});*/
-
-//feed-leader
-$$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
-    feedPage();
-});
-
 //Kjøres hver gang man skifter side/tab
 $$(document).on('page:afterin', function (e) {
     onTabOpen();
 });
 
-//Kjøres når hjem-side åpnes
-$$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
+//Kjøres når hjem-side åpnes - leader
+$$(document).on('tab:init', '.tab[data-name="homeLeader"]', function (e) {
+    welcome();
+    leaderFeed();
+});
+
+//Kjøres når hjem-side åpnes - org
+$$(document).on('tab:init', '.tab[data-name="homeOrg"]', function (e) {
+    welcome(); 
+    orgFeed();
+});
+
+//Kjøres når hjem-side åpnes - member
+$$(document).on('tab:init', '.tab[data-name="homeMembers"]', function (e) {
     welcome();
     memberFeed();
 });
@@ -530,11 +516,7 @@ $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
         });
 });
 
-
-
-
-
-
+    
 
 //Kjøres når siden bli kontaktet åpnes
 $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
@@ -546,7 +528,7 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
                 'Jeg vil at trener skal kontakte meg for en prat.',
                 'Vennligst bekreft',
                 async function () {
-                    let sendMail = await getData(`/app/support/sendMailtoLeader`);
+                    let sendMail = await sendData(`/app/support/sendMailtoLeader`);
                     appF7.dialog.alert(
                         'Treneren din har fått beskjed.',
                         'Melding sendt');
