@@ -428,10 +428,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
           }
 
-         
-
-
-
+        
         console.log(survay)
 
         res.status(200).json({
@@ -503,7 +500,10 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             }
             else{
                 res.status(400).json({
-                    event: `appF7.dialog.alert('Vennligs svar på alle spørsmålene');`
+                    event: `
+                    appF7.preloader.hide(); 
+                    appF7.dialog.alert('Vennligs svar på alle spørsmålene');
+                    `
               }).end();
 
             }
@@ -551,12 +551,14 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                 
                 let unlockTime = particCheck.find(unlockTime => {
                    timeObj = unlockTime.timestamp.unlockDate;
-                   //console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
+                   console.log(timeObj.week, currentTime[0], timeObj.year, currentTime[2]);
 
                    if(timeObj.week <= currentTime[0] && timeObj.year <= currentTime[2]){
                        return true
+                       
                    }
                    else{
+                    console.log("false")
                       return false
                    }
                 });
@@ -565,6 +567,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                     next()
                 }
                 else{
+                    console.log("hey")
                     res.status(401).end();
                 }
             
@@ -641,8 +644,6 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             };
             getSurvayResults +=` ORDER BY id`
             let results = await db.any(getSurvayResults);
-            console.log(results)
-            
             let activeResultKey=[]
             let activeGroupKey = Object.keys(activeSurveys); 
             activeGroupKey.forEach(function(activeGroupKey) {
@@ -656,6 +657,8 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                 arciveResultKey.push(Object.keys(arcivedSurveys[arciveGroupKey])[0]); 
             });
 
+            console.log(activeResultKey);
+            console.log(arciveResultKey)
 
             for (h = 0; h < activeGroupKey.length; h++) {
                 for (k = 0; k < results.length; k++) {
@@ -667,11 +670,10 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                 }
             }
 
-
             for (h = 0; h < arciveGroupKey.length; h++) {
                 for (k = 0; k < results.length; k++) {
                     arciveResultKey.forEach(function(arciveResultKey) {
-                        if(activeSurveys[arciveGroupKey[h]][arciveResultKey] && arciveResultKey == results[k].surveyid){
+                        if(arcivedSurveys[arciveGroupKey[h]][arciveResultKey] && arciveResultKey == results[k].surveyid){
                             arcivedSurveys[arciveGroupKey[h]][arciveResultKey].results.push(results[k])
                         }
                     });
@@ -679,6 +681,8 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
             }
 
+            console.log(activeSurveys)
+            console.log(arcivedSurveys)
 
 
             res.status(200).json({

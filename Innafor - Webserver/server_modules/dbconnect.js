@@ -27,6 +27,11 @@ prpSql.getUsersInGroup = new PrpSt('getUsersInGroup',
 
 prpSql.getOrgs = new PrpSt ('getOrgs', `SELECT * FROM "public"."brukere" WHERE rolle = 'org'`)
 
+prpSql.findOrgGroups = new PrpSt ('findOrgGroups', 
+`SELECT distinct (groupTag)
+FROM (SELECT *, unnest(gruppe) groupTag FROM "public"."brukere") x
+WHERE groupTag LIKE $1 AND groupTag NOT LIKE $2
+ORDER BY groupTag`)
 
 //survey--------------
 prpSql.addCategory = new PrpSt('addCategory',`INSERT INTO "public"."questioncategory" ("id", "category", "active") VALUES (DEFAULT, $1, DEFAULT)`);

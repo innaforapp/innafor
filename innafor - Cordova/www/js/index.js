@@ -199,6 +199,11 @@ let appF7 = new Framework7({
             url: 'pages/Leader/myGroupsLeader.html'
         },
         {
+            name: 'myGroupsOrg',
+            path: '/myGroupsOrg/',
+            url: 'pages/Organisation/myGroupsOrg.html'
+        },
+        {
             name: 'orgOverview',
             path: '/orgOverview/',
             url: 'pages/Admin/orgOverview.html'
@@ -227,10 +232,10 @@ let appCordova = {
             eval(autoLogin.event)
             navigator.splashscreen.hide();
         } else {
-            navigator.splashscreen.hide();
             mainView.router.navigate({
                 name: 'login'
             });
+            navigator.splashscreen.hide();
         }
 
 
@@ -264,10 +269,14 @@ function isEmpty(obj) {
     return true;
 }
 
+function getSum(total, num) {
+    return total + num;
+  }
 
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
 
+
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -492,6 +501,11 @@ $$(document).on('page:afterin', '.page[data-name="myGroupsLeader"]', function (e
     initMyGroupsLeader();
 });
 
+$$(document).on('page:afterin', '.page[data-name="myGroupsOrg"]', function (e) {
+    initMyGroupsOrg();
+});
+
+
 //Kjøres når min side åpnes
 $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {
     //Legg til current epost på liste
@@ -582,6 +596,14 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
 var toatsUserRegister = appF7.toast.create({
     icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+//Overlay som sier ifra at bruker er lagt til 
+var toatsUserAddToGrp = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker er lagt til gruppe',
     position: 'center',
     closeTimeout: 2000,
 });
