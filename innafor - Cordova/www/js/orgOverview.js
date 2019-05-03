@@ -31,9 +31,9 @@ function loadOrgs(orgs){
                         `<div class="item-after">${orgs[i].epost}</div>`+
                     `</div>`+
                 `</div>`+
-                `<div class="swipeout-actions-right">`+
+               /* `<div class="swipeout-actions-right">`+
                     `<a href="#" class="swipeout-delete" data-confirm="Er du sikker på at du vil fjerne organisasjonen og all data knyttet til den?" data-confirm-title="Slette?">Slett</a>`+
-                `</div>`+
+                `</div>`+*/
             `</li>`;
         
         ul.innerHTML += listElement;

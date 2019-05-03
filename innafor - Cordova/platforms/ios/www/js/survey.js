@@ -1,154 +1,3 @@
-
-/*function init(){
-    // createSurvay();  
- }
- 
- var scale;
- let answersBtns;
- let survayQA =[
-     {
-         question: "Det er ingen andre som blir mobbet på mitt lag.",
-         answer: "",
-         tag: "Transformasjonsledelse"
-     },
-     {
-         question: "Jeg opplever at på laget mitt er det viktig å spille bedre enn de andre.",
-         answer: "",
-         tag: "Motivasjonsklima"
-     },
-     { 
-         question: "Jeg er fornøyd med måten treneren gir meg tilbakemelding.",
-         answer: "",
-         tag: "Tilfredshet"
-     },
-     {
-         question: "Jeg er fornøyd med treningene.",
-         answer: "",
-         tag: "Tilfredshet"
-     }
- ];
- 
- function createSurvay() {    
-     let survayCont = getId("survayDiv");
- 
-     //Tilfredshet------------------------------------------------
-     let sortTags1 =  survayQA.filter(function(cat) { 
-         return cat.tag == "Tilfredshet";
-     });
- 
-     for (let i = 0; i < sortTags1.length; i++) {
-         let questionSet1 = document.createElement("div");
-         questionSet1.innerHTML = `<h3 alt="Spørsmål ${(i+1)}">${sortTags1[i].question}</h3><p>Tag: ${sortTags1[i].tag}</p>`
- 
-         let buttons = createButtons();
-         questionSet1.innerHTML += buttons;
-         questionSet1.id = `questionsSet${i}`;
-         survayCont.appendChild(questionSet1);
-     }
- 
-    //Motivasjonsklima------------------------------------
-     let sortTags2 =  survayQA.filter(function(cat) {
-         return cat.tag == "Motivasjonsklima";
-     });
- 
-     for (let i = 0; i < sortTags2.length; i++) {
-         questionSet2 = document.createElement("div");
-         survayCont.appendChild(questionSet2);
-         questionSet2.innerHTML= `<hr><h3 alt="Spørsmål ${(i+1)}">${sortTags2[i].question}</h3><p>Tag: ${sortTags2[i].tag}</p>`
- 
-         let buttons = createButtons();
-         questionSet2.innerHTML += buttons;
-         questionSet2.id = `questionsSet${i}`;
-         survayCont.appendChild(questionSet2);;
-     }
- 
-     //Transformasjonsledelse------------------------------------
-     let sortTags3 =  survayQA.filter(function(cat) { 
-         return cat.tag == "Transformasjonsledelse";
-     });
- 
-     for (let i = 0; i < sortTags3.length; i++) {
-         questionSet3 = document.createElement("div");
-         survayCont.appendChild(questionSet3);
-         questionSet3.innerHTML  = `<hr><h3 alt="Spørsmål ${(i+1)}">${sortTags3[i].question}</h3><p>Tag: ${sortTags3[i].tag}</p>`
-     
-         let buttons = createButtons();
-         questionSet3.innerHTML += buttons;
-         questionSet3.id = `questionsSet${i}`;
-         survayCont.appendChild(questionSet3);       
-     }
- }
- 
- 
- function createButtons(){
-     let buttonRow = "";
- 
-     for (let j= 0; j < 5; j++) {
-         let scaleText;
-         let  scale = j + 1;
-         
-         if(scale==1){
-             scaleText = "looks_one";                  
-         }
-         if(scale==2){
-             scaleText = "looks_two";                  
-         }
-         if(scale==3){
-             scaleText = "looks_3";                  
-         }
-         if(scale==4){
-             scaleText = "looks_4";                  
-         }
-         if(scale==5){
-             scaleText = "looks_5";                  
-         }
-         buttonRow +=  `<button class="material-icons buttonRow${i}" onclick="select(${scale},${i})">${scaleText}</button>`;
-     }
-     return buttonRow;
- }
- 
- function select(scale, rowIndex) {
-     survayQA[rowIndex].answer = scale;
-     console.log("du trykket: " + scale);
-     
-     let buttonRow = document.getElementsByClassName(`buttonRow${rowIndex}`);
-     for (i = 0; i < buttonRow.length; i++) {
-         buttonRow[i].className = buttonRow[i].className.replace(" selected", "");
-     }
-     buttonRow[scale - 1].className += " selected";
-     //console.log(survayQA);    
- }
- 
- function sendBtn(){
-     addResultsToDb();
-    // console.log(survayQA);      
- }
- 
- function addResultsToDb(){
-     let inp = getId("inp").value;
-     console.log(inp);
-     let request = {
-         headers: {
-             "Content-Type": "application/json; charset=utf-8",
-             "x-access-auth": localStorage.getItem("token")
-         },
-         method: "POST",
-         body: JSON.stringify({
-             result: inp
-         })
-     };
- 
-     console.log("sender data til db");
-     fetch(url + "/app/survey/sendData", request).then(data=>{
-         if(data.status < 400){
-             return data.json();
-         }
-     }).catch(err =>{
-         console.error(err);
-         console.log("ånei");
-     }); 
- }
-*/
   //Leader
 
 let calendar;
@@ -163,6 +12,8 @@ let calendar;
         inputEl: '#dateSelect',
         dateFormat: 'dd M yyyy',
         rangePicker: true,
+        footer: true,
+        toolbarCloseText: 'Ferdig',
         monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August' , 'September' , 'Oktober', 'Novmeber', 'Desember'],
         monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
@@ -208,7 +59,7 @@ async function loadSurvayOptions(){
 
         if(getId(`${question.pool[i].agegroup}`) == null){
             let ageGroupTitle = document.createElement('div');
-            ageGroupTitle.innerHTML = question.pool[i].agegroup;
+            ageGroupTitle.innerHTML = 'Aldersgruppe: ' + question.pool[i].agegroup;
             ageGroupTitle.className = "block-title";
             ageGroupTitle.id = `${question.pool[i].agegroup}`
 
@@ -310,12 +161,12 @@ async function createSurvay(){
 
     if(isEmpty(survay)){
         appF7.dialog.alert(
-            'Du har ikke valgt tema(er) for spørreundersøkelsen');
+            'Du har ikke valgt tema(er) for spørreundersøkelsen.', 'Mangler tema');
             return;
     }
     else if(calendar.getValue() == undefined){
         appF7.dialog.alert(
-            'Velg periode spørreundersøkelsen skal kjøre');
+            'Velg periode spørreundersøkelsen skal kjøre.', 'Mangler periode');
             return;
     }else{
     let data = {
@@ -327,103 +178,212 @@ async function createSurvay(){
 
     let res = await sendData(data, `/app/survey/createSurvay`);
     res = await res.json();
-    console.log(res);
+    eval(res.event)
+    }
 }
-}
 
 
 
 
-/*
-  //Leader
-  $$(document).on('page:init', '.page[data-name="create-survay"]', function (e) {
-    loadSurvayOptions();
+$$(document).on('tab:init', '.tab[id="siIfraFrontpage"]', async function (e) {
+    appF7.preloader.show();
+
+    let res = await getData(`/app/survey/getActiveSurvay`);
+    res = await res.json();
+    window.localStorage.setItem("surveys", JSON.stringify(res.survay));
+
+    listOutActiveSurveys(res);
 });
 
-let qSets = {};
-let ageGroups = ['9-12', '13-19'];
+function listOutActiveSurveys(res){
 
-async function loadSurvayOptions(){
-    console.log("createSurvay");
+    let mainDiv = getId("activeSurveys");
 
-    let getQ = await getData(`/app/survey/getQuestionSets`);
-    getQ = await getQ.json();
+    for(i = 0; i < res.survay.length; i++) {
+        let fromDate  = new Date(res.survay[i].survayperiod[0]);
+        let toDate  = new Date(res.survay[i].survayperiod[1]);
+        
 
-    let getC = await getData(`/app/survey/getCategory`);
-    getC = await getC.json();
-
-
-
-
-for (j = 0; j < ageGroups.length; j++) {
-qSets[ageGroups[j]] = {}
-
-    for (i = 0; i < getC.category.length; i++) {
-        let currentCategoryIndex = getC.category[i].category
-
-        if(!(currentCategoryIndex in qSets[ageGroups[j]])){
-            qSets[ageGroups[j]][getC.category[i].category] = {}
-
-            let questions = []
-            for (k = 0; k < getQ.questionSet.length; k++){
-                if(getC.category[i].category == getQ.questionSet[k].category && ageGroups[j] == getQ.questionSet[k].agegroup){
-                    questions.push(getQ.questionSet[k]);
-                    qSets[ageGroups[j]][getC.category[i].category] = questions
-                    }
-
-                }
-
-            }
+        let groupList = document.createElement("div");
+        groupList.className ="list-group";
+        let ul = document.createElement("ul");
+        let li = document.createElement("li");
+        
+        console.log(res.survay[i].survay)
+        
+        if(res.survay[i].survay == undefined){
+            li.innerHTML = `      
+            <a class="item-link item-content">
+            <div class="item-media"><i class="material-icons" style="color:red">highlight_off</i></div>
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">${fromDate.getDate()}.${fromDate.getMonth()}.${fromDate.getFullYear()} til ${toDate.getDate()}.${toDate.getMonth()}.${toDate.getFullYear()}</div>
+                ${res.survay[i].group}
+              </div>
+              <div class="item-after">Start</div>
+            </div>
+          </a>`
+        }
+        else{
+            li.innerHTML = `      
+            <a onclick=openSurvey(${i}) class="item-link item-content">
+            <div class="item-media"><i class="material-icons" style="color:green">thumb_up</i></div>
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">${fromDate.getDate()}.${fromDate.getMonth()}.${fromDate.getFullYear()} til ${toDate.getDate()}.${toDate.getMonth()}.${toDate.getFullYear()}</div>
+                ${res.survay[i].group}
+              </div>
+              <div class="item-after">Start</div>
+            </div>
+          </a>`
 
         }
+        
+
+
+      mainDiv.appendChild(groupList)
+      groupList.appendChild(ul)
+      ul.appendChild(li);
+
+    }
+    appF7.preloader.hide();
+}
+
+
+let openedSurvey;
+
+async function openSurvey(surveyIndex){
+    openedSurvey = JSON.parse(localStorage.getItem('surveys'))[surveyIndex];
+    await mainView.router.navigate({name: "si-ifra-survay"});
+}
+
+
+$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
+    drawSurvay(openedSurvey);
+});
+
+ 
+
+
+
+function drawSurvay(res){
+    
+    let surveyPage = getId("surveyPage");
+
+    for(i = 0; i < Object.keys(res.survay).length; i++) {
+        let prevNextFinish = document.createElement("p");
+        prevNextFinish.className = "row"
+
+        let pageContent = document.createElement("div");
+        pageContent.className = "page-content tab";
+        pageContent.id = `survayPage-${i}`
+
+        if(i == 0){
+            pageContent.className += " tab-active";
+            prevNextFinish.innerHTML = `
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
+            `
+        }
+        else if(i == Object.keys(res.survay).length-1){
+            prevNextFinish.innerHTML = `
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fullfør</a>
+            `
+        }
+        else{
+            prevNextFinish.innerHTML = `
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
+            `
+
+        }
+        console.log(i)
+        surveyPage.appendChild(pageContent);
+
+        let divBlock = document.createElement("div");
+        divBlock.className = "block";
+        pageContent.appendChild(divBlock);
+
+        let questionSet = Object.keys(res.survay)[i];
+
+        console.log(res.survay[questionSet])
+        for(j = 0; j < res.survay[questionSet].length; j++){
+
+            let questionText = document.createElement("h1");
+            questionText.innerHTML = res.survay[questionSet][j].question;
+            divBlock.appendChild(questionText);
+
+            let p = document.createElement("p");
+            p.className="segmented segmented-raised";
+
+            
+            let buttons = `
+            <button onclick="select(${j}, ${i}, 1)" class="button buttonRow${j}${i}">1</button>
+            <button onclick="select(${j}, ${i}, 2)" class="button buttonRow${j}${i}">2</button>
+            <button onclick="select(${j}, ${i}, 3)" class="button buttonRow${j}${i}">3</button>
+            <button onclick="select(${j}, ${i}, 4)" class="button buttonRow${j}${i}">4</button>
+            <button onclick="select(${j}, ${i}, 5)" class="button buttonRow${j}${i}">5</button>
+            `
+
+            p.innerHTML = buttons;
+            divBlock.appendChild(p)
+        }
+        pageContent.appendChild(prevNextFinish);
+
+    }
+
 
 }
 
 
 
-console.log(qSets);
 
-let optionContainer = getId("survayOptions")
 
-for (i = 0; i < ageGroups.length; i++) {
-    let categories = Object.keys(qSets[ageGroups[i]])
+function select(btnRow,pageIndex, value) {
 
-    let div = document.createElement("div");
-    div.className = "list";
+    console.log(btnRow, pageIndex, value)
 
-    let ageGroupTitle = document.createElement("div");
-    ageGroupTitle.className = "block-title";
-    ageGroupTitle.innerHTML = ageGroups[i];
-    div.appendChild(ageGroupTitle);
+    let buttonRow = document.getElementsByClassName(`buttonRow${btnRow}${pageIndex}`)
 
-    let ul = document.createElement("ul");
-    let li = "";
-    for (j = 0; j < categories.length; j++) {
-        li += `
-        <li class="swipeout">
-        <label class="item-checkbox item-content">
-          <input type="checkbox" name="demo-checkbox" value=${ageGroups[i]}-${categories[j]}/>
-          <i class="icon icon-checkbox"></i>
-          <div class="item-inner">
-            <div class="item-title">${categories[j]}</div>
-          </div>
-          <div class="swipeout-actions-right">
-                <a href="#" class="open-more-actions">Se spørsmål</a>
-              </div>
-        </label>
-      </li>
-        ` 
+    for (i = 0; i < buttonRow.length; i++) {
+        buttonRow[i].className = buttonRow[i].className.replace(" button-active", "");
     }
-    ul.innerHTML = li;
+    buttonRow[value - 1].className += " button-active";
 
-    div.appendChild(ul);
-    optionContainer.appendChild(div);
+
+    let questionSet = Object.keys(openedSurvey.survay)[pageIndex];
+    
+    openedSurvey.survay[questionSet][btnRow].answer = value
+
+
+    console.log(openedSurvey.survay[questionSet])
+
+
+}
+
+
+async function sendSurvay(){
+
+    data = {
+        surveyId: openedSurvey.id,
+        weekInBetween: openedSurvey.week,
+        results: openedSurvey.survay
     }
+    appF7.preloader.show();
+    let res = await sendData(data, `/app/survey/sendSurvay`);
+        res = await res.json();
+        eval(res.event);
 
 
- };
+  
+}
 
-*/
+//Overlay som sier ifra at spørsmål er lagt til
+var toastSurveySendt = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Takk',
+    position: 'center',
+    closeTimeout: 2000,
+});
 
 
- 

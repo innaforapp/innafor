@@ -191,12 +191,13 @@ $$(document).on('tab:init', '.tab[id="siIfraFrontpage"]', async function (e) {
     let res = await getData(`/app/survey/getActiveSurvay`);
     res = await res.json();
     window.localStorage.setItem("surveys", JSON.stringify(res.survay));
-
+    
+    appF7.preloader.hide();
     listOutActiveSurveys(res);
 });
 
-function listOutActiveSurveys(res){
 
+function listOutActiveSurveys(res){
     let mainDiv = getId("activeSurveys");
 
     for(i = 0; i < res.survay.length; i++) {
@@ -246,7 +247,7 @@ function listOutActiveSurveys(res){
       ul.appendChild(li);
 
     }
-    appF7.preloader.hide();
+
 }
 
 
@@ -281,19 +282,19 @@ function drawSurvay(res){
         if(i == 0){
             pageContent.className += " tab-active";
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">Neste</button>
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
         }
         else if(i == Object.keys(res.survay).length-1){
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
-            <button onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fulfør</button>
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fullfør</a>
             `
         }
         else{
             prevNextFinish.innerHTML = `
-            <button href="#survayPage-${i-1}" class="col button button-large button-raised tab-link">Tilbake</button>
-            <button href="#survayPage-${i+1}" class="col button button-large button-raised tab-link">neste</button>
+            <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
+            <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
 
         }

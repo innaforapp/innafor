@@ -12,6 +12,8 @@ prpSql.findUser = new PrpSt('findUser', `SELECT * FROM "public"."brukere" WHERE 
 
 prpSql.findUserById = new PrpSt('findUserById', `SELECT * FROM "public"."brukere" WHERE brukerid = $1`);
 
+prpSql.findLeaderOfGroup = new PrpSt('findLeaderOfGroup', `SELECT * FROM "public"."brukere" WHERE $1 = ANY (gruppe) AND rolle = 'leader'`);
+
 prpSql.updateUserGroups = new PrpSt('updateUserGroups', `UPDATE "public"."brukere" SET gruppe = $2 WHERE brukerid = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
 
 prpSql.updateUserEmail = new PrpSt('updateUserEmail', `UPDATE "public"."brukere" SET epost = $2 WHERE epost = $1 RETURNING "brukerid", "navn", "epost", "gruppe", "rolle", "hash"`);
@@ -25,6 +27,11 @@ prpSql.getUsersInGroup = new PrpSt('getUsersInGroup',
 
 prpSql.getOrgs = new PrpSt ('getOrgs', `SELECT * FROM "public"."brukere" WHERE rolle = 'org'`)
 
+prpSql.findOrgGroups = new PrpSt ('findOrgGroups', 
+`SELECT distinct (groupTag)
+FROM (SELECT *, unnest(gruppe) groupTag FROM "public"."brukere") x
+WHERE groupTag LIKE $1 AND groupTag NOT LIKE $2
+ORDER BY groupTag`)
 
 //survey--------------
 prpSql.addCategory = new PrpSt('addCategory',`INSERT INTO "public"."questioncategory" ("id", "category", "active") VALUES (DEFAULT, $1, DEFAULT)`);
