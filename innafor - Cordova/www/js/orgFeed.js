@@ -57,6 +57,69 @@ function createCardsOrg(data) {
         return dateB - dataA;
     });
     getId("orgShowPosts").innerHTML ="";
+
+
+    let mediaList = document.createElement("div");
+    mediaList.className = "list media-list";//??
+    let ul = document.createElement("ul");
+    mediaList.appendChild(ul);
+
+    for (let i = 0; i < data.posts.length; i++) {
+        const post =  data.posts[i];
+        let name = data.posts[i].customFields[0].value;
+
+        let li = document.createElement("li");
+        li.className ="item-content";
+
+        let d = new Date(`${post.date}`);
+        let date = d.toDateString();
+        
+ 
+
+        //Profile Img
+        let profileImg = document.createElement("div");
+        profileImg.className = "item-media"
+        profileImg.innerHTML = `<i class="icon material-icons">person</i>`  
+        li.appendChild(profileImg);
+        //
+
+        //Post content
+        let postContent = document.createElement("div");
+        postContent.className = "item-inner";
+        let postOwner = document.createElement("div");
+        postOwner.className = "item-title-row"
+        postOwner.innerHTML = ` <div class="item-title">${name}</div>`
+        postOwner.style.textTransform = "capitalize"
+        postContent.appendChild(postOwner);
+
+
+        let btnDel = document.createElement("i");
+        btnDel.innerHTML = "delete";
+        btnDel.classList.add("material-icons");
+        btnDel.id = post.id;
+        btnDel.addEventListener("click", deletePost);
+        postOwner.appendChild(btnDel);
+    
+
+        let title = document.createElement("div");
+        title.className = "item-subtitle";
+        title.innerHTML = date;
+        postContent.appendChild(title);
+
+        let h3 = document.createElement("h4");
+        h3.innerHTML = post.title;
+        postContent.appendChild(h3);
+        let text = document.createElement("p");
+        text.innerHTML = post.content
+        postContent.appendChild(text);
+        ///
+        li.appendChild(postContent);
+        ul.appendChild(li);
+        
+    }
+    getId("orgShowPosts").appendChild(mediaList);
+
+    /*
     for (let i = 0; i < data.posts.length; i++) {
         let card = document.createElement("div");
         let header = document.createElement("div");
@@ -89,7 +152,7 @@ function createCardsOrg(data) {
         cardCont.innerHTML += `<h3>${data.posts[i].title}</h3><p>${data.posts[i].content}</p> `
         footer.innerHTML = `<p>${date}</p>`
         card.id = `post-${i}`;
-    }
+    }*/
 }
 
 //slett post --------------------------------
