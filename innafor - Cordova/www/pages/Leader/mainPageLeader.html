@@ -1,58 +1,68 @@
-<div class="page" data-name="leaderFeed">
-    <div class="container imageBg full-page">
+<div class='container full-page fixed imageBg'>
+</div>
+
+<div class="page" style='background: rgba(0, 0, 0, 0)' data-name="leaderFeed">
+
+    <div class="container full-page lightTxt">
         <div class='safe-area-div-top'></div>
         <img class='logo-large' src="./img/logo_hvit.png">
         <h1 id='welcomeText'>Velkommen!</h1>
-    </div>
-<!-- PAGE CONTENT -->
-<div id="leader-feed-cont">
-    <form class="list" id="postForm">
-        <div class="block-title">Lag en ny post</div>
-        <div class="list inset">
-            <ul>
-                <li class="item-content item-input">
-                    <div class="item-inner">
-                        <div class="item-input-wrap">
-                            <input name="postTitle" id="postTitle" type="text" placeholder="Tittel" min="1" required>
-                            <span class="input-clear-button"></span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item-content item-input">
-                    <div class="item-inner">
-                        <div class="item-input-wrap">
-                            <textarea id="postTxt" rows="5" cols="80" placeholder="Skriv...." min="1"
-                                required></textarea>
-                            <span class="input-clear-button"></span>
-                        </div>
-                    </div>
-                </li>
-                <!-- gruppevalg -->
-                <li>
-                    <div class="item-content item-input">
+        <div id='feed-hint-container'>
+            <i id='feed-hint' class="icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class='navbar-spacer'></div>
+
+
+        <!-- PAGE CONTENT -->
+        <form class="list" id="postForm">
+            <h1>Skriv nytt innlegg</h1>
+            <div class="list inset">
+                <ul>
+                    <li class="item-content item-input">
                         <div class="item-inner">
+                            <div class="item-title item-label">Tittel</div>
                             <div class="item-input-wrap">
-                                <input type="text" placeholder="Velg gruppe" readonly="readonly" id="inpGroup"  />
+                                <input name="postTitle" id="postTitle" type="text" placeholder="Tittel" min="1" required>
+                                <span class="input-clear-button"></span>
                             </div>
                         </div>
-                    </div>
-                </li><br>
-                <li class="item-content item-input">
-                    <div class="item-inner">
-                        <div class="item-input-wrap">
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Ditt innlegg</div>
+                            <div class="item-input-wrap">
+                                <textarea id="postTxt" rows="5" cols="80" placeholder="Ditt innlegg" min="1" required></textarea>
+                                <span class="input-clear-button"></span>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                    <!-- gruppevalg -->
+                    <li>
+                        <div class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Velg gruppe</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="Velg gruppe" readonly="readonly" id="inpGroup" />
+                                </div>
+                            </div>
+                        </div>
+                    </li><br>
+                </ul>
+            </div>
+        </form>
+        
+        <div class="list">
+            <div id="block" class="block-footer">
+                <button id="btnPost" class="col button button-raised button-fill button-round open-alert" onclick="postToWp()">Publiser</button>
+            </div>
         </div>
-    </form>
-    <div class="list">
-        <div id="block" class="block-footer">
-            <button id="btnPost" class="col button button-raised button-fill button-round open-alert"  onclick="postToWp()">Post</button>
-        </div>
-    </div>
-    <div id="showPostCont"></div>
-</div>
-<div class='tabbar-spacer'></div>
+        
+        <div class='navbar-spacer'></div>
+        
+        <h1>Siste innlegg</h1>
+        <div id="showPostCont" class="darkTxt"></div>
+        
+        <div class='tabbar-spacer'></div>
 
+    </div>
 </div>

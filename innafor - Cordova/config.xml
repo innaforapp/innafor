@@ -70,7 +70,6 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <engine name="browser" spec="^5.0.4" />
     <engine name="ios" spec="^5.0.1" />
     <engine name="android" spec="8.0.0" />
 </widget>

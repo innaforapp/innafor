@@ -75,7 +75,7 @@ function createCards(data){
     getId("showPostCont").innerHTML = "";
 
     let mediaList = document.createElement("div");
-    mediaList.className = "list media-list";//??
+    mediaList.className = "list media-list inset";//??
     let ul = document.createElement("ul");
     mediaList.appendChild(ul);
 
