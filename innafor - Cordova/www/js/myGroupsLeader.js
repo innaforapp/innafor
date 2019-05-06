@@ -16,6 +16,24 @@ async function initMyGroupsLeader() {
 }
 
 
+async function initMyGroupsOrg() {
+
+    let groups = await getData(`/app/brukere/getOrgGroups`);
+    groups = await groups.json();
+
+    var pickerDevice = appF7.picker.create({
+        inputEl: '#inputGroup',
+        cols: [{
+            textAlign: 'center',
+            values: groups.groups,
+        }],
+        toolbarCloseText: 'Ferdig',
+        on: {close: loadOrgGroups}
+    });
+}
+
+
+
 async function loadGroup() {
     let inputGroup = document.querySelector('#inputGroup');
     window.localStorage.setItem('deleteUserFromGroup', inputGroup.value);
@@ -47,7 +65,7 @@ async function loadGroup() {
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Trener</div>`+
                     `</div>`+
                 `</div>`+
             `</li>`;
@@ -68,7 +86,7 @@ async function loadGroup() {
                     `</div>`+
                     `<div class="item-inner">`+
                         `<div class="item-title">${users[i].navn}</div>`+
-                        `<div class="item-after">${users[i].rolle}</div>`+
+                        `<div class="item-after">Medlem</div>`+
                     `</div>`+
                 `</div>`+
                 `<div class="swipeout-actions-right">`+
@@ -85,6 +103,83 @@ async function loadGroup() {
     groupContainer.appendChild(div);
     
 }
+
+
+async function loadOrgGroups(){
+    let inputGroup = document.querySelector('#inputGroup');
+    window.localStorage.setItem('deleteUserFromGroup', inputGroup.value);
+
+    console.log(inputGroup.value);
+    
+    // CREATE GROUP LIST
+    
+    let users = await getUsers(`/app/brukere/getUsersInGroup`, inputGroup.value);
+    users = await users.json();
+    
+    console.log(users);
+    
+    let groupContainer = document.querySelector('#groupContainerOrg');
+    groupContainer.innerHTML = '';
+    let div = document.createElement('div');
+    div.classList.add('list');
+    div.classList.add('inset');
+    let ul = document.createElement('ul');
+    ul.style.textTransform = 'capitalize';
+    
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].rolle == 'leader'){
+            let listElement =
+            `<li id='user${users[i].brukerid}' class="swipeout">`+
+                `<div class="item-content swipeout-content">`+
+                    `<div class="item-media">`+
+                        `<i class="icon material-icons">person</i>`+
+                    `</div>`+
+                    `<div class="item-inner">`+
+                        `<div class="item-title">${users[i].navn}</div>`+
+                        `<div class="item-after">Trener</div>`+
+                    `</div>`+
+                `</div>`+
+                `<div class="swipeout-actions-right">`+
+                `<a href="#" class="swipeout-delete" data-confirm="Er du sikker på at du vil fjerne denne personen fra gruppen din?" data-confirm-title="Fjerne person?">Fjern</a>`+
+            `</div>`+
+            `</li>`;
+        
+        ul.innerHTML += listElement;
+        }
+        
+        
+    }
+    
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].rolle == 'member'){
+            let listElement =
+            `<li id='user${users[i].brukerid}' class="swipeout">`+
+                `<div class="item-content swipeout-content">`+
+                    `<div class="item-media">`+
+                        `<i class="icon material-icons">person</i>`+
+                    `</div>`+
+                    `<div class="item-inner">`+
+                        `<div class="item-title">${users[i].navn}</div>`+
+                        `<div class="item-after">Medlem</div>`+
+                    `</div>`+
+                `</div>`+
+                `<div class="swipeout-actions-right">`+
+                    `<a href="#" class="swipeout-delete" data-confirm="Er du sikker på at du vil fjerne denne personen fra gruppen din?" data-confirm-title="Fjerne person?">Fjern</a>`+
+                `</div>`+
+            `</li>`;
+        
+        ul.innerHTML += listElement;
+        }
+    }
+    
+    
+    div.appendChild(ul);
+    groupContainer.appendChild(div);
+    
+}
+
+
+
 
 function getUsers(endpoint, groupId) {
     console.log(url + endpoint);

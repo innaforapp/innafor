@@ -109,9 +109,9 @@ router.post("/login/", emailToLowerCase, async function (req, res) {
 
 
     } catch (err) {
-        res.status(500).json({
-            error: err
-        }); //something went wrong!
+        res.status(400).json({
+            feedback: "Feil brukernavn eller passord"
+        }).end();
     }
 
 
@@ -198,9 +198,9 @@ router.post("/registrer/", authorize, nameToLowerCase, emailToLowerCase, existin
 
     } catch (err) {
         console.log(err);
-        res.status(500).json({
-            mld: err
-        }).end(); //something went wrong!
+        res.status(400).json({
+            feedback: "Vennligs bruk en gyldig epost"
+        }).end();
     }
 
 });
@@ -356,7 +356,7 @@ router.post("/delete", authorize, async function (req, res) {
         let updatedUser = await db.any(updateUserQuery);
 
         res.status(200).json({
-            msg: 'Ok, bruker er fjernet fra din gruppe.'
+            msg: 'Ok, bruker er fjernet fra gruppe.'
         }).end();
 
     } catch (err) {
@@ -392,8 +392,38 @@ router.get("/getMyGroups", authorize, async function (req, res) {
             mld: err
         }).end(); //something went wrong!
     }
+});
+
+
+router.get("/getOrgGroups", authorize, async function (req, res) {
+
+    let getGroupsQuery = prpSql.findOrgGroups;
+    getGroupsQuery.values = [req.token.name+'%', '%'+req.token.name];
+
+    try {
+
+        let dBgroups = await db.any(getGroupsQuery);
+        let groups = [];
+
+        dBgroups.forEach(element => {
+            groups.push(element.grouptag);
+        });
+
+        res.status(200).json({
+            groups: groups
+        }).end();
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end(); //something went wrong!
+    }
 
 });
+
+
 
 router.get("/getUsersInGroup", authorize, async function (req, res) {
 

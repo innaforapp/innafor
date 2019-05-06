@@ -126,7 +126,6 @@ async function loadQuestionOptions(){
                     </div>
                 </div>
                 <div class="swipeout-actions-right">
-                    <a href="#" class="open-more-actions">Rediger</a>
                     <a href="#" class="swipeout-delete" data-confirm="Er du sikker på at du vil slette dette spørsmålet?" data-confirm-title="Slette?">Delete</a>
                 </div>
             </li>`

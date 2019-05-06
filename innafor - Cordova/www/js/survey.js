@@ -191,12 +191,13 @@ $$(document).on('tab:init', '.tab[id="siIfraFrontpage"]', async function (e) {
     let res = await getData(`/app/survey/getActiveSurvay`);
     res = await res.json();
     window.localStorage.setItem("surveys", JSON.stringify(res.survay));
-
+    
+    appF7.preloader.hide();
     listOutActiveSurveys(res);
 });
 
-function listOutActiveSurveys(res){
 
+function listOutActiveSurveys(res){
     let mainDiv = getId("activeSurveys");
 
     for(i = 0; i < res.survay.length; i++) {
@@ -246,7 +247,7 @@ function listOutActiveSurveys(res){
       ul.appendChild(li);
 
     }
-    appF7.preloader.hide();
+
 }
 
 

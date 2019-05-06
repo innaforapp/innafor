@@ -266,10 +266,16 @@ function isEmpty(obj) {
 
 function getSum(total, num) {
     return total + num;
+<<<<<<< HEAD
 }
+=======
+  }
 
-let url = "https://innaforapp.no"
-//let url = "http://localhost:3000"
+>>>>>>> dd2fadc8232c343c8f8000da88d076201d46ca76
+
+
+//let url = "https://innaforapp.no"
+let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 
@@ -584,6 +590,14 @@ $$(document).on('tab:init', '.tab[id="getInTouch"]', function (e) {
 var toatsUserRegister = appF7.toast.create({
     icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
     text: 'Bruker registrert, passord er sendt på epost',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+//Overlay som sier ifra at bruker er lagt til 
+var toatsUserAddToGrp = appF7.toast.create({
+    icon: app.theme === 'ios' ? '<i class="f7-icons">star</i>' : '<i class="material-icons">star</i>',
+    text: 'Bruker er lagt til gruppe',
     position: 'center',
     closeTimeout: 2000,
 });
