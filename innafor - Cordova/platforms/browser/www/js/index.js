@@ -268,8 +268,8 @@ function getSum(total, num) {
     return total + num;
 }
 
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
 

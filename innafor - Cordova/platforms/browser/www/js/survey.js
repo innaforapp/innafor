@@ -278,12 +278,19 @@ function drawSurvay(res){
         pageContent.className = "page-content tab";
         pageContent.id = `survayPage-${i}`
 
-        if(i == 0){
+        if(i == 0 && Object.keys(res.survay).length == 1){
+            pageContent.className += " tab-active";
+            prevNextFinish.innerHTML = `
+            <a onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fullfør</a>
+            `
+        }
+        else if(i == 0){
             pageContent.className += " tab-active";
             prevNextFinish.innerHTML = `
             <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
         }
+        
         else if(i == Object.keys(res.survay).length-1){
             prevNextFinish.innerHTML = `
             <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
