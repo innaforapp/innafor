@@ -44,29 +44,9 @@ router.get("/getGroups/", authFeed, async function (req, res) {
     }
 });
 
-/*router.post("/uploadeImg/", authFeed, async function (req, res) {
-    let filename = req.body.filename;
-    var file = fs.readFileSync(filename);
-
-    try {
-        client.uploadFile({
-            name: filename,
-            type: "image/jpg",
-            bits: file        
-        }, function (error, data) {
-            console.log("Bilde er sendt!");
-    });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            mld: err
-        }).end();
-    }
-});*/
-
 router.post("/createPost/", authFeed, async function(req, res) {
     let title = req.body.title;
-    let cont =  req.body.content;
+    let cont = req.body.cont;
     let selectedGroup = req.body.groups;
  
     try {              
@@ -75,17 +55,15 @@ router.post("/createPost/", authFeed, async function(req, res) {
             content: cont,
             status: "publish",
             termNames: {
-                "category": [`${selectedGroup}`] //trenerens gruppe som skal se postene
+                "category": [`${selectedGroup}`] //trenerens gruppe som skal se postene / org sender til alle i sin klubb
             },  
             customFields: [
                 {key: "author", value: req.token.name},
-                {key: "Role", value: req.token.role}
+                {key: "group", value: req.token.role}
             ]
         }, function (error, data) {
-            console.log("Post sent! The server replied with the following:\n");
-            console.log(arguments);
+                console.log("Post er sendt!");
         });
-
      } catch (err) {
          console.log(err);
          res.status(500).json({
@@ -94,60 +72,55 @@ router.post("/createPost/", authFeed, async function(req, res) {
      } 
 });
 
-/*router.post("/deletePost/", async function (req, res) {
-    let postId = req.body.currentPost;
-    try { 
-        client.editPost({
-            id: postId,
-            status: "draft",
-        }, function (error, data) {
-            console.log("Post er slettet!");
-        });        
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            mld: err
-        }).end();
-    } 
-});*/
-
 router.get("/showPosts/", authFeed,  async function(req, res) {
 
     let groups = req.token.group;
     try{
-        console.log(groups);
         client.getPosts({
             status: 'publish'
         }, 
-        ['title', 'content', 'customFields', 'date', 'terms'],
-        function (err, data) {
-            
-            var sortOrg = data.filter(function (orgGroup) {
-                return orgGroup.terms[0].name == "org";
-            });          
+        ['title', 'content', 'customFields', 'date', 'terms'],//hvilke filds som skal være med
 
-            var myGroups =[];
+        function (err, data) {
+            let grp = groups[0].split("-")
+            var myGroups =[]; //samler alle gruppe-array i en 
+            console.log(data);
 
             for (let i = 0; i < groups.length; i++) {
-                var sort = data.filter(function (group) {
-                    return group.terms[0].name == groups[i];
-                }); 
-                myGroups.push(sort);
-                console.log(myGroups);
-            }
-            
+                data.filter(function (group) {
+                    if (group.terms[0].name == groups[i] || (group.terms[0].name == grp[0] + "-"+ grp[1] && !myGroups.includes(group))){
+                        myGroups.push(group)
+                    }
+                });          
+            } 
+
             res.status(200).json({
-                posts: myGroups,
-                fromOrg: sortOrg
+                posts: myGroups
             }).end();
-        }
-    );            
+        });            
     } catch (err) {
         console.log(err);
         res.status(500).json({
             mld: err
         }).end();
     } 
+});
+
+router.post("/deletePost/", async function (req, res) {
+    let postId = req.body.postId;
+    try {
+        console.log(postId)
+        client.deletePost(
+            postId
+            , function (error, data) {
+                console.log("Post ble slettet!  \n" + error);
+            });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mld: err
+        }).end();
+    }
 });
 
 module.exports = router;
