@@ -17,7 +17,7 @@ function createCardsPost(data) {
 
 
     let mediaList = document.createElement("div");
-    mediaList.className = "list media-list";//??
+    mediaList.className = "list media-list inset";//??
     let ul = document.createElement("ul");
     mediaList.appendChild(ul);
 
@@ -71,9 +71,9 @@ function createCardsPost(data) {
         title.innerHTML = date;
         postContent.appendChild(title);
 
-        let h3 = document.createElement("h4");
-        h3.innerHTML = post.title;
-        postContent.appendChild(h3);
+        let h4 = document.createElement("h4");
+        h4.innerHTML = post.title;
+        postContent.appendChild(h4);
         let text = document.createElement("p");
         text.innerHTML = post.content
         postContent.appendChild(text);

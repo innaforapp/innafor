@@ -10,6 +10,15 @@ hr.container-divider {
     margin-bottom: 30px;
 }
 
+#feed-hint-container {
+    width: 100%;
+    text-align: center;
+}
+
+#feed-hint {
+    font-size: 75px;
+}
+
 /* ----------------
 --- Backgrounds ---
 ---------------- */
@@ -33,7 +42,7 @@ hr.container-divider {
 
 .darkBg {
     background-color: #222222;
-    color: #e6feff;
+    color: #ffffff;
 }
 
 .imageBg {
@@ -50,6 +59,14 @@ hr.container-divider {
     background-image: url('../img/soccer_friendship_s.jpg');
     color: #222222;
 
+}
+
+.darkTxt {
+    color: #222222;
+}
+
+.lightTxt {
+    color: #ffffff;
 }
 
 .placeholder-kristian {
@@ -129,6 +146,13 @@ i.logo-small {
 .container {
     width: 100vw;
     overflow: auto;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -500;
 }
 
 .toolbar-safe-area {
@@ -240,4 +264,30 @@ i.logo-small {
 .tabbar-spacer {
     display: block;
     height: 100px;
+}
+
+/* ----------------
+------ FEED -------
+---------------- */
+
+.item-content .item-media { /* PROFILE PIC */
+}
+
+.item-content .item-inner .item-title-row { /* BRUKERNAVN */
+}
+
+.item-content .item-inner .item-subtitle { /* GRUPPE OG DATO */
+    font-size: 12px;
+    opacity: 0.5;
+    display: inline-block;
+    padding-right: 12px;
+}
+
+.item-content .item-inner h4 { /* MESSAGE TITLE */
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.item-content .item-inner p { /* MESSAGE */
+    margin-top: 0px;
 }

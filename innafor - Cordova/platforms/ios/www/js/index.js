@@ -266,8 +266,12 @@ function isEmpty(obj) {
 
 function getSum(total, num) {
     return total + num;
+<<<<<<< HEAD
+}
+=======
   }
 
+>>>>>>> dd2fadc8232c343c8f8000da88d076201d46ca76
 
 
 //let url = "https://innaforapp.no"
