@@ -127,11 +127,6 @@ let appF7 = new Framework7({
                     url: 'pages/Leader/mainPageLeader.html'
                  },
                 {
-                    path: '/feed',
-                    id: 'leaderFeed',
-                    url: 'pages/Leader/feed.html'
-                },
-                {
                     path: 'registerMember/',
                     id: 'registerMember',
                     url: 'pages/Leader/registerMember.html'
@@ -199,6 +194,11 @@ let appF7 = new Framework7({
             url: 'pages/Leader/myGroupsLeader.html'
         },
         {
+            name: 'myGroupsOrg',
+            path: '/myGroupsOrg/',
+            url: 'pages/Organisation/myGroupsOrg.html'
+        },
+        {
             name: 'orgOverview',
             path: '/orgOverview/',
             url: 'pages/Admin/orgOverview.html'
@@ -227,10 +227,10 @@ let appCordova = {
             eval(autoLogin.event)
             navigator.splashscreen.hide();
         } else {
-            navigator.splashscreen.hide();
             mainView.router.navigate({
                 name: 'login'
             });
+            navigator.splashscreen.hide();
         }
 
 
@@ -266,20 +266,13 @@ function isEmpty(obj) {
 
 function getSum(total, num) {
     return total + num;
-<<<<<<< HEAD
-}
-=======
   }
 
->>>>>>> dd2fadc8232c343c8f8000da88d076201d46ca76
 
-
-//let url = "https://innaforapp.no"
-let url = "http://localhost:3000"
+let url = "https://innaforapp.no"
+//let url = "http://localhost:3000"
 
 function sendData(data, endpoint) {
-
-    console.log(data, endpoint);
     return fetch(url + endpoint, {
         method: "POST",
         headers: {
@@ -293,7 +286,6 @@ function sendData(data, endpoint) {
 };
 
 function getData(endpoint) {
-    console.log(url + endpoint)
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
@@ -450,31 +442,25 @@ $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
     console.log(test);
 });
 
-//MEMBER page event Si ifra
-//Når en side åpnes så kjører denne. I dette tilfelle about siden
-/*
-$$(document).on('page:init', '.page[data-name="si-ifra-survay"]', function (e) {
-    init();
-});
-*/
-
-//feed-member
-/*$$(document).on('tab:init', '.tab[id="memberFeed"]', function (e) {
-    memberFeed();
-});*/
-
-//feed-leader
-$$(document).on('tab:init', '.tab[id="leaderFeed"]', function (e) {
-    feedPage();
-});
-
 //Kjøres hver gang man skifter side/tab
 $$(document).on('page:afterin', function (e) {
     onTabOpen();
 });
 
-//Kjøres når hjem-side åpnes
-$$(document).on('tab:init', '.tab[data-name="home"]', function (e) {
+//Kjøres når hjem-side åpnes - leader
+$$(document).on('tab:init', '.tab[data-name="homeLeader"]', function (e) {
+    welcome();
+    leaderFeed();
+});
+
+//Kjøres når hjem-side åpnes - org
+$$(document).on('tab:init', '.tab[data-name="homeOrg"]', function (e) {
+    welcome(); 
+    orgFeed();
+});
+
+//Kjøres når hjem-side åpnes - member
+$$(document).on('tab:init', '.tab[data-name="homeMembers"]', function (e) {
     welcome();
     memberFeed();
 });
@@ -499,6 +485,11 @@ $$(document).on('tab:init', '.tab[data-name="registerMember"]', function (e) {
 $$(document).on('page:afterin', '.page[data-name="myGroupsLeader"]', function (e) {
     initMyGroupsLeader();
 });
+
+$$(document).on('page:afterin', '.page[data-name="myGroupsOrg"]', function (e) {
+    initMyGroupsOrg();
+});
+
 
 //Kjøres når min side åpnes
 $$(document).on('page:afterin', '.page[data-name="mypage"]', function (e) {

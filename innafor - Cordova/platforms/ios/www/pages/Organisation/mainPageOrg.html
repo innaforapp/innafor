@@ -1,16 +1,56 @@
-<div class="page">
-    <div class="container imageBg full-page">
+<div class='container full-page fixed imageBg'>
+</div>
+
+<div class="page" style='background: rgba(0, 0, 0, 0)'>
+
+    <div class="container full-page lightTxt">
         <div class='safe-area-div-top'></div>
         <img class='logo-large' src="./img/logo_hvit.png">
         <h1 id='welcomeText'>Velkommen!</h1>
-    </div>
-    <div class="container colorBg full-page">
-        <img class='logo-large' src="./img/logo_hvit.png">
-    </div>
-    <div class="container darkBg full-page">
-        <img class='logo-large' src="./img/logo_farge1.png">
-    </div>
-    <div class="container lightBg full-page">
-        <img class='logo-large' src="./img/logo_farge1.png">
+        <div id='feed-hint-container'>
+            <i id='feed-hint' class="icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <div class='navbar-spacer'></div>
+
+            <form class="list" id="postFormOrg">
+                <h1>Skriv nytt innlegg</h1>
+                <div class="list inset">
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Tittel</div>
+                                <div class="item-input-wrap">
+                                    <input id="postTitleOrg" type="text" placeholder="Tittel" min="1" required>
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Ditt innlegg</div>
+                                <div class="item-input-wrap">
+                                    <textarea id="postTxtOrg" rows="5" cols="80" placeholder="Ditt innlegg" min="1" required></textarea>
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
+
+        <div class="list">
+            <div id="block" class="block-footer">
+                <button id="btnPostOrg" class="col button button-raised button-fill button-round open-alert" onclick="postToWpOrg()">Post</button>
+            </div>
+        </div>
+
+        <div class='navbar-spacer'></div>
+
+        <h1>Siste innlegg</h1>
+        <div id="orgShowPosts" class="darkTxt"></div>
+
+        <div class='tabbar-spacer'></div>
+
     </div>
 </div>
