@@ -14,6 +14,8 @@ function createCardsPost(data) {
         let dataA = new Date(a.date), dateB = new Date(b.date)
         return dateB - dataA;
     });
+
+
     let mediaList = document.createElement("div");
     mediaList.className = "list media-list inset";//??
     let ul = document.createElement("ul");
@@ -36,7 +38,6 @@ function createCardsPost(data) {
             li.style.backgroundColor = "#F9F9F9";
             group ="";
         }
-
         else{
             let editGroupName = post.terms[0].name.split("-");
             console.log(editGroupName)

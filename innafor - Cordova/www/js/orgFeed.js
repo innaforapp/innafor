@@ -28,8 +28,7 @@ async function postToWpOrg() {
         $$('#btnPostOrg').on('click', alertDone());
         let res = await sendData(postData, `/app/feed/createPost`);
         res = await res.json();
-        eval(res.event);
-        title.value = ""; content.value = "";
+        //eval(res.event);
     }
 
     function alert() {
@@ -41,6 +40,7 @@ async function postToWpOrg() {
             //location.reload();
             let data = await listOutDataOrg();
             createCardsOrg(data);
+            title.value = ""; content.value = "";
         });
     }
 }

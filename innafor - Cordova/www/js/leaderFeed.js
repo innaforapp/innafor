@@ -43,8 +43,8 @@ async function postToWp(){
        $$('#btnPost').on('click', alertDone());
         let res = await sendData(postData, `/app/feed/createPost`);
         res = await res.json();
-        eval(res.event);        
-        title.value = ""; content.value = ""; selected.value = "";
+        //eval(res.event);        
+        
     }
 
     function alert() {
@@ -56,6 +56,7 @@ async function postToWp(){
             //location.reload();
             let data = await listOutData();
             createCards(data);
+            title.value = ""; content.value = ""; selected.value = "";
         });
     }
  } 

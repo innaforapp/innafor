@@ -149,6 +149,11 @@ let appF7 = new Framework7({
             url: 'pages/more/about.html'
         },
         {
+            name: 'infoAboutBullying',
+            path: '/infoAboutBullying/',
+            url: 'pages/more/infoOmMobbing.html'
+        },
+        {
             name: 'privacy',
             path: '/privacy/',
             url: 'pages/more/privacy.html'
