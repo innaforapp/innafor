@@ -26,7 +26,9 @@ $$(document).on('swipeout:deleted', function (e) {
 
 
 async function loadQuestionOptions(){
-    
+    getId("addCategory").reset();
+    getId("questionText").value=""
+
     let cat = await getData(`/app/survey/getCategory`);
     cat = await cat.json();
 
