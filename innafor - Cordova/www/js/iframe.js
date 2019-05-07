@@ -1,7 +1,7 @@
 function iframe() {
     let btn = document.querySelector('#btnIframe');
     btn.onclick = function () {
-        window.open('https://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html', '_blank', "toolbar=yes");
+        window.open('https://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html', '_blank', 'location=yes');
         console.log('klikket på knapp');
         //addIframe();
 

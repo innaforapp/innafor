@@ -40,6 +40,8 @@
         <icon density="xhdpi" src="./res/icon/android/xhdpi.png" />
         <icon density="xxhdpi" src="./res/icon/android/xxhdpi.png" />
         <icon density="xxxhdpi" src="./res/icon/android/xxxhdpi.png" />
+        
+        
     </platform>
 
     <platform name="ios">
@@ -63,6 +65,8 @@
         <icon height="100" src="./res/icon/ios/icon-100.png" width="100" />
         <icon height="167" src="./res/icon/ios/icon-167.png" width="167" />
         <splash src="./res/screen/ios/Default@2x~universal~anyany.png" />
+        
+       
     </platform>
 
     <platform name="browser">
@@ -78,5 +82,6 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="darktranslucent" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
     <engine name="android" spec="8.0.0" />
 </widget>

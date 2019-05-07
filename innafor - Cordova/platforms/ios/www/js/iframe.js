@@ -1,7 +1,7 @@
 function iframe() {
     let btn = document.querySelector('#btnIframe');
     btn.onclick = function () {
-        window.open('https://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html', '_blank');
+        window.open('https://login.edialog24.com/chattemplate/SnakkOmMobbing_Main/index.html', '_blank', 'location=yes');
         console.log('klikket på knapp');
         //addIframe();
 
@@ -59,9 +59,6 @@ function iframe() {
     $$('.dynamic-popup').on('click', function () {
         dynamicPopup.open();
     });
-
-
-
 
 }
 
