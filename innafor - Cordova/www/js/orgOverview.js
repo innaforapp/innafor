@@ -1,7 +1,6 @@
 $$(document).on('page:init', '.page[data-name="orgOverview"]', async function (e) {
     let orgs = await getData(`/app/brukere/getOrgs`);
     orgs = await orgs.json();
-    console.log(orgs)
 
     loadOrgs(orgs)
 
@@ -49,6 +48,6 @@ function loadOrgs(orgs){
 
 
 async function  deleteOrg(id){
-    console.log(id)
+
 
 }
