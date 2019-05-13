@@ -31,7 +31,6 @@ async function loadSurvayOptions(){
     question = await getData(`/app/survey/getQuestionSets`);
     question = await question.json();
 
-    console.log(question)
 
     let mainDiv = getId("survayOptions");
     mainDiv.innerHTML = "";
@@ -153,7 +152,6 @@ function addToSurvay(index){
         }
     }
 
-    console.log(survay)
     
 }
 
@@ -210,7 +208,6 @@ function listOutActiveSurveys(res){
         let ul = document.createElement("ul");
         let li = document.createElement("li");
         
-        console.log(res.survay[i].survay)
         
         if(res.survay[i].survay == undefined){
             li.innerHTML = `      
@@ -279,12 +276,19 @@ function drawSurvay(res){
         pageContent.className = "page-content tab";
         pageContent.id = `survayPage-${i}`
 
-        if(i == 0){
+        if(i == 0 && Object.keys(res.survay).length == 1){
+            pageContent.className += " tab-active";
+            prevNextFinish.innerHTML = `
+            <a onclick=sendSurvay() class="col button button-large button-raised button-fill color-green">Fullfør</a>
+            `
+        }
+        else if(i == 0){
             pageContent.className += " tab-active";
             prevNextFinish.innerHTML = `
             <a href="#survayPage-${i+1}" class="col button button-large button-raised button-fill color-gray tab-link">Neste</a>
             `
         }
+        
         else if(i == Object.keys(res.survay).length-1){
             prevNextFinish.innerHTML = `
             <a href="#survayPage-${i-1}" class="col button button-large button-raised button-fill color-gray tab-link">Tilbake</a>
@@ -298,7 +302,6 @@ function drawSurvay(res){
             `
 
         }
-        console.log(i)
         surveyPage.appendChild(pageContent);
 
         let divBlock = document.createElement("div");
@@ -307,7 +310,6 @@ function drawSurvay(res){
 
         let questionSet = Object.keys(res.survay)[i];
 
-        console.log(res.survay[questionSet])
         for(j = 0; j < res.survay[questionSet].length; j++){
 
             let questionText = document.createElement("h1");
@@ -342,7 +344,6 @@ function drawSurvay(res){
 
 function select(btnRow,pageIndex, value) {
 
-    console.log(btnRow, pageIndex, value)
 
     let buttonRow = document.getElementsByClassName(`buttonRow${btnRow}${pageIndex}`)
 
@@ -357,7 +358,6 @@ function select(btnRow,pageIndex, value) {
     openedSurvey.survay[questionSet][btnRow].answer = value
 
 
-    console.log(openedSurvey.survay[questionSet])
 
 
 }

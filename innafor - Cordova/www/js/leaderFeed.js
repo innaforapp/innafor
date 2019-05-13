@@ -43,8 +43,8 @@ async function postToWp(){
        $$('#btnPost').on('click', alertDone());
         let res = await sendData(postData, `/app/feed/createPost`);
         res = await res.json();
-        eval(res.event);        
-        title.value = ""; content.value = ""; selected.value = "";
+        //eval(res.event);        
+        
     }
 
     function alert() {
@@ -56,6 +56,7 @@ async function postToWp(){
             //location.reload();
             let data = await listOutData();
             createCards(data);
+            title.value = ""; content.value = ""; selected.value = "";
         });
     }
  } 
@@ -75,7 +76,7 @@ function createCards(data){
     getId("showPostCont").innerHTML = "";
 
     let mediaList = document.createElement("div");
-    mediaList.className = "list media-list";//??
+    mediaList.className = "list media-list inset";//??
     let ul = document.createElement("ul");
     mediaList.appendChild(ul);
 
@@ -97,7 +98,6 @@ function createCards(data){
         }
         else{
             let editGroupName = post.terms[0].name.split("-");
-            console.log(editGroupName)
             group = editGroupName[1]+"-"+editGroupName[2]+"-"+editGroupName[3]
         }
 
@@ -208,7 +208,6 @@ async function deletePost(evt) {
         let data = await listOutData();
         createCards(data);
     });
-    console.log("hey2")
     let res = await sendData(currentPost, `/app/feed/deletePost`);
     res = await res.json();
     //eval(res.event); 

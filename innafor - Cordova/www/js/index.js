@@ -149,6 +149,11 @@ let appF7 = new Framework7({
             url: 'pages/more/about.html'
         },
         {
+            name: 'infoAboutBullying',
+            path: '/infoAboutBullying/',
+            url: 'pages/more/infoOmMobbing.html'
+        },
+        {
             name: 'privacy',
             path: '/privacy/',
             url: 'pages/more/privacy.html'
@@ -269,7 +274,6 @@ function getSum(total, num) {
   }
 
 
-
 let url = "https://innaforapp.no"
 //let url = "http://localhost:3000"
 
@@ -302,7 +306,6 @@ async function updateUser(value, column, endpoint) {
         'column': column,
         'value': value
     }
-    console.log(data, endpoint);
 
     return fetch(url + endpoint, {
         method: "POST",
@@ -340,7 +343,6 @@ async function updatePassword(password, endpoint) {
     let data = {
         'password': password,
     }
-    console.log(data, endpoint);
 
     return fetch(url + endpoint, {
         method: "POST",
@@ -370,7 +372,6 @@ async function checkPassword(password, endpoint) {
         'password': password,
         'email': window.localStorage.getItem('email')
     }
-    console.log(data, endpoint);
 
     return fetch(url + endpoint, {
         method: "POST",
@@ -440,7 +441,6 @@ var $$ = Dom7;
 // si i fra survay - frontpage
 $$(document).on('tab:init', '.tab[id="si-ifra-frontpage"]', function (e) {
     let test = getId("si-ifra-cont");
-    console.log(test);
 });
 
 //Kjøres hver gang man skifter side/tab
@@ -468,7 +468,6 @@ $$(document).on('tab:init', '.tab[data-name="homeMembers"]', function (e) {
 
 //MEMBER page event åpne iFrame
 $$(document).on('tab:init', '.tab[data-name="chat"]', function (e) {
-    console.log('kjører script for page CHAT');
     iframe();
 });
 

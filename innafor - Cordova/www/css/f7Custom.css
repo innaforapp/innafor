@@ -28,6 +28,15 @@
 
 }
 
+/* TABBAR/TOOLBAR */
+.ios {
+    --f7-toolbar-font-size: 14px;
+}
+
+.md, .aurora {
+    --f7-toolbar-font-size: 10px;
+}
+
 /* NAVBAR - fix for at statusbar ikke skal overlappe verktøylinje i toppen */
 
 .ios {

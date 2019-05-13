@@ -14,8 +14,10 @@ function createCardsPost(data) {
         let dataA = new Date(a.date), dateB = new Date(b.date)
         return dateB - dataA;
     });
+
+
     let mediaList = document.createElement("div");
-    mediaList.className = "list media-list";//??
+    mediaList.className = "list media-list inset";//??
     let ul = document.createElement("ul");
     mediaList.appendChild(ul);
 
@@ -36,10 +38,8 @@ function createCardsPost(data) {
             li.style.backgroundColor = "#F9F9F9";
             group ="";
         }
-
         else{
             let editGroupName = post.terms[0].name.split("-");
-            console.log(editGroupName)
             group = editGroupName[1]+"-"+editGroupName[2]+"-"+editGroupName[3]
         }
 
@@ -70,9 +70,9 @@ function createCardsPost(data) {
         title.innerHTML = date;
         postContent.appendChild(title);
 
-        let h3 = document.createElement("h4");
-        h3.innerHTML = post.title;
-        postContent.appendChild(h3);
+        let h4 = document.createElement("h4");
+        h4.innerHTML = post.title;
+        postContent.appendChild(h4);
         let text = document.createElement("p");
         text.innerHTML = post.content
         postContent.appendChild(text);

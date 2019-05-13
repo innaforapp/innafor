@@ -41,7 +41,7 @@ function mainPageSelector(role) {
 }
 
 
-router.get("/autologin", authorize, async function (req, res) {
+router.get("/autoLogin", authorize, async function (req, res) {
     
     try{
         let mainView = mainPageSelector(req.token.role);

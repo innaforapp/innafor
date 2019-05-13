@@ -1,0 +1,62 @@
+<div class="page">
+    <div class='container lightBg full-page'>
+        <div class="container imageBg inner-shaddow">
+            <div class='safe-area-div-top'></div>
+
+            <div class='text-container'>
+                <h1>Registrer ny organisasjon</h1>
+            </div>
+        </div>
+        <form class="list inset" id="registrer">
+            <ul>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Organisasjonsnavn</div>
+                            <div class="item-input-wrap">
+                                <input type="text" name="name" placeholder="Organisasjonsnavn">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">E-post</div>
+                            <div class="item-input-wrap">
+                                <input type="email" name="email" placeholder="E-post">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                        <a class="item-link smart-select smart-select-init" data-open-in="sheet">
+                        <select name="type">
+                            <option value="Idrett" selected>Idrett</option>
+                            <option value="Skole">Skole</option>
+                        </select>
+                        <div class="item-content">
+                                <div class="item-inner">
+                                  <div class="item-title">Organisasjonstype</div>
+                                </div>
+                              </div>
+                            </a>
+                </li>
+            </ul>
+        </form>
+
+        <div class="block">
+            <div class="row">
+                <a onclick="sendForm('registrer', `/app/brukere/registrer`)" class="col button button-large button-raised button-fill">Registrer</a>
+            </div>
+        </div>
+
+        <div class="block">
+                <div class="row">
+                    <a href="/orgOverview/" class="col button button-large button-raised button-fill color-gray">Organisasjon oversikt</a>
+                </div>
+            </div>
+
+        <div class='tabbar-spacer'></div>
+    </div>
+</div>

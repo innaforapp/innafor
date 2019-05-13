@@ -171,7 +171,7 @@ function calculateResults(res){
 
 
 
-    console.log(avarageMonth)
+
     let avgMonth = Object.keys(avarageMonth);
 
     for (i = 0; i < avgMonth.length; i++) {
@@ -197,7 +197,6 @@ function calculateResults(res){
     };
 
 
-console.log(lineChart)
 
 createChart()
 
