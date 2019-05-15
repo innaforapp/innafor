@@ -98,7 +98,6 @@ function createCards(data){
         }
         else{
             let editGroupName = post.terms[0].name.split("-");
-            console.log(editGroupName)
             group = editGroupName[1]+"-"+editGroupName[2]+"-"+editGroupName[3]
         }
 
@@ -209,7 +208,6 @@ async function deletePost(evt) {
         let data = await listOutData();
         createCards(data);
     });
-    console.log("hey2")
     let res = await sendData(currentPost, `/app/feed/deletePost`);
     res = await res.json();
     //eval(res.event); 

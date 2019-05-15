@@ -40,7 +40,6 @@ function createCardsPost(data) {
         }
         else{
             let editGroupName = post.terms[0].name.split("-");
-            console.log(editGroupName)
             group = editGroupName[1]+"-"+editGroupName[2]+"-"+editGroupName[3]
         }
 

@@ -31,7 +31,6 @@ async function loadSurvayOptions(){
     question = await getData(`/app/survey/getQuestionSets`);
     question = await question.json();
 
-    console.log(question)
 
     let mainDiv = getId("survayOptions");
     mainDiv.innerHTML = "";
@@ -157,7 +156,6 @@ function addToSurvay(index){
         }
     }
 
-    console.log(survay)
     
 }
 
@@ -214,7 +212,6 @@ function listOutActiveSurveys(res){
         let ul = document.createElement("ul");
         let li = document.createElement("li");
         
-        console.log(res.survay[i].survay)
         
         if(res.survay[i].survay == undefined){
             li.innerHTML = `      
@@ -309,7 +306,6 @@ function drawSurvay(res){
             `
 
         }
-        console.log(i)
         surveyPage.appendChild(pageContent);
 
         let divBlock = document.createElement("div");
@@ -318,7 +314,6 @@ function drawSurvay(res){
 
         let questionSet = Object.keys(res.survay)[i];
 
-        console.log(res.survay[questionSet])
         for(j = 0; j < res.survay[questionSet].length; j++){
 
             let questionText = document.createElement("h1");
@@ -353,7 +348,6 @@ function drawSurvay(res){
 
 function select(btnRow,pageIndex, value) {
 
-    console.log(btnRow, pageIndex, value)
 
     let buttonRow = document.getElementsByClassName(`buttonRow${btnRow}${pageIndex}`)
 
@@ -368,7 +362,6 @@ function select(btnRow,pageIndex, value) {
     openedSurvey.survay[questionSet][btnRow].answer = value
 
 
-    console.log(openedSurvey.survay[questionSet])
 
 
 }

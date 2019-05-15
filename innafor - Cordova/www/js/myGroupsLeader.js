@@ -38,14 +38,12 @@ async function loadGroup() {
     let inputGroup = document.querySelector('#inputGroup');
     window.localStorage.setItem('deleteUserFromGroup', inputGroup.value);
 
-    console.log(inputGroup.value);
     
     // CREATE GROUP LIST
     
     let users = await getUsers(`/app/brukere/getUsersInGroup`, inputGroup.value);
     users = await users.json();
     
-    console.log(users);
     
     let groupContainer = document.querySelector('#groupContainer');
     groupContainer.innerHTML = '';
@@ -109,14 +107,12 @@ async function loadOrgGroups(){
     let inputGroup = document.querySelector('#inputGroup');
     window.localStorage.setItem('deleteUserFromGroup', inputGroup.value);
 
-    console.log(inputGroup.value);
     
     // CREATE GROUP LIST
     
     let users = await getUsers(`/app/brukere/getUsersInGroup`, inputGroup.value);
     users = await users.json();
     
-    console.log(users);
     
     let groupContainer = document.querySelector('#groupContainerOrg');
     groupContainer.innerHTML = '';
@@ -182,8 +178,7 @@ async function loadOrgGroups(){
 
 
 function getUsers(endpoint, groupId) {
-    console.log(url + endpoint);
-    console.log(groupId);
+
     return fetch((url + endpoint), {
         method: "GET",
         headers: {
