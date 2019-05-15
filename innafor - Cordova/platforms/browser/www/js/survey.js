@@ -99,7 +99,11 @@ async function loadSurvayOptions(){
         for(j = 0; j < question.pool[i].questions.length; j++) {
             item += `
             <li>
-             ${question.pool[i].questions[j][0]} (${question.pool[i].questions[j][1]}%)
+                <div class="item-content">
+                    <div class="item-inner">
+                        <div class="item-text" style="color: black">${question.pool[i].questions[j][0]} (${question.pool[i].questions[j][1]}%)</div>
+                    </div>
+                </div>
             </li>`
         }
 
@@ -112,7 +116,7 @@ async function loadSurvayOptions(){
                 <p>${question.pool[i].agegroup}-${question.pool[i].category}</p>
                 <!-- Close Popup -->
                 <p><a class="link popup-close" href="#">Lukk</a></p>
-                <div class="list simple-list">
+                <div class="list">
                 <ul>
                 ${item}
                 </ul>
