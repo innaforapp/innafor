@@ -373,7 +373,6 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             if(currentDate > new Date(result[i].survayperiod[0]) && currentDate < new Date(result[i].survayperiod[1])){
                 survay.push(result[i])
                 particCheckData.push(result[i].id)
-
             }
           }
 
@@ -390,6 +389,8 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                 quary += ` OR surveyid = ${particCheckData[j]} `
             }
           }
+
+        
 
           let timestamps = await db.any(quary);
           console.log(timestamps)
@@ -428,8 +429,7 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
           }
 
-        
-        console.log(survay)
+    
 
         res.status(200).json({
             survay: survay
@@ -592,7 +592,17 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
 
         try {   
 
+
+
+
+            
             let survays = await db.any(survayByGroup);
+
+            let arcivedSurveys={}
+
+            for (l = 0; l < survays.length; l++) {
+                arcivedSurveys[survays[l].group] = []
+            }
 
             for (i = 0; i < survays.length; i++) {
                 let fromDate  = new Date(survays[i].survayperiod[0]);
@@ -619,18 +629,17 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
                     };
                 }
                 else{
-
-                    arcivedSurveys[survays[i].group] = {
+                    arcivedSurveys[survays[i].group].push({
                         [`${survays[i].id}`] : {
                             period: period,
                             theme: theme,
                             results: []
                         } 
-                    };
+                    });
                 }
+               
               }
-
-
+              
 
             let getSurvayResults = ``;
             for(j = 0; j < survays.length; j++) {
@@ -649,20 +658,25 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             activeGroupKey.forEach(function(activeGroupKey) {
                 activeResultKey.push(Object.keys(activeSurveys[activeGroupKey])[0]); 
             });
+            console.log(activeResultKey)
             
 
             let arciveResultKey=[]
             let arciveGroupKey = Object.keys(arcivedSurveys); 
-            arciveGroupKey.forEach(function(arciveGroupKey) {
-                arciveResultKey.push(Object.keys(arcivedSurveys[arciveGroupKey])[0]); 
-            });
 
-            console.log(activeResultKey);
+            arciveGroupKey.forEach(function(arciveGroupKey) {
+                for (index = 0; index < arcivedSurveys[arciveGroupKey].length; index++) {
+                    arciveResultKey.push(Object.keys(arcivedSurveys[arciveGroupKey][index])[0]); 
+                }
+                 
+            });
             console.log(arciveResultKey)
+
 
             for (h = 0; h < activeGroupKey.length; h++) {
                 for (k = 0; k < results.length; k++) {
                     activeResultKey.forEach(function(activeResultKey) {
+                        //console.log(activeSurveys[activeGroupKey[h]][activeResultKey]);
                         if(activeSurveys[activeGroupKey[h]][activeResultKey] && activeResultKey == results[k].surveyid){
                             activeSurveys[activeGroupKey[h]][activeResultKey].results.push(results[k])
                         }
@@ -673,16 +687,20 @@ router.get("/getActiveSurvay",authorize, async function(req,res){
             for (h = 0; h < arciveGroupKey.length; h++) {
                 for (k = 0; k < results.length; k++) {
                     arciveResultKey.forEach(function(arciveResultKey) {
-                        if(arcivedSurveys[arciveGroupKey[h]][arciveResultKey] && arciveResultKey == results[k].surveyid){
-                            arcivedSurveys[arciveGroupKey[h]][arciveResultKey].results.push(results[k])
+                        console.log()
+                        for (let index = 0; index < arcivedSurveys[arciveGroupKey[h]].length; index++) {
+                            if(arcivedSurveys[arciveGroupKey[h]][index][arciveResultKey] && arciveResultKey == results[k].surveyid){
+                                arcivedSurveys[arciveGroupKey[h]][index][arciveResultKey].results.push(results[k])
+                                console.log("true");
+                               
+                            } 
+                            
                         }
+
                     });
                 }
-
             }
 
-            console.log(activeSurveys)
-            console.log(arcivedSurveys)
 
 
             res.status(200).json({

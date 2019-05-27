@@ -11,7 +11,7 @@ $$(document).on('tab:init', '.tab[id="resultsLeaderMenu"]', async function (e) {
         activeSurveys: res.activeSurvays,
         arcivedSurveys: res.arcivedSurveys
     }
-    
+    console.log(results)
 
     window.localStorage.setItem("results", JSON.stringify(results));
 
@@ -38,7 +38,7 @@ $$(document).on('tab:init', '.tab[id="resultsLeaderMenu"]', async function (e) {
 function resultLinks(){
 let results = JSON.parse(localStorage.getItem('results'));
 let availebleResults = {};
-
+console.log
 let survayGroup = getId("resultGroup").value;
 let surveyType = Object.keys(results);
 
@@ -78,30 +78,32 @@ for (i = 0; i < surveyType.length; i++){
         activeSurveysDiv.appendChild(resultLink)
         resultLink.appendChild(ul)
         ul.appendChild(li);
-        
-
     }
-    else if(resultRoute && surveyType[i] === "arcivedSurveys"){
-        let survayId = Object.keys(resultRoute);
-        resultRoute = results[surveyType[i]][survayGroup][survayId[0]];
-
+    else if (resultRoute && surveyType[i] === "arcivedSurveys"){
+        console.log(survayGroup)
+        resultRoute = results[surveyType[1]][survayGroup]
+        console.log(resultRoute)
+        
         let resultLink = document.createElement("div");
         resultLink.className ="list-group";
         let ul = document.createElement("ul");
         let li = document.createElement("li");
-
-        for (j = 0; j < survayId.length; j++){
+        li.innerHTML = "";
+       for (j = 0; j < resultRoute.length; j++){
+            let survayId = Object.keys(resultRoute[j]);
+            console.log(j)
             li.innerHTML += `      
-            <a class="item-link item-content" onclick="openResult(${survayId[j]})">
+            <a class="item-link item-content" onclick="openResult(${survayId[0]})">
             <div class="item-inner">
               <div class="item-title">
-                <div class="item-header">${resultRoute.period}</div>
-                ${resultRoute.theme}
+                <div class="item-header">${resultRoute[j][survayId[0]].period}</div>
+                ${resultRoute[j][survayId[0]].theme}
               </div>
               <div class="item-after">Resultat</div>
             </div>
           </a>`
-          availebleResults[survayId[j]] = resultRoute;
+          availebleResults[survayId[0]] = resultRoute[j][survayId[0]];
+
         };
 
         arcivedSurveysDiv.appendChild(resultLink)
@@ -130,7 +132,7 @@ $$(document).on('page:init', '.page[data-name="resultsLeader"]', function (e) {
 let lineChart = [];
 function calculateResults(res){
     lineChart = []
-
+    console.log(res);
     let answers = res["results"]
     let theme = Object.keys(answers[0].results);
 
@@ -169,7 +171,7 @@ function calculateResults(res){
 
     }
 
-
+console.log(avarageMonth);
 
 
     let avgMonth = Object.keys(avarageMonth);
@@ -211,6 +213,7 @@ function createChart() {
     });
     google.charts.setOnLoadCallback(drawLineChart);
     function drawLineChart() {
+        console.log(lineChart)
         var data = google.visualization.arrayToDataTable(lineChart);
 
         var optionsdark = {
