@@ -20,7 +20,7 @@ if(document.getElementById('myFab')){
 }
 
 function openFab() {
-
+    console.log('openFab');
     
     let overlay = document.querySelector('.overlay');
     overlay.style.display = 'block';
@@ -29,7 +29,7 @@ function openFab() {
 }
 
 function closeFab() {
-
+    console.log('closeFab');
     
     let overlay = document.querySelector('.overlay');
     overlay.style.display = 'none';
