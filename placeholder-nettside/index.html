@@ -1,34 +1,265 @@
 <!DOCTYPE html>
+
 <head>
+    <title>Innafor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
+
+    <div class='full-screen fixed image-bg'>
+    </div>
+
     <div>
-        <img src="http://innaforapp.no/media/innafor-logo-hvit-ring.png">
+        <img class='main-logo' src="http://innaforapp.no/media/innafor-logo-hvit-ring.png">
+    </div>
+
+    <div class='wrapper'>
+        <div class='container videoWrapper'>
+            <div class='videoWrapper'>
+            <iframe src="https://www.youtube.com/embed/vb0KkFXP0X0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        </div>
+    </div>
+
+    <div class='wrapper'>
+        <div class='container text-container'>
+            <h1 class='color-primary'>
+                &laquo;Flest mulig &ndash;&nbsp;lengst&nbsp;mulig&raquo;
+            </h1>
+
+            <h2>Aktørene bak</h2>
+            <p>
+                Innafor er et samarbeid mellom Fotballklubben Jerv og Blå kors SnakkOmMobbing.no som retter seg mot barn- og unge i alderen 9-19 år.
+            </p>
+            <p>
+                Til tross for satsing på toppfotball og talentutvikling er FK Jerv først og fremst en breddeklubb med nesten 600 medlemmer fra Grimstadregionen. FK Jerv plasserer holdninger og trivsel i sentrum og gjennom prosjekt innafor ønsker vi å bygge gode holdninger og legge til rette for et trygt og inkluderende miljø for barn- og unge både på, og utenfor fotballbanen.
+            </p>
+            <p>
+                Blå Kors er en sentral samfunnsaktør med kompetanse på inkluderings- og holdningsskapende arbeid. Blå kors SnakkOmMobbing.no er nasjonal chat-tjeneste for barn- og unge mellom 9-19 år. Her kommer du i direkte kontakt med en fagperson – helt anonymt og helt gratis. Chatten er for alle som er berørt av mobbing – uansett om du mobber andre, «bare» er tilskuer, eller utsettes for mobbing selv.
+            </p>
+
+            <a onclick='window.open("http://www.fkjerv.no", "_blank", "location=yes")'>
+                <img class='small-logo' src="http://innaforapp.no/media/jerv_logo.png">
+            </a>
+
+            <a onclick='window.open("http://www.snakkommobbing.no", "_blank", "location=yes")'>
+                <img class='small-logo' src="http://innaforapp.no/media/blaakors-snakkommobbing-logo-blaa.png">
+
+            </a>
+
+            <h2>Prosjektet</h2>
+            <p>
+                Sammen ønsker FK Jerv og Blå Kors å minske frafallet i skolen og på fotballbanen. Vi har utviklet en mobil-app som skal bidra til økt kommunikasjon omkring barn og unges opplevelse av faktorer som helse, trivsel, mobbing, levekår, skader etc.
+            </p>
+            <p>
+                Vi har valgt å kalle appen innafor. Navnet spiller på viktigheten av at alle er inkludert («innafor») i en gruppe og at du skal finne det du trenger «innafor» appen.
+            </p>
+
+            <h2>Appen skal:</h2>
+            <ul>
+
+                <li>Redusere terskelen for å melde fra om både positive og negative forhold i en gruppe</li>
+                <li>Gi voksne bedre informasjonsgrunnlag om grupper de har ansvaret for</li>
+                <li>Inneholde verktøy og informasjon som kan bidra til å løse aktuelle utfordringer</li>
+                <li>Kunne brukes som kanal for holdningskampanjer og bevisstgjøring</li>
+            </ul>
+
+            <h2>Finansiering</h2>
+            <p>
+                Prosjektet er finansiert med støtte fra Aust-Agder Utviklings- og Kompetansefond. Bak stiftelsen står 14 av 15 kommuner i Aust-Agder, som sammen ønsker å bidra til økt kompetanse og nyskapning i regionen.
+            </p>
+
+            <a onclick='window.open("https://www.aaukf.no", "_blank", "location=yes")'>
+                <img class='small-logo' src="http://innaforapp.no/media/aaukf.png">
+            </a>
+        </div>
+    </div>
+    <div class='footer'>
+        &copy; 2019 Universitetet i Agder
     </div>
 </body>
 
 <style>
+    /* ----------------------
+    --------- TEXT ----------
+    -----------------------*/
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
+
     * {
+        font-family: 'Open Sans', sans-serif;
+
         margin: 0;
         padding: 0;
     }
-    
-    div {
-        width: 100vw;
-        height: 100vh;
-        background-color: #C9E9FF;
-        background-image: url("http://innaforapp.no/media/gress-fotball.jpg");
-        
-        height: 100vh; /* You must set a specified height */
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Do not repeat the image */
-        background-size: cover;
+
+    body {
+        font-size: 16px;
     }
-    
-    img {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    h1 {
+        font-size: 2.1em;
+        font-family: 'PT Serif', serif;
+        font-weight: 400;
+        padding: 0;
+        text-align: center;
+        margin: 75px 25px;
+    }
+
+    h2 {
+        font-size: 1em;
+        margin-bottom: 0px;
+    }
+
+    h3 {
+        font-size: 1.60em;
+    }
+
+    h4 {
+        font-size: 1.50em;
+    }
+
+    h5 {
+        font-size: 1.40em;
+    }
+
+    h6 {
+        font-size: 1.25em;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    ul {
+        margin: 0 25px;
+    }
+
+    li {
+        margin: 10px 0;
+    }
+
+    h2+p,
+    h2+ul>li {
+        margin-top: 0px;
+    }
+
+
+    /* ----------------------
+    -------- IMAGES ---------
+    -----------------------*/
+
+    .main-logo {
         display: block;
-        padding-top: 15%;
+        padding: 150px 0 50px 0;
         margin: auto;
         height: 250px;
     }
+
+    .small-logo {
+        height: 50px;
+        margin-top: 25px;
+    }
+
+    a + a {
+        padding-left: 50px;
+
+    }
+    
+    /* ----------------------
+    -------- VIDEO ---------
+    -----------------------*/
+    
+    .videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+}
+    .videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+    /* ----------------------
+    ------ CONTAINERS -------
+    -----------------------*/
+
+    .wrapper {
+        padding: 25px;
+        box-sizing: border-box;
+    }
+
+    .container {
+        margin: auto;
+        padding: 20px;
+        max-width: 700px;
+
+        border-radius: 5px;
+
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 20px 37px 0px rgba(0, 0, 0, 0.35);
+
+        transition: padding 1s;
+        box-sizing: border-box;
+    }
+
+    .footer {
+        width: 100vw;
+        height: 50px;
+        padding: 15px;
+        margin: 0;
+
+        color: white;
+        background-color: #222;
+        text-align: center;
+
+        box-sizing: border-box;
+    }
+
+    .full-screen {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -500;
+    }
+
+    .image-bg {
+        background-color: #C9E9FF;
+        background-image: url("http://innaforapp.no/media/gress-fotball.jpg");
+
+        height: 100vh;
+        /* You must set a specified height */
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+    }
+
+    @media only screen and (min-width: 545px) {
+        .text-container {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+
 </style>
